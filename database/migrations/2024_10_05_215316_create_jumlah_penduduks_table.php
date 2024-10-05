@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('jumlah_penduduks', function (Blueprint $table) {
             $table->id();
+            $table->string('semester');
+            $table->string('kecamatan');
+            $table->integer('laki');
+            $table->integer('perempuan');
+            $table->integer('total');
             $table->timestamps();
         });
     }

@@ -1,18 +1,12 @@
 <?php
 
+use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Beranda', [
-        'data' => [
-            'name' => 'Muhammad Habsyi Mubarak',
-            'age' => '20'
-        ]
-    ]);
-});
+Route::get('/', [BerandaController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
