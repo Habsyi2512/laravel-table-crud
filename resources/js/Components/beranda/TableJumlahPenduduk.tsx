@@ -5,9 +5,9 @@ export const TableJumlahPenduduk = ({ penduduk }: { penduduk: Penduduk[] }) => {
     return (
         <>
             <div className="">
-                <table className="py-2 rounded-xl border border-red-500 table-auto overflow-hidden w-full">
+                <table className="border-collapse py-2 rounded-xl border border-red-500 shadow overflow-hidden w-full">
                     <thead>
-                        <tr className="bg-blue-500 text-white">
+                        <tr className="bg-blue-500 border border-black text-white">
                             <th className="border text-sm py-2" rowSpan={2}>
                                 No.
                             </th>
@@ -22,12 +22,12 @@ export const TableJumlahPenduduk = ({ penduduk }: { penduduk: Penduduk[] }) => {
                             </th>
                         </tr>
                         <tr className="bg-blue-500 text-white">
-                            <th className="border text-sm py-2">Laki-laki</th>
-                            <th className="border text-sm py-2">Perempuan</th>
-                            <th className="border text-sm py-2">Total</th>
-                            <th className="border text-sm py-2">Laki-laki</th>
-                            <th className="border text-sm py-2">Perempuan</th>
-                            <th className="border text-sm py-2">Total</th>
+                            <th className="border text-sm px-3 py-2">Laki-laki</th>
+                            <th className="border text-sm px-3 py-2">Perempuan</th>
+                            <th className="border text-sm px-3 py-2">Total</th>
+                            <th className="border text-sm px-3 py-2">Laki-laki</th>
+                            <th className="border text-sm px-3 py-2">Perempuan</th>
+                            <th className="border text-sm px-3 py-2">Total</th>
                         </tr>
                     </thead>
                     <tbody>
