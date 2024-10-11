@@ -10,14 +10,7 @@ export default function Beranda({ data, penduduk }: BerandaProps) {
         <>
             <Head title="Beranda" />
             <Template>
-                <div className="w-full bg-white rounded border border-slate-200 p-5 max-w-md shadow max">
-                    <h1 className="text-gray-600 font-bold text-xl">
-                        Nama: {data.name}
-                    </h1>
-                    <h1 className="text-gray-600 font-bold text-xl">
-                        Umur: {data.age}
-                    </h1>
-                    {/*  */}
+                <div className="w-ful p-5 max-w-3xl">
                     <TableJumlahPenduduk penduduk={penduduk} />
                 </div>
             </Template>
