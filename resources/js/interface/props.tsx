@@ -23,6 +23,7 @@ export interface SemesterData {
 }
 
 export interface KecData {
+    id:any;
     kecamatan: string;
     semester1: SemesterData;
     semester2: SemesterData;

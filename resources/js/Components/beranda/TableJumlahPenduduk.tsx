@@ -4,10 +4,11 @@ import { Penduduk, KecData, SemesterData } from "@/interface/props";
 export const TableJumlahPenduduk = ({ penduduk }: { penduduk: Penduduk[] }) => {
     const groupedData = penduduk.reduce<Record<string, KecData>>(
         (acc, curr) => {
-            const { kecamatan, semester, laki, perempuan, total } = curr;
+            const { id, kecamatan, semester, laki, perempuan, total } = curr;
 
             if (!acc[kecamatan]) {
                 acc[kecamatan] = {
+                    id,
                     kecamatan,
                     semester1: { laki: 0, perempuan: 0, total: 0 },
                     semester2: { laki: 0, perempuan: 0, total: 0 },
@@ -30,6 +31,7 @@ export const TableJumlahPenduduk = ({ penduduk }: { penduduk: Penduduk[] }) => {
 
     const pendudukResult: KecData[] = Object.values(groupedData).map(
         (kecData) => ({
+            id: kecData.id,
             kecamatan: kecData.kecamatan,
             semester1: kecData.semester1,
             semester2: kecData.semester2,
@@ -52,13 +54,6 @@ export const TableJumlahPenduduk = ({ penduduk }: { penduduk: Penduduk[] }) => {
             semester2: { laki: 0, perempuan: 0, total: 0 },
         },
     );
-    // const semestersResult: KecData[] = Object.values(groupedData).map(
-    //     (kecData) => ({
-    //         kecamatan: kecData.kecamatan,
-    //         semester1: kecData.semester1,
-    //         semester2: kecData.semester2,
-    //     }),
-    // );
 
     React.useEffect(() => {
         console.log("total =", totalSemesters);
@@ -94,7 +89,7 @@ export const TableJumlahPenduduk = ({ penduduk }: { penduduk: Penduduk[] }) => {
                     {pendudukResult.map((item, index) => {
                         return (
                             <tr
-                                key={index}
+                                key={item.id}
                                 className="hover:bg-gray-100 transition-colors"
                             >
                                 <td className="border px-4 py-2 text-center">
