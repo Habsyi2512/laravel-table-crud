@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\JumlahPenduduk;
+use App\Models\Kecamatan;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -36,6 +37,16 @@ class DatabaseSeeder extends Seeder
             'perempuan' => 1000,
             'total' => 2000
         ]);
+
+        Kecamatan::create(
+            ['nama' => 'Siantan']
+        );
+        Kecamatan::create(
+            ['nama' => 'Siantan Timur']
+        );
+        Kecamatan::create(
+            ['nama' => 'Jemaja']
+        );
 
         User::factory()->create([
             'name' => 'Test User',
