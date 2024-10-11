@@ -14,7 +14,7 @@ class BerandaController extends Controller
                 'name' => 'Habsyi',
                 'age' => '20'
             ],
-            'penduduk' => JumlahPenduduk::all()
+            'penduduk' => JumlahPenduduk::with(['kecamatan', 'semester'])->get()
         ]);
     }
 }

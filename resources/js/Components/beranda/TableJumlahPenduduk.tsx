@@ -6,22 +6,22 @@ export const TableJumlahPenduduk = ({ penduduk }: { penduduk: Penduduk[] }) => {
         (acc, curr) => {
             const { id, kecamatan, semester, laki, perempuan, total } = curr;
 
-            if (!acc[kecamatan]) {
-                acc[kecamatan] = {
+            if (!acc[kecamatan.nama]) {
+                acc[kecamatan.nama] = {
                     id,
                     kecamatan,
                     semester1: { laki: 0, perempuan: 0, total: 0 },
                     semester2: { laki: 0, perempuan: 0, total: 0 },
                 };
             }
-            if (semester == "Semester 1") {
-                acc[kecamatan].semester1.laki += Number(laki);
-                acc[kecamatan].semester1.perempuan += Number(perempuan);
-                acc[kecamatan].semester1.total += Number(total);
-            } else if (semester == "Semester 2") {
-                acc[kecamatan].semester2.laki += Number(laki);
-                acc[kecamatan].semester2.perempuan += Number(perempuan);
-                acc[kecamatan].semester2.total += Number(total);
+            if (semester.semester == "Semester 1") {
+                acc[kecamatan.nama].semester1.laki += Number(laki);
+                acc[kecamatan.nama].semester1.perempuan += Number(perempuan);
+                acc[kecamatan.nama].semester1.total += Number(total);
+            } else if (semester.semester == "Semester 2") {
+                acc[kecamatan.nama].semester2.laki += Number(laki);
+                acc[kecamatan.nama].semester2.perempuan += Number(perempuan);
+                acc[kecamatan.nama].semester2.total += Number(total);
             }
 
             return acc;
@@ -96,7 +96,7 @@ export const TableJumlahPenduduk = ({ penduduk }: { penduduk: Penduduk[] }) => {
                                     {index + 1}
                                 </td>
                                 <td className="border px-4 py-2">
-                                    {item.kecamatan}
+                                    {item.kecamatan.nama}
                                 </td>
                                 <td className="border px-4 py-2">
                                     {item.semester1.laki || "-"}

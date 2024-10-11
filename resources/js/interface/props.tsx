@@ -6,10 +6,19 @@ export interface BerandaProps {
     penduduk: Penduduk[];
 }
 
+export interface Kecamatan {
+    id: any;
+    nama: string;
+}
+export interface Semester {
+    id: any;
+    semester: string;
+}
+
 export interface Penduduk {
     id: number;
-    semester: string;
-    kecamatan: string;
+    semester: Semester;
+    kecamatan: Kecamatan;
     laki: string;
     perempuan: string;
     total: string;
@@ -23,8 +32,8 @@ export interface SemesterData {
 }
 
 export interface KecData {
-    id:any;
-    kecamatan: string;
+    id: any;
+    kecamatan: Kecamatan;
     semester1: SemesterData;
     semester2: SemesterData;
 }
