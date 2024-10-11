@@ -25,6 +25,20 @@ class DatabaseSeeder extends Seeder
         ]);
         JumlahPenduduk::create([
             'semester' => 'Semester 2',
+            'kecamatan' => 'Siantan',
+            'laki' => 100,
+            'perempuan' => 250,
+            'total' => 350
+        ]);
+        JumlahPenduduk::create([
+            'semester' => 'Semester 1',
+            'kecamatan' => 'Siantan Timur',
+            'laki' => 100,
+            'perempuan' => 250,
+            'total' => 350
+        ]);
+        JumlahPenduduk::create([
+            'semester' => 'Semester 2',
             'kecamatan' => 'Siantan Timur',
             'laki' => 100,
             'perempuan' => 250,
@@ -33,9 +47,30 @@ class DatabaseSeeder extends Seeder
         JumlahPenduduk::create([
             'semester' => 'Semester 1',
             'kecamatan' => 'Jemaja',
-            'laki' => 1000,
-            'perempuan' => 1000,
-            'total' => 2000
+            'laki' => 100,
+            'perempuan' => 250,
+            'total' => 350
+        ]);
+        // JumlahPenduduk::create([
+        //     'semester' => 'Semester 2',
+        //     'kecamatan' => 'Jemaja',
+        //     'laki' => 100,
+        //     'perempuan' => 250,
+        //     'total' => 350
+        // ]);
+        // JumlahPenduduk::create([
+        //     'semester' => 'Semester 1',
+        //     'kecamatan' => 'Palmatak',
+        //     'laki' => 100,
+        //     'perempuan' => 250,
+        //     'total' => 350
+        // ]);
+        JumlahPenduduk::create([
+            'semester' => 'Semester 2',
+            'kecamatan' => 'Palmatak',
+            'laki' => 100,
+            'perempuan' => 250,
+            'total' => 350
         ]);
 
         Kecamatan::create(
