@@ -19,4 +19,9 @@ class JumlahPenduduk extends Model
     {
         return $this->belongsTo(Semester::class);
     }
+
+    public function year(): BelongsTo
+    {
+        return $this->belongsTo(Year::class);
+    }
 }

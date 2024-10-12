@@ -15,8 +15,14 @@ export interface Semester {
     semester: string;
 }
 
+export interface Year {
+    id: any;
+    tahun: string;
+}
+
 export interface Penduduk {
     id: number;
+    tahun:Year
     semester: Semester;
     kecamatan: Kecamatan;
     laki: string;

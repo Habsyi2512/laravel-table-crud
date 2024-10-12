@@ -14,9 +14,14 @@ return new class extends Migration
         Schema::create('jumlah_penduduks', function (Blueprint $table) {
             $table->id();
 
+            $table->foreignId('year_id')->constrained(
+                table:'years', column:"id", indexName:'jumlah_penduduks_year_id'
+            );
+
             $table->foreignId('kecamatan_id')->constrained(
                 table:'kecamatans', column:"id", indexName:'jumlah_penduduks_kecamatan_id'
             );
+
             $table->foreignId('semester_id')->constrained(
                 table:'semesters', column:"id", indexName:'jumlah_penduduks_semester_id'
             );

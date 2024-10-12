@@ -5,7 +5,7 @@ import { Head } from "@inertiajs/react";
 import { TableJumlahPenduduk } from "@/components/beranda/TableJumlahPenduduk";
 
 export default function Beranda({ data, penduduk }: BerandaProps) {
-    console.log("penduduk = ", penduduk[0]);
+    console.log("penduduk = ", penduduk);
     return (
         <>
             <Head title="Beranda" />

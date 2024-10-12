@@ -6,6 +6,7 @@ use App\Models\JumlahPenduduk;
 use App\Models\Kecamatan;
 use App\Models\Semester;
 use App\Models\User;
+use App\Models\Year;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -16,6 +17,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // seed semester
         Semester::create([
             'semester' => "Semester 1"
         ]);
@@ -23,6 +25,16 @@ class DatabaseSeeder extends Seeder
             'semester' => "Semester 2"
         ]);
 
+        // seed year
+        Year::create([
+            'tahun' => "2022"
+        ]);
+        Year::create([
+            'tahun' => "2023"
+        ]);
+
+
+        // seed kecamatan
         Kecamatan::create(
             ['nama' => 'Siantan']
         );
@@ -37,6 +49,7 @@ class DatabaseSeeder extends Seeder
         );
         // User::factory(10)->create();
         JumlahPenduduk::create([
+            'year_id' => 1,
             'semester_id' => 1,
             'kecamatan_id' => 1,
             'laki' => 1000,
@@ -44,6 +57,7 @@ class DatabaseSeeder extends Seeder
             'total' => 3000
         ]);
         JumlahPenduduk::create([
+            'year_id' => 1,
             'semester_id' => 2,
             'kecamatan_id' => 1,
             'laki' => 100,
@@ -51,6 +65,7 @@ class DatabaseSeeder extends Seeder
             'total' => 350
         ]);
         JumlahPenduduk::create([
+            'year_id' => 1,
             'semester_id' => 1,
             'kecamatan_id' => 2,
             'laki' => 100,
@@ -58,6 +73,7 @@ class DatabaseSeeder extends Seeder
             'total' => 350
         ]);
         JumlahPenduduk::create([
+            'year_id' => 1,
             'semester_id' => 2,
             'kecamatan_id' => 2,
             'laki' => 100,
@@ -65,6 +81,7 @@ class DatabaseSeeder extends Seeder
             'total' => 350
         ]);
         JumlahPenduduk::create([
+            'year_id' => 1,
             'semester_id' => 1,
             'kecamatan_id' => 3,
             'laki' => 100,
@@ -72,6 +89,7 @@ class DatabaseSeeder extends Seeder
             'total' => 350
         ]);
         JumlahPenduduk::create([
+            'year_id' => 1,
             'semester_id' => 2,
             'kecamatan_id' => 3,
             'laki' => 100,
@@ -79,6 +97,7 @@ class DatabaseSeeder extends Seeder
             'total' => 350
         ]);
         JumlahPenduduk::create([
+            'year_id' => 1,
             'semester_id' => 1,
             'kecamatan_id' => 4,
             'laki' => 100,
@@ -86,6 +105,7 @@ class DatabaseSeeder extends Seeder
             'total' => 350
         ]);
         JumlahPenduduk::create([
+            'year_id' => 1,
             'semester_id' => 2,
             'kecamatan_id' => 4,
             'laki' => 100,
