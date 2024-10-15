@@ -35,24 +35,21 @@ export default function TahunTabel({
                 </button>
                 {openTahun && (
                     <ul className="absolute mt-1 w-24 rounded border border-slate-200 overflow-hidden bg-white">
-                        {dataTahun
-                            .sort((a: any, b: any) => b.tahun - a.tahun) // Urutkan dari besar ke kecil
-                            .map((item, index) => {
-                                return (
-                                    <li
-                                        key={index}
-                                        onClick={(e) => {
-                                            setTahun(
-                                                e.currentTarget.textContent ??
-                                                    "",
-                                            );
-                                        }}
-                                        className="p-1 px-2 text-sm text-gray-500 hover:text-gray-700 hover:bg-slate-200 transition-colors duration-150 cursor-pointer border-b"
-                                    >
-                                        {item.tahun}
-                                    </li>
-                                );
-                            })}
+                        {dataTahun.map((item, index) => {
+                            return (
+                                <li
+                                    key={index}
+                                    onClick={(e) => {
+                                        setTahun(
+                                            e.currentTarget.textContent ?? "",
+                                        );
+                                    }}
+                                    className="p-1 px-2 text-sm text-gray-500 hover:text-gray-700 hover:bg-slate-200 transition-colors duration-150 cursor-pointer border-b"
+                                >
+                                    {item.tahun}
+                                </li>
+                            );
+                        })}
                     </ul>
                 )}
             </div>

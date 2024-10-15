@@ -8,10 +8,9 @@ use Inertia\Inertia;
 
 Route::get('/', [BerandaController::class, 'index']);
 
-
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/admin', function () {
+    return Inertia::render('Admin');
+})->middleware(['auth', 'verified'])->name('Admin');
 
 
 Route::middleware('auth')->group(function () {
@@ -20,8 +19,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/admin', function () {
-    return Inertia::render('Admin');
-});
+
 
 require __DIR__.'/auth.php';

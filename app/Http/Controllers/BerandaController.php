@@ -25,7 +25,7 @@ class BerandaController extends Controller
         // Kirimkan data ke view dengan data penduduk dan tahun
         return Inertia::render('Beranda', [
             'penduduk' => $penduduk,
-            'dataTahun' => Year::all(),
+            'dataTahun' =>  Year::orderBy('tahun', 'desc')->get(),
             'tahunSekarang' => $year
         ]);
     }
