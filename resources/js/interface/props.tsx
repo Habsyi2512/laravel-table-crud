@@ -1,9 +1,13 @@
+
+// Halaman Props
 export interface BerandaProps {
-    data: {
-        name: string;
-        age: number;
-    };
     penduduk: Penduduk[];
+    dataTahun: Year[]; 
+    tahunSekarang :string;
+}
+export interface TahunTabelProps {
+    dataTahun: Year[]; 
+    tahunSekarang :string;
 }
 
 export interface Kecamatan {

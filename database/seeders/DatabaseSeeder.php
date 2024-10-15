@@ -7,7 +7,6 @@ use App\Models\Kecamatan;
 use App\Models\Semester;
 use App\Models\User;
 use App\Models\Year;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,103 +16,52 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // seed semester
-        Semester::create([
-            'semester' => "Semester 1"
-        ]);
-        Semester::create([
-            'semester' => "Semester 2"
-        ]);
+        // Seed semester
+        foreach (['Semester 1', 'Semester 2'] as $semester) {
+            Semester::create(['semester' => $semester]);
+        }
 
-        // seed year
-        Year::create([
-            'tahun' => "2022"
-        ]);
-        Year::create([
-            'tahun' => "2023"
-        ]);
+        // Seed years from 2018 to 2024
+        for ($year = 2018; $year <= 2024; $year++) {
+            Year::create(['tahun' => (string)$year]);
+        }
 
+        // Seed kecamatan
+        $kecamatans = [
+            'Siantan',
+            'Palmatak',
+            'Siantan Timur',
+            'Siantan Selatan',
+            'Jemaja Timur',
+            'Jemaja',
+            'Siantan Tengah',
+            'Siantan Utara',
+            'Jemaja Barat',
+            'Kute Siantan',
+        ];
 
-        // seed kecamatan
-        Kecamatan::create(
-            ['nama' => 'Siantan']
-        );
-        Kecamatan::create(
-            ['nama' => 'Siantan Timur']
-        );
-        Kecamatan::create(
-            ['nama' => 'Jemaja']
-        );
-        Kecamatan::create(
-            ['nama' => 'Palmatak']
-        );
-        // User::factory(10)->create();
-        JumlahPenduduk::create([
-            'year_id' => 1,
-            'semester_id' => 1,
-            'kecamatan_id' => 1,
-            'laki' => 1000,
-            'perempuan' => 2000,
-            'total' => 3000
-        ]);
-        JumlahPenduduk::create([
-            'year_id' => 1,
-            'semester_id' => 2,
-            'kecamatan_id' => 1,
-            'laki' => 100,
-            'perempuan' => 250,
-            'total' => 350
-        ]);
-        JumlahPenduduk::create([
-            'year_id' => 1,
-            'semester_id' => 1,
-            'kecamatan_id' => 2,
-            'laki' => 100,
-            'perempuan' => 250,
-            'total' => 350
-        ]);
-        JumlahPenduduk::create([
-            'year_id' => 1,
-            'semester_id' => 2,
-            'kecamatan_id' => 2,
-            'laki' => 100,
-            'perempuan' => 250,
-            'total' => 350
-        ]);
-        JumlahPenduduk::create([
-            'year_id' => 1,
-            'semester_id' => 1,
-            'kecamatan_id' => 3,
-            'laki' => 100,
-            'perempuan' => 250,
-            'total' => 350
-        ]);
-        JumlahPenduduk::create([
-            'year_id' => 1,
-            'semester_id' => 2,
-            'kecamatan_id' => 3,
-            'laki' => 100,
-            'perempuan' => 250,
-            'total' => 350
-        ]);
-        JumlahPenduduk::create([
-            'year_id' => 1,
-            'semester_id' => 1,
-            'kecamatan_id' => 4,
-            'laki' => 100,
-            'perempuan' => 250,
-            'total' => 350
-        ]);
-        JumlahPenduduk::create([
-            'year_id' => 1,
-            'semester_id' => 2,
-            'kecamatan_id' => 4,
-            'laki' => 100,
-            'perempuan' => 250,
-            'total' => 350
-        ]);
+        foreach ($kecamatans as $kecamatan) {
+            Kecamatan::create(['nama' => $kecamatan]);
+        }
 
-        
+        // Seed JumlahPenduduk for each year and kecamatan
+        for ($yearId = 1; $yearId <= 7; $yearId++) { // 2018 to 2024 (7 years)
+            foreach ($kecamatans as $kecamatanId => $kecamatan) {
+                foreach ([1, 2] as $semesterId) { // Semester 1 and 2
+                    $laki = rand(350, 1000); // Generate random number for laki
+                    $perempuan = rand(450, 1000); // Generate random number for perempuan
+
+                    JumlahPenduduk::create([
+                        'year_id' => $yearId,
+                        'semester_id' => $semesterId,
+                        'kecamatan_id' => $kecamatanId + 1, // Increment because array index starts from 0
+                        'laki' => $laki,
+                        'perempuan' => $perempuan,
+                        'total' => $laki + $perempuan, // Total is sum of laki and perempuan
+                    ]);
+                }
+            }
+        }
 
         User::factory()->create([
             'name' => 'Test User',

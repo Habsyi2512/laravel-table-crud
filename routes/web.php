@@ -6,7 +6,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', [BerandaController::class, 'index']);
+// Route::get('/', [BerandaController::class, 'index']);
+Route::get('/{year?}', [BerandaController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

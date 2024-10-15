@@ -1,8 +1,8 @@
 import React from "react";
-import { Penduduk, KecData } from "@/interface/props";
+import { Penduduk, KecData, Year, BerandaProps } from "@/interface/props";
 import TahunTabel from "./TahunTabel";
 
-export const TableJumlahPenduduk = ({ penduduk }: { penduduk: Penduduk[] }) => {
+export const TableJumlahPenduduk = ({ penduduk, dataTahun, tahunSekarang }: BerandaProps) => {
     const groupedData = penduduk.reduce<Record<string, KecData>>(
         (acc, curr) => {
             const { id, kecamatan, semester, laki, perempuan, total } = curr;
@@ -29,6 +29,7 @@ export const TableJumlahPenduduk = ({ penduduk }: { penduduk: Penduduk[] }) => {
         },
         {},
     );
+        
 
     const pendudukResult: KecData[] = Object.values(groupedData).map(
         (kecData) => ({
@@ -56,13 +57,15 @@ export const TableJumlahPenduduk = ({ penduduk }: { penduduk: Penduduk[] }) => {
         },
     );
 
-    React.useEffect(() => {
-        console.log("total =", totalSemesters);
-    }, []);
+
+
+    // React.useEffect(() => {
+    //     console.log("total =", totalSemesters);
+    // }, []);
     return (
         <>
             <div className="relative">
-                <TahunTabel />
+                <TahunTabel dataTahun={dataTahun} tahunSekarang={tahunSekarang}/>
                 <table className="border-collapse py-2 rounded-xl border border-red-500 shadow overflow-hidden w-full">
                     <thead>
                         <tr className="bg-blue-500 border border-black text-white">
@@ -101,30 +104,30 @@ export const TableJumlahPenduduk = ({ penduduk }: { penduduk: Penduduk[] }) => {
                             return (
                                 <tr
                                     key={item.id}
-                                    className="hover:bg-gray-100 transition-colors"
+                                    className="hover:bg-gray-200 transition-colors"
                                 >
-                                    <td className="border px-4 py-2 text-sm text-center">
+                                    <td className="border px-4 py-2 text-sm border-slate-300 text-center">
                                         {index + 1}
                                     </td>
-                                    <td className="border px-4 py-2 text-sm w-64">
+                                    <td className="border px-4 py-2 text-sm border-slate-300 w-64">
                                         {item.kecamatan.nama}
                                     </td>
-                                    <td className="border px-4 py-2 text-sm w-32">
+                                    <td className="border px-4 py-2 text-sm border-slate-300 w-32">
                                         {item.semester1.laki || "-"}
                                     </td>
-                                    <td className="border px-4 py-2 text-sm w-32">
+                                    <td className="border px-4 py-2 text-sm border-slate-300 w-32">
                                         {item.semester1.perempuan || "-"}
                                     </td>
-                                    <td className="border px-4 py-2 text-sm w-32">
+                                    <td className="border px-4 py-2 text-sm border-slate-300 w-32">
                                         {item.semester1.total || "-"}
                                     </td>
-                                    <td className="border px-4 py-2 text-sm w-32">
+                                    <td className="border px-4 py-2 text-sm border-slate-300 w-32">
                                         {item.semester2.laki || "-"}
                                     </td>
-                                    <td className="border px-4 py-2 text-sm w-32">
+                                    <td className="border px-4 py-2 text-sm border-slate-300 w-32">
                                         {item.semester2.perempuan || "-"}
                                     </td>
-                                    <td className="border px-4 py-2 text-sm w-32">
+                                    <td className="border px-4 py-2 text-sm border-slate-300 w-32">
                                         {item.semester2.total || "-"}
                                     </td>
                                 </tr>
