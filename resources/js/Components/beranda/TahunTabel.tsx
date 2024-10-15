@@ -30,27 +30,29 @@ export default function TahunTabel({
                     onClick={handleTahunSearchButton}
                     className="border w-24 openTable justify-between space-x-2 hover:bg-slate-200 active:bg-white transition-colors duration-150 flex items-center rounded border-slate-200 p-1 px-2"
                 >
-                    <p className="openTable">{tahun}</p>
+                    <p className="openTable text-gray-700 text-sm">{tahun}</p>
                     <DownIcon size={5} className="openTable" />
                 </button>
                 {openTahun && (
                     <ul className="absolute mt-1 w-24 rounded border border-slate-200 overflow-hidden bg-white">
-                        {dataTahun.map((item, index) => {
-                            return (
-                                <li
-                                    key={index}
-                                    onClick={(e) => {
-                                        setTahun(
-                                            e.currentTarget.textContent ?? "",
-                                        );
-                                        // setOpenTahun(false);
-                                    }}
-                                    className="p-1 px-2 hover:bg-slate-200 transition-colors duration-150 cursor-pointer border-b"
-                                >
-                                    {item.tahun}
-                                </li>
-                            );
-                        })}
+                        {dataTahun
+                            .sort((a: any, b: any) => b.tahun - a.tahun) // Urutkan dari besar ke kecil
+                            .map((item, index) => {
+                                return (
+                                    <li
+                                        key={index}
+                                        onClick={(e) => {
+                                            setTahun(
+                                                e.currentTarget.textContent ??
+                                                    "",
+                                            );
+                                        }}
+                                        className="p-1 px-2 text-sm text-gray-500 hover:text-gray-700 hover:bg-slate-200 transition-colors duration-150 cursor-pointer border-b"
+                                    >
+                                        {item.tahun}
+                                    </li>
+                                );
+                            })}
                     </ul>
                 )}
             </div>
@@ -58,7 +60,7 @@ export default function TahunTabel({
                 method="get"
                 as="button"
                 type="button"
-                href={`/${tahun}`}
+                href={`/?year=${tahun}`}
                 className="px-2 flex items-center justify-center text-white text-sm transition-colors duration-150 bg-blue-500 hover:bg-blue-400 active:bg-blue-500 rounded-lg"
             >
                 Cari Data

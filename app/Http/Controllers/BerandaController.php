@@ -10,37 +10,23 @@ use Carbon\Carbon;
 
 class BerandaController extends Controller
 {
-    public function index(?Request $request)
+    public function index(Request $request)
     {
-        $currentYear = Carbon::now()->year;
+        // Cek apakah tahun dipilih melalui request, jika tidak gunakan tahun sekarang
+        $year = $request->input('year', Carbon::now()->year);
+
         // Mengambil data jumlah penduduk berdasarkan tahun yang dipilih
         $penduduk = JumlahPenduduk::with(['kecamatan', 'semester', 'year'])
-            ->whereHas('year', function ($query) use ($request , $currentYear) {
-                $query->where('tahun', $request->year ?? $currentYear);
+            ->whereHas('year', function ($query) use ($year) {
+                $query->where('tahun', $year);
             })
             ->get();
 
+        // Kirimkan data ke view dengan data penduduk dan tahun
         return Inertia::render('Beranda', [
             'penduduk' => $penduduk,
             'dataTahun' => Year::all(),
-            'tahunSekarang' => $request->year ?? $currentYear
-        ]);
-    }
-
-    public function getByYear(?Request $request)
-    {
-        $currentYear = Carbon::now()->year;
-        // Mengambil data jumlah penduduk berdasarkan tahun yang dipilih
-        $penduduk = JumlahPenduduk::with(['kecamatan', 'semester', 'year'])
-            ->whereHas('year', function ($query) use ($request , $currentYear) {
-                $query->where('tahun', $request->year ?? $currentYear);
-            })
-            ->get();
-
-        return Inertia::render('Beranda', [
-            'penduduk' => $penduduk,
-            'dataTahun' => Year::all(),
-            'tahunSekarang' => $request->year ?? $currentYear
+            'tahunSekarang' => $year
         ]);
     }
 }
