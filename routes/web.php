@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -8,9 +9,11 @@ use Inertia\Inertia;
 
 Route::get('/', [BerandaController::class, 'index']);
 
-Route::get('/admin', function () {
-    return Inertia::render('Admin');
-})->middleware(['auth', 'verified'])->name('Admin');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('Admin');
+
+    Route::get('/tabel/edit', [AdminController::class, 'editTabel']);
+});
 
 
 Route::middleware('auth')->group(function () {

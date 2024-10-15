@@ -9,8 +9,7 @@ export default function AdminTemplate({
     return (
         <>
             <Header />
-            <div>halaman Admin</div>
-            <main>{children}</main>
+            <main className="px-12">{children}</main>
         </>
     );
 }

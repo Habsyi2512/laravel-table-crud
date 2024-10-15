@@ -2,7 +2,11 @@ import React from "react";
 import { Penduduk, KecData, Year, BerandaProps } from "@/interface/props";
 import TahunTabel from "./TahunTabel";
 
-export const TableJumlahPenduduk = ({ penduduk, dataTahun, tahunSekarang }: BerandaProps) => {
+export const TableJumlahPenduduk = ({
+    penduduk,
+    dataTahun,
+    tahunSekarang,
+}: BerandaProps) => {
     const groupedData = penduduk.reduce<Record<string, KecData>>(
         (acc, curr) => {
             const { id, kecamatan, semester, laki, perempuan, total } = curr;
@@ -29,7 +33,6 @@ export const TableJumlahPenduduk = ({ penduduk, dataTahun, tahunSekarang }: Bera
         },
         {},
     );
-        
 
     const pendudukResult: KecData[] = Object.values(groupedData).map(
         (kecData) => ({
@@ -57,16 +60,17 @@ export const TableJumlahPenduduk = ({ penduduk, dataTahun, tahunSekarang }: Bera
         },
     );
 
-
-
     // React.useEffect(() => {
     //     console.log("total =", totalSemesters);
     // }, []);
     return (
         <>
             <div className="relative">
-                <TahunTabel dataTahun={dataTahun} tahunSekarang={tahunSekarang}/>
-                <table className="border-collapse py-2 rounded-xl border border-red-500 shadow overflow-hidden w-full">
+                <TahunTabel
+                    dataTahun={dataTahun}
+                    tahunSekarang={tahunSekarang}
+                />
+                <table className="border-collapse py-2 rounded-xl table-border shadow overflow-hidden w-full">
                     <thead>
                         <tr className="bg-blue-500 border border-black text-white">
                             <th className="border text-sm py-2" rowSpan={2}>
