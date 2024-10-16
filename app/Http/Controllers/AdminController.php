@@ -13,6 +13,7 @@ class AdminController extends Controller
     }
     public function editTabel()
     {
-        return Inertia::render('EditTabel');
+        return Inertia::render('EditTabel',
+    );
     }
 }
