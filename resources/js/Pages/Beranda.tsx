@@ -2,7 +2,7 @@ import React from "react";
 import Template from "@/layouts/Template";
 import { BerandaProps } from "@/interface/props";
 import { Head } from "@inertiajs/react";
-import { TableJumlahPenduduk } from "@/components/display-data/Guest/TabelJumlahPenduduk";
+import { TableJumlahPenduduk } from "@/components/display-data/guest/TabelJumlahPenduduk";
 
 export default function Beranda({
     penduduk,
