@@ -1,6 +1,10 @@
 import PlusIcon from "@/components/icons/PlusIcon";
+import { EditTabelProps } from "@/interface/props";
 import AdminTemplate from "@/layouts/AdminTemplate";
 import React, { useState, useEffect } from "react";
+import { numberWithCommas } from "@/hooks/formatNumber";
+import { Link } from "@inertiajs/react";
+import Pagination from "@/components/navigation/Pagination";
 
 // Tipe untuk field input
 interface InputField {
@@ -12,7 +16,12 @@ interface InputField {
     female: string;
 }
 
-export default function EditTabel() {
+export default function EditTabel({
+    dataPenduduk,
+    dataKecamatan,
+    dataSemester,
+    dataTahun,
+}: EditTabelProps) {
     const [inputFields, setInputFields] = useState<InputField[]>([]);
 
     const handleAddField = () => {
@@ -50,6 +59,13 @@ export default function EditTabel() {
         console.log("data input fields = ", inputFields);
     }, [inputFields]);
 
+    useEffect(() => {
+        console.log("dataPenduduk = ", dataPenduduk);
+        console.log("dataKecamatan = ", dataKecamatan);
+        console.log("dataSemester = ", dataSemester);
+        console.log("dataTahun = ", dataTahun);
+    }, []);
+
     return (
         <AdminTemplate>
             <section className="py-4">
@@ -58,7 +74,7 @@ export default function EditTabel() {
                 </h2>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-full">
                     <div className="p-2 border rounded-xl shadow max-h-[500px]">
-                        <div className="overflow-hidden rounded-lg border border-slate-300 w-full">
+                        <div className="overflow-hidden rounded-lg border border-slate-300 w-full mb-2">
                             <table className="w-full text-sm border-collapse">
                                 <thead>
                                     <tr>
@@ -86,174 +102,187 @@ export default function EditTabel() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td className="border px-2 py-1">1</td>
-                                        <td className="border px-2 py-1">
-                                            2022
-                                        </td>
-                                        <td className="border px-2 py-1 w-40">
-                                            Siantan Tengah
-                                        </td>
-                                        <td className="border px-2 py-1">
-                                            Semester 1
-                                        </td>
-                                        <td className="border px-2 py-1">
-                                            100
-                                        </td>
-                                        <td className="border px-2 py-1">
-                                            200
-                                        </td>
-                                        <td className="border px-2 py-1">
-                                            300
-                                        </td>
-                                    </tr>
+                                    {dataPenduduk.data.map((item, index) => {
+                                        const angka_format = numberWithCommas(
+                                            item.total,
+                                        );
+                                        return (
+                                            <tr key={index}>
+                                                <td className="border px-2 py-1">
+                                                    {item.id}
+                                                </td>
+                                                <td className="border px-2 py-1">
+                                                    {item.year.tahun}
+                                                </td>
+                                                <td className="border px-2 py-1 w-40">
+                                                    {item.kecamatan.nama}
+                                                </td>
+                                                <td className="border px-2 py-1">
+                                                    {item.semester.semester}
+                                                </td>
+                                                <td className="border px-2 py-1">
+                                                    {item.laki}
+                                                </td>
+                                                <td className="border px-2 py-1">
+                                                    {item.perempuan}
+                                                </td>
+                                                <td className="border px-2 py-1">
+                                                    {angka_format}
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
                                 </tbody>
                             </table>
                         </div>
+                        <Pagination links={dataPenduduk.links} />
                     </div>
-                    <div className="p-2 border rounded-xl shadow max-h-[500px]">
-                        <div className="mb-3 max-h-[300px] overflow-y-auto">
-                            <form action="POST" className="text-sm">
-                                {inputFields.map((field) => (
-                                    <div
-                                        className="border p-2 mb-2 border-slate-300 shadow rounded-lg"
-                                        key={field.id}
-                                    >
-                                        <div className="box-input mb-2 grid grid-cols-1 lg:grid-cols-2 gap-2">
+                    <div className="border p-2 h-fit rounded-xl shadow max-h-[500px]">
+                        <form
+                            action="POST"
+                            className={`text-sm ${inputFields.length > 0 && "mb-2"} h-fit max-h-[300px] overflow-y-auto`}
+                        >
+                            {inputFields.map((field) => (
+                                <div
+                                    className="border p-2 mb-2 border-slate-300 shadow rounded-lg"
+                                    key={field.id}
+                                >
+                                    <div className="box-input mb-2 grid grid-cols-2 gap-2">
+                                        <select
+                                            className="rounded-md p-2 border border-slate-300"
+                                            value={field.district}
+                                            onChange={(e) =>
+                                                handleInputChange(
+                                                    field.id,
+                                                    "district",
+                                                    e.target.value,
+                                                )
+                                            }
+                                        >
+                                            <option value="">
+                                                Pilih Kecamatan
+                                            </option>
+                                            <option value="siantan">
+                                                Siantan
+                                            </option>
+                                            <option value="palmatak">
+                                                Palmatak
+                                            </option>
+                                            <option value="jemaja">
+                                                Jemaja
+                                            </option>
+                                            <option value="letung">
+                                                Letung
+                                            </option>
+                                        </select>
+
+                                        <select
+                                            className="rounded-md p-2 border border-slate-300 text-sm"
+                                            value={field.semester}
+                                            onChange={(e) =>
+                                                handleInputChange(
+                                                    field.id,
+                                                    "semester",
+                                                    e.target.value,
+                                                )
+                                            }
+                                        >
+                                            <option value="">
+                                                Pilih Semester
+                                            </option>
+                                            <option value="semester1">
+                                                Semester 1
+                                            </option>
+                                            <option value="semester2">
+                                                Semester 2
+                                            </option>
+                                        </select>
+                                        <div className="col-span-2 gap-2 grid grid-cols-2 lg:grid-cols-3">
                                             <select
-                                                className="rounded-md p-2 border border-slate-300"
-                                                value={field.district}
+                                                className="rounded-md p-2 border border-slate-300 col-span-2 lg:col-span-1"
+                                                value={field.year}
                                                 onChange={(e) =>
                                                     handleInputChange(
                                                         field.id,
-                                                        "district",
+                                                        "year",
                                                         e.target.value,
                                                     )
                                                 }
                                             >
                                                 <option value="">
-                                                    Pilih Kecamatan
+                                                    Pilih Tahun
                                                 </option>
-                                                <option value="siantan">
-                                                    Siantan
+                                                <option value="2018">
+                                                    2018
                                                 </option>
-                                                <option value="palmatak">
-                                                    Palmatak
+                                                <option value="2019">
+                                                    2019
                                                 </option>
-                                                <option value="jemaja">
-                                                    Jemaja
+                                                <option value="2020">
+                                                    2020
                                                 </option>
-                                                <option value="letung">
-                                                    Letung
+                                                <option value="2021">
+                                                    2021
                                                 </option>
-                                            </select>
-                                            <select
-                                                className="rounded-md p-2 border border-slate-300"
-                                                value={field.semester}
-                                                onChange={(e) =>
-                                                    handleInputChange(
-                                                        field.id,
-                                                        "semester",
-                                                        e.target.value,
-                                                    )
-                                                }
-                                            >
-                                                <option value="">
-                                                    Pilih Semester
+                                                <option value="2022">
+                                                    2022
                                                 </option>
-                                                <option value="semester1">
-                                                    Semester 1
+                                                <option value="2023">
+                                                    2023
                                                 </option>
-                                                <option value="semester2">
-                                                    Semester 2
+                                                <option value="2024">
+                                                    2024
                                                 </option>
                                             </select>
-                                            <div className="col-span-2 gap-1 grid grid-cols-1 lg:grid-cols-3">
-                                                <select
-                                                    className="rounded-md p-2 border border-slate-300"
-                                                    value={field.year}
+
+                                            <div>
+                                                <input
+                                                    type="text"
+                                                    placeholder="Laki - laki"
+                                                    className="rounded-md border border-slate-300 w-full"
+                                                    value={field.male}
                                                     onChange={(e) =>
                                                         handleInputChange(
                                                             field.id,
-                                                            "year",
+                                                            "male",
                                                             e.target.value,
                                                         )
                                                     }
-                                                >
-                                                    <option value="">
-                                                        Pilih Tahun
-                                                    </option>
-                                                    <option value="2018">
-                                                        2018
-                                                    </option>
-                                                    <option value="2019">
-                                                        2019
-                                                    </option>
-                                                    <option value="2020">
-                                                        2020
-                                                    </option>
-                                                    <option value="2021">
-                                                        2021
-                                                    </option>
-                                                    <option value="2022">
-                                                        2022
-                                                    </option>
-                                                    <option value="2023">
-                                                        2023
-                                                    </option>
-                                                    <option value="2024">
-                                                        2024
-                                                    </option>
-                                                </select>
-                                                <div>
-                                                    <input
-                                                        type="text"
-                                                        placeholder="Laki - laki"
-                                                        className="rounded-md border border-slate-300 w-full"
-                                                        value={field.male}
-                                                        onChange={(e) =>
-                                                            handleInputChange(
-                                                                field.id,
-                                                                "male",
-                                                                e.target.value,
-                                                            )
-                                                        }
-                                                    />
-                                                </div>
-                                                <div>
-                                                    <input
-                                                        type="text"
-                                                        placeholder="Perempuan"
-                                                        className="rounded-md border border-slate-300 w-full"
-                                                        value={field.female}
-                                                        onChange={(e) =>
-                                                            handleInputChange(
-                                                                field.id,
-                                                                "female",
-                                                                e.target.value,
-                                                            )
-                                                        }
-                                                    />
-                                                </div>
+                                                />
+                                            </div>
+                                            <div>
+                                                <input
+                                                    type="text"
+                                                    placeholder="Perempuan"
+                                                    className="rounded-md border border-slate-300 w-full"
+                                                    value={field.female}
+                                                    onChange={(e) =>
+                                                        handleInputChange(
+                                                            field.id,
+                                                            "female",
+                                                            e.target.value,
+                                                        )
+                                                    }
+                                                />
                                             </div>
                                         </div>
-                                        <button
-                                            type="button"
-                                            onClick={() =>
-                                                handleRemoveField(field.id)
-                                            }
-                                            className="px-3 py-1 rounded-md bg-red-500 hover:bg-red-600 transition-colors duration-150 text-white"
-                                        >
-                                            Hapus
-                                        </button>
                                     </div>
-                                ))}
-                            </form>
-                        </div>
+                                    <button
+                                        type="button"
+                                        onClick={() =>
+                                            handleRemoveField(field.id)
+                                        }
+                                        className="px-3 py-1 rounded-md bg-red-500 hover:bg-red-600 transition-colors duration-150 text-white"
+                                    >
+                                        Hapus
+                                    </button>
+                                </div>
+                            ))}
+                        </form>
                         <button
                             type="button"
                             onClick={handleAddField}
-                            className="bg-blue-400 mb-2 hover:bg-blue-500 active:bg-blue-400 transition-colors duration-150 w-full p-2 rounded-lg text-white flex items-center justify-center space-x-2"
+                            className="bg-blue-400 hover:bg-blue-500 active:bg-blue-400 transition-colors duration-150 w-full p-2 rounded-lg text-white flex items-center justify-center"
                         >
                             Tambah Data
                         </button>
@@ -262,7 +291,7 @@ export default function EditTabel() {
                             <button
                                 type="button"
                                 onClick={() => console.log("Simpan data...")}
-                                className="bg-green-400 hover:bg-green-500 active:bg-green-400 transition-colors duration-150 w-full p-2 rounded-lg text-white flex items-center justify-center space-x-2"
+                                className="bg-green-400 mt-2 hover:bg-green-500 active:bg-green-400 transition-colors duration-150 w-full p-2 rounded-lg text-white flex items-center justify-center space-x-2"
                             >
                                 Simpan
                             </button>

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class JumlahPenduduk extends Model
 {
     use HasFactory;
-    protected $with = ['kecamatan'];
+    protected $with = ['kecamatan', 'semester', 'year'];
 
     public function kecamatan(): BelongsTo
     {

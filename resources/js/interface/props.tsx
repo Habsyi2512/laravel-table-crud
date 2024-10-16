@@ -1,13 +1,34 @@
-
 // Halaman Props
 export interface BerandaProps {
     penduduk: Penduduk[];
-    dataTahun: Year[]; 
-    tahunSekarang :string;
+    dataTahun: Year[];
+    tahunSekarang: string;
 }
 export interface TahunTabelProps {
-    dataTahun: Year[]; 
-    tahunSekarang :string;
+    dataTahun: Year[];
+    tahunSekarang: string;
+}
+
+export interface PaginationProps {
+    links: {
+        active: any;
+        label: any;
+        url: any;
+    }[];
+}
+
+export interface EditTabelProps {
+    dataPenduduk: {
+        data: Penduduk[];
+        links: {
+            active: any;
+            label: any;
+            url: any;
+        }[];
+    };
+    dataKecamatan: Kecamatan[];
+    dataTahun: Year[];
+    dataSemester: Semester[];
 }
 
 export interface Kecamatan {
@@ -26,14 +47,13 @@ export interface Year {
 
 export interface Penduduk {
     id: number;
-    tahun:Year
+    year: Year;
     semester: Semester;
     kecamatan: Kecamatan;
     laki: string;
     perempuan: string;
     total: string;
 }
-[];
 
 export interface SemesterData {
     laki: number;

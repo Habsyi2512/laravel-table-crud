@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BerandaController;
+use App\Http\Controllers\EditTabelController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -12,7 +13,7 @@ Route::get('/', [BerandaController::class, 'index']);
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('Admin');
 
-    Route::get('/tabel/edit', [AdminController::class, 'editTabel']);
+    Route::get('/tabel/edit', [EditTabelController::class, 'index']);
 });
 
 
