@@ -1,18 +1,46 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 export default function CustomFieldsPendudukNavbar() {
+    const [nav, setNav] = useState("Kecamatan");
+
+    const navOption = [
+        { label: "Kecamatan" },
+        { label: "Tahun" },
+        { label: "Semester" },
+    ];
+
+    useEffect(() => {
+        const savedInputFields = localStorage.getItem(
+            "CustomFieldsPendudukNavbar",
+        );
+        if (savedInputFields) {
+            setNav(JSON.parse(savedInputFields));
+        } else {
+            setNav("Kecamatan");
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem("CustomFieldsPendudukNavbar", JSON.stringify(nav));
+    }, [nav]);
     return (
         <nav>
-            <ul className="w-full h-full flex">
-                <li>
-                    <button>Kecamatan</button>
-                </li>
-                <li>
-                    <button>Tahun</button>
-                </li>
-                <li>
-                    <button>Semester</button>
-                </li>
+            <ul className="w-full h-full flex space-x-2">
+                {navOption.map((item, index) => {
+                    return (
+                        <li key={index}>
+                            <button
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    setNav(item.label);
+                                }}
+                                className={`text-sm ${nav == item.label ? "bg-blue-500 hover:bg-blue-400 text-white" : "text-blue-500 hover:text-blue-400 border-blue-500 hover:border-blue-400"} border-b border-r rounded-lg shadow font-medium h-full py-1 px-3`}
+                            >
+                                {item.label}
+                            </button>
+                        </li>
+                    );
+                })}
             </ul>
         </nav>
     );
