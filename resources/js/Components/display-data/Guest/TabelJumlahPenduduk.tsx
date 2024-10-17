@@ -59,10 +59,6 @@ export const TableJumlahPenduduk = ({
             semester2: { laki: 0, perempuan: 0, total: 0 },
         },
     );
-
-    // React.useEffect(() => {
-    //     console.log("total =", totalSemesters);
-    // }, []);
     return (
         <>
             <div className="relative">

@@ -16,6 +16,11 @@ export interface PaginationProps {
         url: any;
     }[];
 }
+export interface TambahPendudukFormProps{
+    dataKecamatan: Kecamatan[];
+    dataTahun: Year[];
+    dataSemester: Semester[];
+}
 
 export interface EditTabelProps {
     dataPenduduk: {

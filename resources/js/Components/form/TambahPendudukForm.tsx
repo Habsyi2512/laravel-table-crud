@@ -1,7 +1,13 @@
 import { InputField } from "@/interface/inputProps";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { router } from '@inertiajs/react'
+import { TambahPendudukFormProps } from "@/interface/props";
 
-export default function TambahPendudukForm() {
+export default function TambahPendudukForm({
+    dataKecamatan,
+    dataSemester,
+    dataTahun,
+}: TambahPendudukFormProps) {
     const [inputFields, setInputFields] = useState<InputField[]>([]);
     const handleAddField = () => {
         setInputFields([
@@ -33,6 +39,21 @@ export default function TambahPendudukForm() {
         );
         setInputFields(updatedFields);
     };
+    useEffect(() => {
+        const savedInputFields = localStorage.getItem("inputFields");
+        if (savedInputFields) {
+            setInputFields(JSON.parse(savedInputFields) as InputField[]);
+        }
+    }, []);
+
+    useEffect(() => {
+        console.log("input Fields", inputFields);
+        if (inputFields.length > 0) {
+            localStorage.setItem("inputFields", JSON.stringify(inputFields));
+        } else {
+            localStorage.removeItem("inputFields");
+        }
+    }, [inputFields]);
 
     return (
         <>
@@ -58,10 +79,14 @@ export default function TambahPendudukForm() {
                                 }
                             >
                                 <option value="">Pilih Kecamatan</option>
-                                <option value="siantan">Siantan</option>
-                                <option value="palmatak">Palmatak</option>
-                                <option value="jemaja">Jemaja</option>
-                                <option value="letung">Letung</option>
+
+                                {dataKecamatan.map((item, index) => {
+                                    return (
+                                        <option key={index} value={item.nama}>
+                                            {item.nama}
+                                        </option>
+                                    );
+                                })}
                             </select>
 
                             <select
@@ -76,8 +101,16 @@ export default function TambahPendudukForm() {
                                 }
                             >
                                 <option value="">Pilih Semester</option>
-                                <option value="semester1">Semester 1</option>
-                                <option value="semester2">Semester 2</option>
+                                {dataSemester.map((item, index) => {
+                                    return (
+                                        <option
+                                            key={index}
+                                            value={item.semester}
+                                        >
+                                            {item.semester}
+                                        </option>
+                                    );
+                                })}
                             </select>
                             <div className="col-span-2 gap-2 grid grid-cols-2 lg:grid-cols-3">
                                 <select
@@ -92,13 +125,16 @@ export default function TambahPendudukForm() {
                                     }
                                 >
                                     <option value="">Pilih Tahun</option>
-                                    <option value="2018">2018</option>
-                                    <option value="2019">2019</option>
-                                    <option value="2020">2020</option>
-                                    <option value="2021">2021</option>
-                                    <option value="2022">2022</option>
-                                    <option value="2023">2023</option>
-                                    <option value="2024">2024</option>
+                                    {dataTahun.map((item, index) => {
+                                        return (
+                                            <option
+                                                key={index}
+                                                value={item.tahun}
+                                            >
+                                                {item.tahun}
+                                            </option>
+                                        );
+                                    })}
                                 </select>
 
                                 <div>
@@ -136,7 +172,7 @@ export default function TambahPendudukForm() {
                         <button
                             type="button"
                             onClick={() => handleRemoveField(field.id)}
-                            className="px-3 py-1 rounded-md bg-red-500 hover:bg-red-600 transition-colors duration-150 text-white"
+                            className="px-3 py-1 rounded-md bg-red-500 hover:bg-red-400 active:bg-red-500 transition-colors duration-150 text-white"
                         >
                             Hapus
                         </button>
@@ -146,7 +182,7 @@ export default function TambahPendudukForm() {
             <button
                 type="button"
                 onClick={handleAddField}
-                className="bg-blue-400 hover:bg-blue-500 active:bg-blue-400 transition-colors duration-150 w-full p-2 rounded-lg text-white flex items-center justify-center"
+                className="bg-blue-500 hover:bg-blue-400 active:bg-blue-500 transition-colors duration-150 w-full p-2 rounded-lg text-white flex items-center justify-center"
             >
                 Tambah Data
             </button>
@@ -154,7 +190,7 @@ export default function TambahPendudukForm() {
                 <button
                     type="button"
                     onClick={() => console.log("Simpan data...")}
-                    className="bg-green-400 mt-2 hover:bg-green-500 active:bg-green-400 transition-colors duration-150 w-full p-2 rounded-lg text-white flex items-center justify-center space-x-2"
+                    className="bg-emerald-500 mt-2 hover:bg-emerald-400 active:bg-emerald-500 transition-colors duration-150 w-full p-2 rounded-lg text-white flex items-center justify-center space-x-2"
                 >
                     Simpan
                 </button>

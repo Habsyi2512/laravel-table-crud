@@ -19,7 +19,7 @@ export default function Pagination({links}:PaginationProps) {
                     <li key={index}>
                         <Link
                             href={item.url}
-                            className={`inline-block ${className} transition-colors duration-150 hover:bg-gray-200 active:bg-white text-sm px-2 py-1 border ${item.active ? "bg-gray-200" : item.label.includes("Prev") || item.label.includes("Next") ? "bg-gray-300" : ""}`}
+                            className={`inline-block ${className} transition-colors duration-150  active:bg-blue-500 text-sm px-2 py-1 border ${item.active ? "bg-blue-500 hover:bg-blue-400 text-white" : item.label.includes("Prev") || item.label.includes("Next") ? "bg-blue-500 hover:bg-blue-400 text-white" : "hover:bg-blue-500"}`}
                         >
                             {item.label.includes("Previous")
                                 ? "Previous"

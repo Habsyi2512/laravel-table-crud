@@ -9,9 +9,9 @@ export default function Beranda({
     dataTahun,
     tahunSekarang,
 }: BerandaProps) {
-    console.log("penduduk = ", penduduk);
-    console.log("dataTahun = ", dataTahun);
-    console.log("tahunSekarang = ", tahunSekarang);
+    // console.log("penduduk = ", penduduk);
+    // console.log("dataTahun = ", dataTahun);
+    // console.log("tahunSekarang = ", tahunSekarang);
     return (
         <>
             <Head title="Beranda" />

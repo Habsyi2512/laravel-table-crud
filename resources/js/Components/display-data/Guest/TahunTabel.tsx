@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "@inertiajs/react";
-import DownIcon from "../icons/DownIcon";
+import DownIcon from "@/components/icons/DownIcon";
 import { TahunTabelProps, Year } from "@/interface/props";
 
 export default function TahunTabel({
@@ -9,7 +9,6 @@ export default function TahunTabel({
 }: TahunTabelProps) {
     const [openTahun, setOpenTahun] = useState(false);
     const [tahun, setTahun] = useState(tahunSekarang);
-    console.log("data Tahun ya = ", dataTahun);
 
     const handleTahunSearchButton = () => {
         setOpenTahun(!openTahun);
