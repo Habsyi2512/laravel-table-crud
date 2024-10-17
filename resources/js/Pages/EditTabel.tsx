@@ -1,7 +1,7 @@
 import { EditTabelProps } from "@/interface/props";
 import AdminTemplate from "@/layouts/AdminTemplate";
 import Pagination from "@/components/navigation/Pagination";
-import TabelJumlahPendudukAdmin from "@/components/display-data/admin/TabelJumlahPendudukAdmin";
+import TabelJumlahPendudukAdmin from "@/components/display-data/admin/tabel/TabelJumlahPendudukAdmin";
 import TambahPendudukForm from "@/components/form/TambahPendudukForm";
 import CostumInputFieldLayout from "@/components/layouts/edit-tabel-penduduk/custom-input-field-layout/CostumInputFieldPendudukLayout";
 import { useRef, useState, useEffect } from "react";
