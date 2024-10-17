@@ -1,4 +1,4 @@
-// Halaman Props
+// Page Props
 export interface BerandaProps {
     penduduk: Penduduk[];
     dataTahun: Year[];
@@ -36,6 +36,14 @@ export interface EditTabelProps {
     dataSemester: Semester[];
 }
 
+export interface CostumInputFieldPendudukLayoutProps{
+    dataKecamatan: Kecamatan[];
+    dataSemester: Semester[];
+    dataTahun: Year[];
+}
+
+
+// interface Props
 export interface Kecamatan {
     id: any;
     nama: string;

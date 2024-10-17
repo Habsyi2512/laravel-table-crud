@@ -24,7 +24,7 @@ export default function CustomFieldsPendudukNavbar() {
         localStorage.setItem("CustomFieldsPendudukNavbar", JSON.stringify(nav));
     }, [nav]);
     return (
-        <nav>
+        <nav className="mb-2">
             <ul className="w-full h-full flex space-x-2">
                 {navOption.map((item, index) => {
                     return (
