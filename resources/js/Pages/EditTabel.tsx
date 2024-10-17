@@ -63,7 +63,13 @@ export default function EditTabel({
                                 dataTahun={dataTahun}
                             />
                         )}
-                        {nav == "customInputData" && <CostumInputFieldLayout />}
+                        {nav == "customInputData" && (
+                            <CostumInputFieldLayout
+                                dataKecamatan={dataKecamatan}
+                                dataSemester={dataSemester}
+                                dataTahun={dataTahun}
+                            />
+                        )}
                     </div>
                 </div>
             </section>

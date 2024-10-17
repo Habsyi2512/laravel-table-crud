@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-export default function CustomFieldsPendudukNavbar() {
-    const [nav, setNav] = useState("Kecamatan");
+export default function CustomFieldsPendudukNavbar({ nav, setNav }: any) {
+    // const [nav, setNav] = useState("Kecamatan");
 
     const navOption = [
         { label: "Kecamatan" },
