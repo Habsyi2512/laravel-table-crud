@@ -15,11 +15,11 @@ export default function CostumInputFieldPendudukLayout({
     const RenderTableContent = (): JSX.Element | null => {
         switch (nav) {
             case "Kecamatan":
-                return <TabelKecamatan />;
+                return <TabelKecamatan dataKecamatan={dataKecamatan} />;
             case "Tahun":
-                return <TabelTahun />;
+                return <TabelTahun dataTahun={dataTahun} />;
             case "Semester":
-                return <TabelSemester />;
+                return <TabelSemester dataSemester={dataSemester} />;
             default:
                 return null; // Pastikan ada nilai return pada semua kasus
         }

@@ -1,4 +1,5 @@
 import Header from "@/components/header/Header";
+import { Head } from "@inertiajs/react";
 import React from "react";
 
 export default function AdminTemplate({
@@ -8,6 +9,7 @@ export default function AdminTemplate({
 }) {
     return (
         <>
+            <Head title="Dashboard" />
             <Header />
             <main className="px-12">{children}</main>
         </>
