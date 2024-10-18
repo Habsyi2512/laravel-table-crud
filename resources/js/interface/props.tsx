@@ -90,3 +90,8 @@ export interface KecData {
     semester1: SemesterData;
     semester2: SemesterData;
 }
+
+export interface InputItem{
+    id: number;
+    value: string;
+}

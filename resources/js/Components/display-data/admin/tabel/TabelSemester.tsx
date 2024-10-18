@@ -37,7 +37,7 @@ export default function TabelSemester({
     };
 
     return (
-        <table className="text-sm">
+        <table className="text-sm w-full">
             <thead>
                 <tr>
                     <th className="border-b text-left w-8 py-2 px-3">

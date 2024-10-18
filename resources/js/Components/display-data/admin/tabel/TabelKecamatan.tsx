@@ -38,13 +38,13 @@ export default function TabelKecamatan({
     };
 
     return (
-        <table className="text-sm">
+        <table className="text-sm w-full">
             <thead>
                 <tr>
-                    <th className="border-b text-left w-8 py-2 px-3">
+                    <th className="border-b text-left w-4 py-1 px-2">
                         <input
                             type="checkbox"
-                            className="w-4 h-4 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-transparent"
+                            className="w-3 h-3 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-transparent"
                             checked={selectAll}
                             onChange={handleSelectAllChange}
                         />
@@ -67,10 +67,10 @@ export default function TabelKecamatan({
                                 : "bg-white"
                         } border-b`}
                     >
-                        <td className="py-1 px-3">
+                        <td className="py-1 px-2">
                             <input
                                 type="checkbox"
-                                className="w-4 h-4 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-transparent"
+                                className="w-3 h-3 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-transparent"
                                 checked={selectedRows.includes(kecamatan.id)}
                                 onChange={() =>
                                     handleCheckboxChange(kecamatan.id)
