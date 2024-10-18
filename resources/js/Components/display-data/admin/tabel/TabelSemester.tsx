@@ -52,7 +52,7 @@ export default function TabelSemester({
                         ID
                     </th>
                     <th className="border-b border-r text-blue-500 text-left w-32 py-2 px-3">
-                        item
+                        Semester
                     </th>
                 </tr>
             </thead>

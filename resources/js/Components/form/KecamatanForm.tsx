@@ -58,7 +58,7 @@ export default function KecamatanForm({
                 ))}
             </div>
             {inputListKecamatan.length > 0 && (
-                <div className="flex">
+                <div className="flex px-2">
                     <Button
                         type="submit"
                         className="py-1 w-full"

@@ -53,6 +53,23 @@ export interface RenderTabelProps {
     components?: ComponentRenderTableWithProps[];
 }
 
+export interface CustomFieldsPendudukNavbarProps {
+    nav: string;
+    setNav: any;
+    stateList: {
+        inputListKecamatan: InputItem[];
+        inputListTahun: InputItem[];
+        inputListSemester: InputItem[];
+    };
+    setStateList: {
+        setInputListKecamatan: React.Dispatch<
+            React.SetStateAction<InputItem[]>
+        >;
+        setInputListTahun: React.Dispatch<React.SetStateAction<InputItem[]>>;
+        setInputListSemester: React.Dispatch<React.SetStateAction<InputItem[]>>;
+    };
+}
+
 // interface Props
 export interface Kecamatan {
     id: any;

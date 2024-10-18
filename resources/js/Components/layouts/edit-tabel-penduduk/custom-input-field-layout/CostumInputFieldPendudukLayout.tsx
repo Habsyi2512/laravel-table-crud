@@ -9,8 +9,8 @@ import TahunForm from "@/components/form/TahunForm";
 import PlusIcon from "@/components/icons/PlusIcon";
 import CustomInputFieldFormTabelNav from "@/components/navigation/CustomFieldsPendudukNavbar";
 import { CostumInputFieldPendudukLayoutProps } from "@/interface/props";
-import { handleAddInput } from "@/hooks/formHooks";
 import { InputItem } from "@/interface/props";
+import { useFormHandlers } from "@/hooks/formHooks";
 import React, { useState, useEffect } from "react";
 
 export default function CostumInputFieldPendudukLayout({
@@ -18,6 +18,7 @@ export default function CostumInputFieldPendudukLayout({
     dataSemester,
     dataTahun,
 }: CostumInputFieldPendudukLayoutProps) {
+    const { handleAddInput } = useFormHandlers();
     const [nav, setNav] = useState(() => {
         const savedNav = localStorage.getItem("CustomFieldsPendudukNavbar");
         return savedNav ? savedNav : "Kecamatan";
@@ -68,7 +69,20 @@ export default function CostumInputFieldPendudukLayout({
     return (
         <div className="w-full h-full relative">
             <div className="sticky w-full top-0 left-0 h-fit">
-                <CustomInputFieldFormTabelNav nav={nav} setNav={setNav} />
+                <CustomInputFieldFormTabelNav
+                    stateList={{
+                        inputListKecamatan,
+                        inputListTahun,
+                        inputListSemester,
+                    }}
+                    setStateList={{
+                        setInputListKecamatan,
+                        setInputListTahun,
+                        setInputListSemester,
+                    }}
+                    nav={nav}
+                    setNav={setNav}
+                />
             </div>
             <div className="flex gap-x-2 h-full max-h-[500px]">
                 <div className="basis-1/3">
@@ -100,53 +114,10 @@ export default function CostumInputFieldPendudukLayout({
                 </div>
                 <div className="h-full px-2 basis-2/3 overflow-y-auto pb-2">
                     <section className="w-full">
-                        <div className="relative mb-3 py-1">
+                        <div className="relative px-2 mb-3 py-1">
                             <h3 className="font-bold  text-blue-500">
                                 {nav} Form
                             </h3>
-                            <div className="absolute h-full w-fit top-0 right-0">
-                                {nav == "Kecamatan" && (
-                                    <Button
-                                        onClick={() =>
-                                            handleAddInput({
-                                                inputList: inputListKecamatan,
-                                                setInputList:
-                                                    setInputListKecamatan,
-                                            })
-                                        }
-                                        className="w-fit p-.1"
-                                    >
-                                        <PlusIcon size={5} />
-                                    </Button>
-                                )}
-                                {nav == "Tahun" && (
-                                    <Button
-                                        onClick={() =>
-                                            handleAddInput({
-                                                inputList: inputListTahun,
-                                                setInputList: setInputListTahun,
-                                            })
-                                        }
-                                        className="w-fit p-.1"
-                                    >
-                                        <PlusIcon size={5} />
-                                    </Button>
-                                )}
-                                {nav == "Semester" && (
-                                    <Button
-                                        onClick={() =>
-                                            handleAddInput({
-                                                inputList: inputListSemester,
-                                                setInputList:
-                                                    setInputListSemester,
-                                            })
-                                        }
-                                        className="w-fit p-.1"
-                                    >
-                                        <PlusIcon size={5} />
-                                    </Button>
-                                )}
-                            </div>
                         </div>
                         <section className="mb-2">
                             {nav == "Kecamatan" && (
@@ -157,8 +128,18 @@ export default function CostumInputFieldPendudukLayout({
                                     }
                                 />
                             )}
-                            {/* {nav == "Tahun" && <TahunForm data={inputListTahun}/>} */}
-                            {/* {nav == "Semester" && <SemesterForm data={inputListSemester}/>} */}
+                            {nav == "Tahun" && (
+                                <TahunForm
+                                    inputListTahun={inputListTahun}
+                                    setInputListTahun={setInputListTahun}
+                                />
+                            )}
+                            {nav == "Semester" && (
+                                <SemesterForm
+                                    inputListSemester={inputListSemester}
+                                    setInputListSemester={setInputListSemester}
+                                />
+                            )}
                         </section>
                     </section>
                 </div>
