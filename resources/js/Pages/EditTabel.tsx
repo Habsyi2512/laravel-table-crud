@@ -43,13 +43,15 @@ export default function EditTabel({
                     </div>
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-full">
-                    <div className="p-2 border rounded-xl shadow max-h-[500px] overflow-auto">
-                        <TabelJumlahPendudukAdmin
-                            dataPenduduk={dataPenduduk.data}
-                        />
+                    <div className="p-2 border rounded-xl shadow max-h-[600px] overflow-auto">
+                        <TabelJumlahPendudukAdmin />
+                        {/* <TabelJumlahPendudukAdmin
+                            current_page={dataPenduduk.current_page}
+                        dataPenduduk={dataPenduduk.data}
+                        /> */}
                         <Pagination links={dataPenduduk.links} />
                     </div>
-                    <div className="border p-2 h-fit rounded-xl shadow max-h-[500px]">
+                    <div className="border p-2 h-fit rounded-xl shadow max-h-[600px] overflow-y-auto">
                         {nav == "inputData" && (
                             <TambahPendudukForm
                                 dataKecamatan={dataKecamatan}

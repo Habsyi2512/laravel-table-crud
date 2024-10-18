@@ -1,11 +1,27 @@
 import { numberWithCommas } from "@/hooks/formatNumber";
 import { Penduduk } from "@/interface/props";
+import React, { useEffect } from "react";
+import { usePage } from "@inertiajs/react";
+import { PageProps } from "@/types";
 
-export default function TabelJumlahPendudukAdmin({
-    dataPenduduk,
-}: {
-    dataPenduduk: Penduduk[];
-}) {
+interface CustomPageProps extends PageProps {
+    dataPenduduk: {
+        data: Penduduk[];
+        current_page: Number;
+        per_page: Number | any;
+    };
+}
+
+export default function TabelJumlahPendudukAdmin() {
+    const { dataPenduduk } = usePage<CustomPageProps>().props;
+    const dataMap: Penduduk[] = dataPenduduk.data;
+    const current_page = dataPenduduk.current_page;
+    const per_page = dataPenduduk.per_page;
+    useEffect(() => {
+        console.log("curr Page = ", current_page);
+        console.log("Per Page = ", per_page);
+    });
+
     return (
         <div className="overflow-y-hidden relative">
             <table className="w-full mb-2 text-sm">
@@ -29,12 +45,14 @@ export default function TabelJumlahPendudukAdmin({
                     </tr>
                 </thead>
                 <tbody className="overflow-hidden">
-                    {dataPenduduk.map((item, index) => {
+                    {dataMap.map((item, index) => {
                         const angka_format = numberWithCommas(item.total);
+                        const nomorUrut =
+                            (Number(current_page) - 1) * per_page + (index + 1);
                         return (
                             <tr key={index}>
                                 <td className="border-b px-2 py-1">
-                                    {item.id}
+                                    {nomorUrut}
                                 </td>
                                 <td className="border-b px-2 py-1">
                                     {item.year.tahun}

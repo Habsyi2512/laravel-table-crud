@@ -16,7 +16,7 @@ export interface PaginationProps {
         url: any;
     }[];
 }
-export interface TambahPendudukFormProps{
+export interface TambahPendudukFormProps {
     dataKecamatan: Kecamatan[];
     dataTahun: Year[];
     dataSemester: Semester[];
@@ -30,13 +30,14 @@ export interface EditTabelProps {
             label: any;
             url: any;
         }[];
+        current_page: string;
     };
     dataKecamatan: Kecamatan[];
     dataTahun: Year[];
     dataSemester: Semester[];
 }
 
-export interface CostumInputFieldPendudukLayoutProps{
+export interface CostumInputFieldPendudukLayoutProps {
     dataKecamatan: Kecamatan[];
     dataSemester: Semester[];
     dataTahun: Year[];
@@ -47,11 +48,10 @@ interface ComponentRenderTableWithProps {
     component: JSX.Element | any;
 }
 
-export interface RenderTabelProps{
+export interface RenderTabelProps {
     nav: string;
     components?: ComponentRenderTableWithProps[];
-}   
-
+}
 
 // interface Props
 export interface Kecamatan {

@@ -49,10 +49,10 @@ export default function TabelKecamatan({
                             onChange={handleSelectAllChange}
                         />
                     </th>
-                    <th className="border-b text-blue-500 text-left w-8 py-2 px-3">
+                    <th className="border-b text-blue-500 text-left w-6 py-2 px-2">
                         ID
                     </th>
-                    <th className="border-b border-r text-blue-500 text-left w-32 py-2 px-3">
+                    <th className="border-b border-r text-blue-500 text-left w-32 py-2 px-2">
                         Kecamatan
                     </th>
                 </tr>
@@ -77,8 +77,8 @@ export default function TabelKecamatan({
                                 }
                             />
                         </td>
-                        <td className="py-1 px-3">{kecamatan.id}</td>
-                        <td className="py-1 px-3 border-r">{kecamatan.nama}</td>
+                        <td className="py-1 px-2">{kecamatan.id}</td>
+                        <td className="py-1 px-2 border-r">{kecamatan.nama}</td>
                     </tr>
                 ))}
             </tbody>
