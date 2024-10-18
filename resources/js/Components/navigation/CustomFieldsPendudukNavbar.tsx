@@ -1,28 +1,11 @@
 import React, { useState, useEffect } from "react";
 
 export default function CustomFieldsPendudukNavbar({ nav, setNav }: any) {
-    // const [nav, setNav] = useState("Kecamatan");
-
     const navOption = [
         { label: "Kecamatan" },
         { label: "Tahun" },
         { label: "Semester" },
     ];
-
-    useEffect(() => {
-        const savedInputFields = localStorage.getItem(
-            "CustomFieldsPendudukNavbar",
-        );
-        if (savedInputFields) {
-            setNav(JSON.parse(savedInputFields));
-        } else {
-            setNav("Kecamatan");
-        }
-    }, []);
-
-    useEffect(() => {
-        localStorage.setItem("CustomFieldsPendudukNavbar", JSON.stringify(nav));
-    }, [nav]);
     return (
         <nav className="mb-2">
             <ul className="w-full h-full flex space-x-2">

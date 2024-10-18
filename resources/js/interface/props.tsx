@@ -42,6 +42,16 @@ export interface CostumInputFieldPendudukLayoutProps{
     dataTahun: Year[];
 }
 
+interface ComponentRenderTableWithProps {
+    label: string;
+    component: JSX.Element | any;
+}
+
+export interface RenderTabelProps{
+    nav: string;
+    components?: ComponentRenderTableWithProps[];
+}   
+
 
 // interface Props
 export interface Kecamatan {

@@ -3,7 +3,7 @@ import AdminTemplate from "@/layouts/AdminTemplate";
 import Pagination from "@/components/navigation/Pagination";
 import TabelJumlahPendudukAdmin from "@/components/display-data/admin/tabel/TabelJumlahPendudukAdmin";
 import TambahPendudukForm from "@/components/form/TambahPendudukForm";
-import CostumInputFieldLayout from "@/components/layouts/edit-tabel-penduduk/custom-input-field-layout/CostumInputFieldPendudukLayout";
+import CostumInputFieldPendudukLayout from "@/components/layouts/edit-tabel-penduduk/custom-input-field-layout/CostumInputFieldPendudukLayout";
 import { useRef, useState, useEffect } from "react";
 
 export default function EditTabel({
@@ -12,19 +12,13 @@ export default function EditTabel({
     dataSemester,
     dataTahun,
 }: EditTabelProps) {
-    const [nav, setNav] = useState("inputData");
+    const [nav, setNav] = useState(() => {
+        const savedNav = localStorage.getItem("EditTabelNav");
+        return savedNav ? savedNav : "inputData";
+    });
 
     useEffect(() => {
-        const savedInputFields = localStorage.getItem("nav");
-        if (savedInputFields) {
-            setNav(JSON.parse(savedInputFields));
-        } else {
-            setNav("inputData");
-        }
-    }, []);
-
-    useEffect(() => {
-        localStorage.setItem("nav", JSON.stringify(nav));
+        localStorage.setItem("EditTabelNav", nav);
     }, [nav]);
     return (
         <AdminTemplate>
@@ -64,7 +58,7 @@ export default function EditTabel({
                             />
                         )}
                         {nav == "customInputData" && (
-                            <CostumInputFieldLayout
+                            <CostumInputFieldPendudukLayout
                                 dataKecamatan={dataKecamatan}
                                 dataSemester={dataSemester}
                                 dataTahun={dataTahun}
