@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\EditTabelController;
+use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -14,6 +15,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('Admin');
 
     Route::get('/tabel/edit', [EditTabelController::class, 'index']);
+    Route::post('/kecamatan/post', [KecamatanController::class, 'store']);
 });
 
 

@@ -2,7 +2,7 @@ import Button from "../action/Button";
 import XCircleIcon from "../icons/XCircleIcon";
 import { handleRemove, handleChange } from "@/hooks/formHooks";
 import { InputItem } from "@/interface/props";
-
+import { router, usePage } from "@inertiajs/react";
 export default function KecamatanForm({
     inputListKecamatan,
     setInputListKecamatan,
@@ -10,8 +10,27 @@ export default function KecamatanForm({
     inputListKecamatan: InputItem[];
     setInputListKecamatan: any;
 }) {
+    const props = usePage().props;
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        // Kirim data ke server
+        router.post(
+            "/kecamatan/post",
+            {
+                kecamatan: inputListKecamatan.map((item) => ({
+                    nama: item.value,
+                })),
+                _token: props.csrf_token as string,
+                // Kirim dengan key `nama`
+            },
+            {
+                onSuccess: setInputListKecamatan([]),
+            },
+        );
+    };
     return (
-        <form action="POST">
+        <form action="POST" onSubmit={handleSubmit}>
             <div className="max-h-[250px] p-2 overflow-y-auto">
                 {inputListKecamatan.map((input, index) => (
                     <div
@@ -61,6 +80,7 @@ export default function KecamatanForm({
                 <div className="flex px-2">
                     <Button
                         type="submit"
+                        onClick={handleSubmit}
                         className="py-1 w-full"
                         color="emerald"
                     >
