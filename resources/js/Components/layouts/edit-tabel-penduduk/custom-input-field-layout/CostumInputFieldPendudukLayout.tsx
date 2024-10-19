@@ -6,7 +6,6 @@ import TabelTahun from "@/components/display-data/admin/tabel/TabelTahun";
 import KecamatanForm from "@/components/form/KecamatanForm";
 import SemesterForm from "@/components/form/SemesterForm";
 import TahunForm from "@/components/form/TahunForm";
-import PlusIcon from "@/components/icons/PlusIcon";
 import CustomInputFieldFormTabelNav from "@/components/navigation/CustomFieldsPendudukNavbar";
 import { CostumInputFieldPendudukLayoutProps } from "@/interface/props";
 import { InputItem } from "@/interface/props";
