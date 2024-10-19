@@ -1,3 +1,5 @@
+import { Kecamatan, Semester, Year } from "./props";
+
 export interface InputField {
     id: number;
     year: string;
@@ -5,4 +7,10 @@ export interface InputField {
     semester: string;
     male: string;
     female: string;
+}
+
+export interface ListSelectedRowsProps {
+    tabelKecamatanRows: Kecamatan[];
+    tabelTahunRows: Year[];
+    tabelSemesterRows: Semester[];
 }

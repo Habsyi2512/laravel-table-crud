@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function TrashIcon({
-    size = 6,
+    
     className,
 }: {
     className?: string;
@@ -14,7 +14,7 @@ export default function TrashIcon({
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className={`size-${size} ${className}`}
+            className={` ${className}`}
         >
             <path
                 strokeLinecap="round"

@@ -1,3 +1,5 @@
+import { ListSelectedRowsProps } from "./inputProps";
+
 // Page Props
 export interface BerandaProps {
     penduduk: Penduduk[];
@@ -60,13 +62,14 @@ export interface CustomFieldsPendudukNavbarProps {
         inputListKecamatan: InputItem[];
         inputListTahun: InputItem[];
         inputListSemester: InputItem[];
+        listSelectedRows:ListSelectedRowsProps;
     };
     setStateList: {
-        setInputListKecamatan: React.Dispatch<
-            React.SetStateAction<InputItem[]>
-        >;
+        setInputListKecamatan: React.Dispatch<React.SetStateAction<InputItem[]>>;
         setInputListTahun: React.Dispatch<React.SetStateAction<InputItem[]>>;
         setInputListSemester: React.Dispatch<React.SetStateAction<InputItem[]>>;
+        
+        setListSelectedRows: React.Dispatch<React.SetStateAction<ListSelectedRowsProps>>
     };
 }
 
@@ -108,7 +111,7 @@ export interface KecData {
     semester2: SemesterData;
 }
 
-export interface InputItem{
+export interface InputItem {
     id: number;
     value: string;
 }

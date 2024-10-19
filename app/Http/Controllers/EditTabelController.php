@@ -20,4 +20,9 @@ class EditTabelController extends Controller
             'dataSemester' => Semester::all(),
         ]);
     }
+
+    public function handleDeleteFieldsJumlahPenduduk(Request $request)
+    {
+        
+    }
 }

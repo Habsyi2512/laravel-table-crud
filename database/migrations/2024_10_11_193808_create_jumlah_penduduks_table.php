@@ -13,24 +13,26 @@ return new class extends Migration
     {
         Schema::create('jumlah_penduduks', function (Blueprint $table) {
             $table->id();
-
-            $table->foreignId('year_id')->constrained(
-                table:'years', column:"id", indexName:'jumlah_penduduks_year_id'
-            );
-
-            $table->foreignId('kecamatan_id')->constrained(
-                table:'kecamatans', column:"id", indexName:'jumlah_penduduks_kecamatan_id'
-            );
-
-            $table->foreignId('semester_id')->constrained(
-                table:'semesters', column:"id", indexName:'jumlah_penduduks_semester_id'
-            );
+        
+            // Foreign key untuk year_id ke tabel years
+            $table->foreignId('year_id')->constrained('years')->onDelete('cascade');
+        
+            // Foreign key untuk kecamatan_id ke tabel kecamatans dengan onDelete cascade
+            $table->foreignId('kecamatan_id')
+                  ->constrained('kecamatans')
+                  ->onDelete('cascade'); // Mengatur cascade delete
+        
+            // Foreign key untuk semester_id ke tabel semesters
+            $table->foreignId('semester_id')->constrained('semesters');
+        
+            // Kolom data lainnya
             $table->integer('laki');
             $table->integer('perempuan');
             $table->integer('total');
-
+        
             $table->timestamps();
         });
+        
     }
 
     /**

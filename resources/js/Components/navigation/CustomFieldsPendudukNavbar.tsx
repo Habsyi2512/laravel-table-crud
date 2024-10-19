@@ -1,20 +1,10 @@
-import { CustomFieldsPendudukNavbarProps } from "@/interface/props";
-import ActionBarButton from "../action/ActionBarButton";
+import { CustomFieldsPendudukNavbarProps } from '@/interface/props';
+import ActionBarButton from '../action/ActionBarButton';
 
-export default function CustomFieldsPendudukNavbar({
-    nav,
-    setNav,
-    stateList,
-    setStateList,
-}: CustomFieldsPendudukNavbarProps) {
-    const navOption = [
-        { label: "Kecamatan" },
-        { label: "Tahun" },
-        { label: "Semester" },
-    ];
-    const { inputListKecamatan, inputListTahun, inputListSemester } = stateList;
-    const { setInputListKecamatan, setInputListSemester, setInputListTahun } =
-        setStateList;
+export default function CustomFieldsPendudukNavbar({ nav, setNav, stateList, setStateList }: CustomFieldsPendudukNavbarProps) {
+    const navOption = [{ label: 'Kecamatan' }, { label: 'Tahun' }, { label: 'Semester' }];
+    const { inputListKecamatan, inputListTahun, inputListSemester, listSelectedRows } = stateList;
+    const { setInputListKecamatan, setInputListSemester, setInputListTahun, setListSelectedRows } = setStateList;
     return (
         <nav className="mb-2 flex w-full">
             <ul className="w-full basis-2/3 h-full flex space-x-2">
@@ -26,7 +16,7 @@ export default function CustomFieldsPendudukNavbar({
                                     e.preventDefault();
                                     setNav(item.label);
                                 }}
-                                className={`text-sm ${nav == item.label ? "bg-blue-500 hover:bg-blue-400 text-white" : "text-blue-500 hover:text-blue-400 border-blue-500 bg-white hover:border-blue-400"} border-b border-r rounded-lg shadow font-medium h-full py-1 px-3`}
+                                className={`text-sm ${nav == item.label ? 'bg-blue-500 hover:bg-blue-400 text-white' : 'text-blue-500 hover:text-blue-400 border-blue-500 bg-white hover:border-blue-400'} border-b border-r rounded-lg shadow font-medium h-full py-1 px-3`}
                             >
                                 {item.label}
                             </button>
@@ -40,11 +30,13 @@ export default function CustomFieldsPendudukNavbar({
                     inputListKecamatan,
                     inputListSemester,
                     inputListTahun,
+                    listSelectedRows,
                 }}
                 setStateList={{
                     setInputListKecamatan,
                     setInputListSemester,
                     setInputListTahun,
+                    setListSelectedRows,
                 }}
             />
         </nav>

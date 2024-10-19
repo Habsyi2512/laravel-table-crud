@@ -28,4 +28,15 @@ class KecamatanController extends Controller
 
     return redirect()->back()->with('success', 'Data kecamatan berhasil disimpan!');
     }
+
+    public function destroy(Request $request)
+    {
+        $ids = $request->input('ids');
+        if (is_array($ids) && count($ids) > 0) {
+            Kecamatan::destroy($ids);
+            return redirect()->back()->with('success', 'Data kecamatan berhasil disimpan!');
+        }
+
+        return response()->json(['message' => 'Tidak ada data yang dipilih untuk dihapus'], 400);
+    }
 }

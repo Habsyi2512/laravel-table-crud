@@ -1,39 +1,47 @@
-import React, { useState } from "react";
-import { Kecamatan } from "@/interface/props";
+import React, { useEffect, useState } from 'react';
+import { Kecamatan } from '@/interface/props';
+import { ListSelectedRowsProps } from '@/interface/inputProps';
 
 export default function TabelKecamatan({
     dataKecamatan,
+    selectedRows,
+    setSelectedRows,
 }: {
     dataKecamatan: Kecamatan[];
+    selectedRows: ListSelectedRowsProps; // Perbarui tipe ini
+    setSelectedRows: React.Dispatch<React.SetStateAction<ListSelectedRowsProps>>;
 }) {
-    // State untuk menyimpan daftar kecamatan yang checkbox-nya dicentang
-    const [selectedRows, setSelectedRows] = useState<number[]>([]);
-    // State untuk menyimpan status checkbox "Select All"
     const [selectAll, setSelectAll] = useState(false);
 
-    // Fungsi untuk meng-handle perubahan checkbox
-    const handleCheckboxChange = (id: number) => {
+    const handleCheckboxChange = (kecamatan: Kecamatan) => {
         setSelectedRows((prevSelectedRows) => {
-            if (prevSelectedRows.includes(id)) {
-                // Jika ID sudah ada, hapus dari daftar
-                return prevSelectedRows.filter((rowId) => rowId !== id);
+            const isSelected = prevSelectedRows.tabelKecamatanRows.some((row) => row.id === kecamatan.id);
+            if (isSelected) {
+                return {
+                    ...prevSelectedRows,
+                    tabelKecamatanRows: prevSelectedRows.tabelKecamatanRows.filter((row) => row.id !== kecamatan.id),
+                };
             } else {
-                // Jika ID belum ada, tambahkan ke daftar
-                return [...prevSelectedRows, id];
+                return {
+                    ...prevSelectedRows,
+                    tabelKecamatanRows: [...prevSelectedRows.tabelKecamatanRows, kecamatan],
+                };
             }
         });
     };
 
-    // Fungsi untuk meng-handle perubahan checkbox "Select All"
     const handleSelectAllChange = () => {
         if (selectAll) {
-            // Jika "Select All" dicentang, hapus semua dari selectedRows
-            setSelectedRows([]);
+            setSelectedRows((prevSelectedRows) => ({
+                ...prevSelectedRows,
+                tabelKecamatanRows: [],
+            }));
         } else {
-            // Jika "Select All" tidak dicentang, tambahkan semua ID ke selectedRows
-            setSelectedRows(dataKecamatan.map((kecamatan) => kecamatan.id));
+            setSelectedRows((prevSelectedRows) => ({
+                ...prevSelectedRows,
+                tabelKecamatanRows: dataKecamatan,
+            }));
         }
-        // Toggle status selectAll
         setSelectAll(!selectAll);
     };
 
@@ -42,40 +50,17 @@ export default function TabelKecamatan({
             <thead>
                 <tr>
                     <th className="border-b text-left w-4 py-1 px-2">
-                        <input
-                            type="checkbox"
-                            className="w-3 h-3 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-transparent"
-                            checked={selectAll}
-                            onChange={handleSelectAllChange}
-                        />
+                        <input type="checkbox" className="w-3 h-3 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-transparent" checked={selectAll} onChange={handleSelectAllChange} />
                     </th>
-                    <th className="border-b text-blue-500 text-left w-6 py-2 px-2">
-                        ID
-                    </th>
-                    <th className="border-b border-r text-blue-500 text-left w-32 py-2 px-2">
-                        Kecamatan
-                    </th>
+                    <th className="border-b text-blue-500 text-left w-6 py-2 px-2">ID</th>
+                    <th className="border-b border-r text-blue-500 text-left w-32 py-2 px-2">Kecamatan</th>
                 </tr>
             </thead>
-            <tbody className="">
+            <tbody>
                 {dataKecamatan.map((kecamatan, index) => (
-                    <tr
-                        key={kecamatan.id}
-                        className={`${
-                            selectedRows.includes(kecamatan.id)
-                                ? "bg-blue-100"
-                                : "bg-white"
-                        } border-b`}
-                    >
+                    <tr key={kecamatan.id} className={`${selectedRows.tabelKecamatanRows.some((row) => row.id === kecamatan.id) ? 'bg-blue-100' : 'bg-white'} border-b`}>
                         <td className="py-1 px-2">
-                            <input
-                                type="checkbox"
-                                className="w-3 h-3 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-transparent"
-                                checked={selectedRows.includes(kecamatan.id)}
-                                onChange={() =>
-                                    handleCheckboxChange(kecamatan.id)
-                                }
-                            />
+                            <input type="checkbox" className="w-3 h-3 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-transparent" checked={selectedRows.tabelKecamatanRows.some((row) => row.id === kecamatan.id)} onChange={() => handleCheckboxChange(kecamatan)} />
                         </td>
                         <td className="py-1 px-2">{index + 1}</td>
                         <td className="py-1 px-2 border-r">{kecamatan.nama}</td>
