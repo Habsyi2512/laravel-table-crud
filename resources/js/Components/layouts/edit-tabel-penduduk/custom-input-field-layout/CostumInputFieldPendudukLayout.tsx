@@ -10,15 +10,14 @@ import PlusIcon from "@/components/icons/PlusIcon";
 import CustomInputFieldFormTabelNav from "@/components/navigation/CustomFieldsPendudukNavbar";
 import { CostumInputFieldPendudukLayoutProps } from "@/interface/props";
 import { InputItem } from "@/interface/props";
-import { useFormHandlers } from "@/hooks/formHooks";
 import React, { useState, useEffect } from "react";
+import { Toaster } from "react-hot-toast";
 
 export default function CostumInputFieldPendudukLayout({
     dataKecamatan,
     dataSemester,
     dataTahun,
 }: CostumInputFieldPendudukLayoutProps) {
-    const { handleAddInput } = useFormHandlers();
     const [nav, setNav] = useState(() => {
         const savedNav = localStorage.getItem("CustomFieldsPendudukNavbar");
         return savedNav ? savedNav : "Kecamatan";
@@ -68,6 +67,7 @@ export default function CostumInputFieldPendudukLayout({
 
     return (
         <div className="w-full h-full relative">
+            <Toaster position="top-center" />
             <div className="sticky w-full top-0 left-0 h-fit">
                 <CustomInputFieldFormTabelNav
                     stateList={{

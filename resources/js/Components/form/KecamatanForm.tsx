@@ -3,6 +3,8 @@ import XCircleIcon from "../icons/XCircleIcon";
 import { handleRemove, handleChange } from "@/hooks/formHooks";
 import { InputItem } from "@/interface/props";
 import { router, usePage } from "@inertiajs/react";
+import toast, { Toaster } from "react-hot-toast";
+
 export default function KecamatanForm({
     inputListKecamatan,
     setInputListKecamatan,
@@ -25,12 +27,17 @@ export default function KecamatanForm({
                 // Kirim dengan key `nama`
             },
             {
-                onSuccess: setInputListKecamatan([]),
+                onSuccess: () => {
+                    setInputListKecamatan([]);
+                    toast.success("Data berhasil disimpan");
+                },
             },
         );
     };
+
     return (
         <form action="POST" onSubmit={handleSubmit}>
+            {/* <button onClick={() => toast("hallo")}>kliik</button> */}
             <div className="max-h-[250px] p-2 overflow-y-auto">
                 {inputListKecamatan.map((input, index) => (
                     <div
