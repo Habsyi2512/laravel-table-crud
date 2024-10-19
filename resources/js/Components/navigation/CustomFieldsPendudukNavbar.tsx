@@ -1,7 +1,5 @@
-import Button from "../action/Button";
-import PlusIcon from "../icons/PlusIcon";
 import { CustomFieldsPendudukNavbarProps } from "@/interface/props";
-import { useFormHandlers } from "@/hooks/formHooks";
+import ActionBarButton from "../action/ActionBarButton";
 
 export default function CustomFieldsPendudukNavbar({
     nav,
@@ -14,8 +12,6 @@ export default function CustomFieldsPendudukNavbar({
         { label: "Tahun" },
         { label: "Semester" },
     ];
-
-    const { handleAddInput } = useFormHandlers();
     const { inputListKecamatan, inputListTahun, inputListSemester } = stateList;
     const { setInputListKecamatan, setInputListSemester, setInputListTahun } =
         setStateList;
@@ -38,51 +34,19 @@ export default function CustomFieldsPendudukNavbar({
                     );
                 })}
             </ul>
-            <ul className="flex gap-x-2 justify-end w-full items-center">
-                <li>hapus</li>
-                <li>edit</li>
-                <li className="flex items-center justify-center">
-                    {nav == "Kecamatan" && (
-                        <Button
-                            onClick={() =>
-                                handleAddInput({
-                                    inputList: inputListKecamatan,
-                                    setInputList: setInputListKecamatan,
-                                })
-                            }
-                            className="w-fit p-.1"
-                        >
-                            <PlusIcon size={5} />
-                        </Button>
-                    )}
-                    {nav == "Tahun" && (
-                        <Button
-                            onClick={() =>
-                                handleAddInput({
-                                    inputList: inputListTahun,
-                                    setInputList: setInputListTahun,
-                                })
-                            }
-                            className="w-fit p-.1"
-                        >
-                            <PlusIcon size={5} />
-                        </Button>
-                    )}
-                    {nav == "Semester" && (
-                        <Button
-                            onClick={() =>
-                                handleAddInput({
-                                    inputList: inputListSemester,
-                                    setInputList: setInputListSemester,
-                                })
-                            }
-                            className="w-fit p-.1"
-                        >
-                            <PlusIcon size={5} />
-                        </Button>
-                    )}
-                </li>
-            </ul>
+            <ActionBarButton
+                nav={nav}
+                stateList={{
+                    inputListKecamatan,
+                    inputListSemester,
+                    inputListTahun,
+                }}
+                setStateList={{
+                    setInputListKecamatan,
+                    setInputListSemester,
+                    setInputListTahun,
+                }}
+            />
         </nav>
     );
 }

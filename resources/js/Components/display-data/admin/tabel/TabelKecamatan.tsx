@@ -58,7 +58,7 @@ export default function TabelKecamatan({
                 </tr>
             </thead>
             <tbody className="">
-                {dataKecamatan.map((kecamatan) => (
+                {dataKecamatan.map((kecamatan, index) => (
                     <tr
                         key={kecamatan.id}
                         className={`${
@@ -77,7 +77,7 @@ export default function TabelKecamatan({
                                 }
                             />
                         </td>
-                        <td className="py-1 px-2">{kecamatan.id}</td>
+                        <td className="py-1 px-2">{index + 1}</td>
                         <td className="py-1 px-2 border-r">{kecamatan.nama}</td>
                     </tr>
                 ))}

@@ -53,7 +53,7 @@ export default function TabelTahun({ dataTahun }: { dataTahun: Year[] }) {
                 </tr>
             </thead>
             <tbody className="">
-                {dataTahun.map((tahun) => (
+                {dataTahun.map((tahun, index) => (
                     <tr
                         key={tahun.id}
                         className={`${
@@ -70,7 +70,7 @@ export default function TabelTahun({ dataTahun }: { dataTahun: Year[] }) {
                                 onChange={() => handleCheckboxChange(tahun.id)}
                             />
                         </td>
-                        <td className="py-1 px-3">{tahun.id}</td>
+                        <td className="py-1 px-3">{index+1}</td>
                         <td className="py-1 px-3 border-r">{tahun.tahun}</td>
                     </tr>
                 ))}

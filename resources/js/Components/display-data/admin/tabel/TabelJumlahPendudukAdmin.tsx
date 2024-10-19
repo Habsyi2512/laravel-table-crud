@@ -17,10 +17,6 @@ export default function TabelJumlahPendudukAdmin() {
     const dataMap: Penduduk[] = dataPenduduk.data;
     const current_page = dataPenduduk.current_page;
     const per_page = dataPenduduk.per_page;
-    useEffect(() => {
-        console.log("curr Page = ", current_page);
-        console.log("Per Page = ", per_page);
-    });
 
     return (
         <div className="overflow-y-hidden relative">

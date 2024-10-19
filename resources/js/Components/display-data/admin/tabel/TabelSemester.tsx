@@ -57,7 +57,7 @@ export default function TabelSemester({
                 </tr>
             </thead>
             <tbody className="">
-                {dataSemester.map((item) => (
+                {dataSemester.map((item, index) => (
                     <tr
                         key={item.id}
                         className={`${
@@ -74,7 +74,7 @@ export default function TabelSemester({
                                 onChange={() => handleCheckboxChange(item.id)}
                             />
                         </td>
-                        <td className="py-1 px-3">{item.id}</td>
+                        <td className="py-1 px-3">{index+1}</td>
                         <td className="py-1 px-3 border-r">{item.semester}</td>
                     </tr>
                 ))}
