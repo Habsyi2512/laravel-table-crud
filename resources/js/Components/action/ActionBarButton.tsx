@@ -25,17 +25,13 @@ interface ActionBarButtonProps {
 }
 
 export default function ActionBarButton({ nav, stateList, setStateList }: ActionBarButtonProps) {
-    const [length, setLength] = useState(stateList.listSelectedRows.tabelKecamatanRows.length);
-    useEffect(() => {
-        console.log('panjang select baris kecamatan ?', length);
-    }, [length]);
     const { inputListKecamatan, inputListTahun, inputListSemester, listSelectedRows } = stateList;
     const { setInputListKecamatan, setInputListSemester, setInputListTahun, setListSelectedRows } = setStateList;
     const data = { nav: nav, stateList: { inputListKecamatan, inputListTahun, inputListSemester }, setStateList: { setInputListKecamatan, setInputListTahun, setInputListSemester } };
     return (
         <ul className="flex gap-x-2 justify-end w-full items-center">
             <ActionBarButtonDelete nav={nav} stateList={listSelectedRows} setListSelected={setListSelectedRows} />
-            <ActionBarButtonEdit />
+            <ActionBarButtonEdit nav={nav} stateList={listSelectedRows} setListSelected={setListSelectedRows}/>
             <ActionBarButtonAdd data={data} />
         </ul>
     );

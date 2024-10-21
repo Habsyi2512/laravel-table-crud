@@ -3,8 +3,6 @@ import ActionBarButton from '../action/ActionBarButton';
 
 export default function CustomFieldsPendudukNavbar({ nav, setNav, stateList, setStateList }: CustomFieldsPendudukNavbarProps) {
     const navOption = [{ label: 'Kecamatan' }, { label: 'Tahun' }, { label: 'Semester' }];
-    const { inputListKecamatan, inputListTahun, inputListSemester, listSelectedRows } = stateList;
-    const { setInputListKecamatan, setInputListSemester, setInputListTahun, setListSelectedRows } = setStateList;
     return (
         <nav className="mb-2 flex w-full">
             <ul className="w-full basis-2/3 h-full flex space-x-2">
