@@ -12,38 +12,33 @@ export default function TabelKecamatan({
     setSelectedRows: React.Dispatch<React.SetStateAction<ListSelectedRowsProps>>;
 }) {
     const [selectAll, setSelectAll] = useState(false);
-    const [lengthRows, setLengthRows] = useState(selectedRows.tabelKecamatanRows.length);
-    useEffect(() => {
-        setLengthRows(selectedRows.tabelKecamatanRows.length);
-        console.log('length kecamatan= ', lengthRows);
-    }, [selectedRows.tabelKecamatanRows.length]);
     const handleCheckboxChange = (kecamatan: Kecamatan) => {
         setSelectedRows((prevSelectedRows) => {
             const isSelected = prevSelectedRows.tabelKecamatanRows.some((row) => row.id === kecamatan.id);
-            if (isSelected) {
-                return {
-                    ...prevSelectedRows,
-                    tabelKecamatanRows: prevSelectedRows.tabelKecamatanRows.filter((row) => row.id !== kecamatan.id),
-                };
-            } else {
-                return {
-                    ...prevSelectedRows,
-                    tabelKecamatanRows: [...prevSelectedRows.tabelKecamatanRows, kecamatan],
-                };
-            }
+            const updatedRows = isSelected ? prevSelectedRows.tabelKecamatanRows.filter((row) => row.id !== kecamatan.id) : [...prevSelectedRows.tabelKecamatanRows, kecamatan];
+
+            return {
+                ...prevSelectedRows,
+                tabelKecamatanRows: updatedRows,
+                length: updatedRows.length, // Update length correctly
+            };
         });
     };
 
     const handleSelectAllChange = () => {
         if (selectAll) {
+            // If deselecting all
             setSelectedRows((prevSelectedRows) => ({
                 ...prevSelectedRows,
                 tabelKecamatanRows: [],
+                length: 0, // Set length to 0
             }));
         } else {
+            // If selecting all
             setSelectedRows((prevSelectedRows) => ({
                 ...prevSelectedRows,
                 tabelKecamatanRows: dataKecamatan,
+                length: dataKecamatan.length, // Set length to the number of all rows
             }));
         }
         setSelectAll(!selectAll);

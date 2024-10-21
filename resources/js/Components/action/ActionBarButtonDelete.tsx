@@ -12,14 +12,6 @@ interface ActionBarButtonDeleteProps {
 }
 
 export default function ActionBarButtonDelete({ nav, stateList, setListSelected }: ActionBarButtonDeleteProps) {
-    const [condition, setCondition] = useState<boolean>(nav == 'Kecamatan'); // Awalnya false
-
-    useEffect(() => {
-        setCondition(nav == 'Kecamatan');
-        // console.log('panjang tabel list tabel kecamaatn', stateList.tabelKecamatanRows.length);
-        console.log('kondisi nav = ', condition);
-    }, [nav]);
-
     const handleClick = () => {
         let routeUrl = '';
         let selectedIds = [];
@@ -48,41 +40,61 @@ export default function ActionBarButtonDelete({ nav, stateList, setListSelected 
                 data: { ids: selectedIds },
                 onSuccess: () => {
                     toast.success('Data Berhasil Dihapus');
+
+                    // Update state setelah penghapusan
+                    setListSelected((prevList) => {
+                        let updatedState;
+                        switch (nav) {
+                            case 'Kecamatan':
+                                updatedState = {
+                                    ...prevList,
+                                    tabelKecamatanRows: prevList.tabelKecamatanRows.filter((row) => !selectedIds.includes(row.id)),
+                                };
+                                break;
+                            case 'Tahun':
+                                updatedState = {
+                                    ...prevList,
+                                    tabelTahunRows: prevList.tabelTahunRows.filter((row) => !selectedIds.includes(row.id)),
+                                };
+                                break;
+                            case 'Semester':
+                                updatedState = {
+                                    ...prevList,
+                                    tabelSemesterRows: prevList.tabelSemesterRows.filter((row) => !selectedIds.includes(row.id)),
+                                };
+                                break;
+                            default:
+                                updatedState = prevList;
+                        }
+
+                        // Setelah penghapusan, atur length menjadi 0
+                        return {
+                            ...updatedState,
+                            length: 0,
+                        };
+                    });
                 },
             }); // Mengirimkan permintaan DELETE
         }
-
-        // Update state setelah penghapusan
-        setListSelected((prevList) => {
-            switch (nav) {
-                case 'Kecamatan':
-                    return {
-                        ...prevList,
-                        tabelKecamatanRows: prevList.tabelKecamatanRows.filter((row) => !selectedIds.includes(row.id)),
-                    };
-                case 'Tahun':
-                    return {
-                        ...prevList,
-                        tabelTahunRows: prevList.tabelTahunRows.filter((row) => !selectedIds.includes(row.id)),
-                    };
-                case 'Semester':
-                    return {
-                        ...prevList,
-                        tabelSemesterRows: prevList.tabelSemesterRows.filter((row) => !selectedIds.includes(row.id)),
-                    };
-                default:
-                    return prevList;
-            }
-        });
     };
-
-    // Update kondisi setiap kali stateList berubah
 
     return (
         <li>
-            <Button onClick={handleClick} disabled={false} active={true} className="w-7 h-7 flex items-center justify-center">
-                <TrashIcon className="w-4 h-4" />
-            </Button>
+            {nav == 'Kecamatan' && (
+                <Button onClick={handleClick} disabled={stateList.length == 0} active={stateList.length > 0} className="w-7 h-7 flex items-center justify-center">
+                    <TrashIcon className="w-4 h-4" />
+                </Button>
+            )}
+            {nav == 'Tahun' && (
+                <Button onClick={handleClick} disabled={stateList.length == 0} active={stateList.length > 0} className="w-7 h-7 flex items-center justify-center">
+                    <TrashIcon className="w-4 h-4" />
+                </Button>
+            )}
+            {nav == 'Semester' && (
+                <Button onClick={handleClick} disabled={stateList.length == 0} active={stateList.length > 0} className="w-7 h-7 flex items-center justify-center">
+                    <TrashIcon className="w-4 h-4" />
+                </Button>
+            )}
         </li>
     );
 }
