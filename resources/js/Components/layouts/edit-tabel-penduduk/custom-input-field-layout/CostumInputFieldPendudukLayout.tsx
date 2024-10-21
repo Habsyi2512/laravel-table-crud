@@ -14,7 +14,7 @@ import React, { useState, useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 
 export default function CostumInputFieldPendudukLayout({ dataKecamatan, dataSemester, dataTahun }: CostumInputFieldPendudukLayoutProps) {
-    const [listSelectedRows, setListSelectedRows] = useState<ListSelectedRowsProps>({ tabelKecamatanRows: [], tabelSemesterRows: [], tabelTahunRows: [], length: 0 });
+    const [listSelectedRows, setListSelectedRows] = useState<ListSelectedRowsProps>({ tabelKecamatanRows: [], tabelSemesterRows: [], tabelTahunRows: [], length: {kecamatan:0,tahun:0,semester:0} });
     useEffect(() => {
         console.log('panjang = ', listSelectedRows.length);
     }, [listSelectedRows.length]);

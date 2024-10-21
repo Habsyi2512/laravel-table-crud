@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { router } from '@inertiajs/react'; // Import inertia router
+import React from 'react';
+import { router } from '@inertiajs/react';
 import TrashIcon from '../icons/TrashIcon';
 import Button from './Button';
 import { ListSelectedRowsProps } from '@/interface/inputProps';
@@ -34,14 +34,12 @@ export default function ActionBarButtonDelete({ nav, stateList, setListSelected 
                 break;
         }
 
-        // Hapus item yang dipilih di state
         if (selectedIds.length > 0) {
             router.delete(routeUrl, {
                 data: { ids: selectedIds },
                 onSuccess: () => {
                     toast.success('Data Berhasil Dihapus');
 
-                    // Update state setelah penghapusan
                     setListSelected((prevList) => {
                         let updatedState;
                         switch (nav) {
@@ -49,52 +47,65 @@ export default function ActionBarButtonDelete({ nav, stateList, setListSelected 
                                 updatedState = {
                                     ...prevList,
                                     tabelKecamatanRows: prevList.tabelKecamatanRows.filter((row) => !selectedIds.includes(row.id)),
+                                    length: {
+                                        ...prevList.length,
+                                        kecamatan: prevList.tabelKecamatanRows.filter((row) => !selectedIds.includes(row.id)).length,
+                                    },
                                 };
                                 break;
                             case 'Tahun':
                                 updatedState = {
                                     ...prevList,
                                     tabelTahunRows: prevList.tabelTahunRows.filter((row) => !selectedIds.includes(row.id)),
+                                    length: {
+                                        ...prevList.length,
+                                        tahun: prevList.tabelTahunRows.filter((row) => !selectedIds.includes(row.id)).length,
+                                    },
                                 };
                                 break;
                             case 'Semester':
                                 updatedState = {
                                     ...prevList,
                                     tabelSemesterRows: prevList.tabelSemesterRows.filter((row) => !selectedIds.includes(row.id)),
+                                    length: {
+                                        ...prevList.length,
+                                        semester: prevList.tabelSemesterRows.filter((row) => !selectedIds.includes(row.id)).length,
+                                    },
                                 };
                                 break;
                             default:
                                 updatedState = prevList;
                         }
 
-                        // Setelah penghapusan, atur length menjadi 0
-                        return {
-                            ...updatedState,
-                            length: 0,
-                        };
+                        return updatedState;
                     });
                 },
-            }); // Mengirimkan permintaan DELETE
+            });
         }
     };
 
     return (
         <li>
-            {nav == 'Kecamatan' && (
-                <Button onClick={handleClick} disabled={stateList.length == 0} active={stateList.length > 0} className="w-7 h-7 flex items-center justify-center">
-                    <TrashIcon className="w-4 h-4" />
-                </Button>
-            )}
-            {nav == 'Tahun' && (
-                <Button onClick={handleClick} disabled={stateList.length == 0} active={stateList.length > 0} className="w-7 h-7 flex items-center justify-center">
-                    <TrashIcon className="w-4 h-4" />
-                </Button>
-            )}
-            {nav == 'Semester' && (
-                <Button onClick={handleClick} disabled={stateList.length == 0} active={stateList.length > 0} className="w-7 h-7 flex items-center justify-center">
-                    <TrashIcon className="w-4 h-4" />
-                </Button>
-            )}
+            <Button
+                onClick={handleClick}
+                disabled={
+                    nav === 'Kecamatan'
+                        ? stateList.length.kecamatan === 0
+                        : nav === 'Tahun'
+                        ? stateList.length.tahun === 0
+                        : stateList.length.semester === 0
+                }
+                active={
+                    nav === 'Kecamatan'
+                        ? stateList.length.kecamatan > 0
+                        : nav === 'Tahun'
+                        ? stateList.length.tahun > 0
+                        : stateList.length.semester > 0
+                }
+                className="w-7 h-7 flex items-center justify-center"
+            >
+                <TrashIcon className="w-4 h-4" />
+            </Button>
         </li>
     );
 }

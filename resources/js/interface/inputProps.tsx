@@ -13,5 +13,9 @@ export interface ListSelectedRowsProps {
     tabelKecamatanRows: Kecamatan[];
     tabelTahunRows: Year[];
     tabelSemesterRows: Semester[];
-    length: number;
+    length: {
+        kecamatan: number;
+        tahun: number;
+        semester: number;
+    };
 }
