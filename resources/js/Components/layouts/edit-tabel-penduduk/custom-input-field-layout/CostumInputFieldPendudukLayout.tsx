@@ -10,14 +10,15 @@ import CustomFieldsPendudukNavbar from '@/components/navigation/CustomFieldsPend
 import { ListSelectedRowsProps } from '@/interface/inputProps';
 import { CostumInputFieldPendudukLayoutProps, Kecamatan, Semester, Year } from '@/interface/props';
 import { InputItem } from '@/interface/props';
-import React, { useState, useEffect } from 'react';
-import { Toaster } from 'react-hot-toast';
+import { useState, useEffect } from 'react';
+;
 
 export default function CostumInputFieldPendudukLayout({ dataKecamatan, dataSemester, dataTahun }: CostumInputFieldPendudukLayoutProps) {
-    const [listSelectedRows, setListSelectedRows] = useState<ListSelectedRowsProps>({ tabelKecamatanRows: [], tabelSemesterRows: [], tabelTahunRows: [], length: {kecamatan:0,tahun:0,semester:0} });
-    useEffect(() => {
-        console.log('panjang = ', listSelectedRows.length);
-    }, [listSelectedRows.length]);
+    const [listSelectedRows, setListSelectedRows] = useState<ListSelectedRowsProps>(() => {
+        const savedList = localStorage.getItem('listSelectedRows');
+        return savedList ? JSON.parse(savedList) : { tabelKecamatanRows: [], tabelSemesterRows: [], tabelTahunRows: [], length: { kecamatan: 0, tahun: 0, semester: 0 } };
+    });
+
     const [nav, setNav] = useState(() => {
         const savedNav = localStorage.getItem('CustomFieldsPendudukNavbar');
         return savedNav ? savedNav : 'Kecamatan';
@@ -34,6 +35,11 @@ export default function CostumInputFieldPendudukLayout({ dataKecamatan, dataSeme
         const saveList = localStorage.getItem('inputSemesterList');
         return saveList ? [...JSON.parse(saveList)] : [];
     });
+
+    // handle listSelectedRows
+    useEffect(() => {
+        localStorage.setItem('listSelectedRows', JSON.stringify(listSelectedRows));
+    }, [listSelectedRows]);
 
     // handle nav
     useEffect(() => {
@@ -57,7 +63,6 @@ export default function CostumInputFieldPendudukLayout({ dataKecamatan, dataSeme
 
     return (
         <div className="w-full h-full relative">
-            <Toaster position="top-center" />
             <div className="sticky w-full top-0 left-0 h-fit">
                 <CustomFieldsPendudukNavbar
                     stateList={{

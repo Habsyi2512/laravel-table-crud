@@ -4,7 +4,6 @@ import { Link } from "@inertiajs/react";
 export default function Adminn() {
     return (
         <AdminTemplate>
-           
             <section className="py-4 gap-2 md:gap-3 lg:gap-4 xl:gap-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 <Link
                     href="/tabel/edit"

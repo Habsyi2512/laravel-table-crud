@@ -1,24 +1,28 @@
-import Button from "../action/Button";
-import XCircleIcon from "../icons/XCircleIcon";
-import { handleRemove, handleChange } from "@/hooks/formHooks";
-import { InputItem } from "@/interface/props";
-import { router, usePage } from "@inertiajs/react";
-import toast from "react-hot-toast";
+import Button from '../action/Button';
+import XCircleIcon from '../icons/XCircleIcon';
+import { handleRemove, handleChange } from '@/hooks/formHooks';
+import { InputItem } from '@/interface/props';
+import { router, usePage } from '@inertiajs/react';
+import { useEffect, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
+interface FlashMessages {
+    message?: string;
+}
 
-export default function KecamatanForm({
-    inputListKecamatan,
-    setInputListKecamatan,
-}: {
-    inputListKecamatan: InputItem[];
-    setInputListKecamatan: any;
-}) {
-    const props = usePage().props;
+interface Props {
+    flash: FlashMessages;
+    csrf_token: string; // Menambahkan csrf_token ke dalam tipe props
+}
+
+export default function KecamatanForm({ inputListKecamatan, setInputListKecamatan }: { inputListKecamatan: InputItem[]; setInputListKecamatan: any }) {
+    const { props } = usePage() as unknown as { props: Props };
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
         // Kirim data ke server
         router.post(
-            "/kecamatan/post",
+            '/kecamatan/post',
             {
                 kecamatan: inputListKecamatan.map((item) => ({
                     nama: item.value,
@@ -29,7 +33,6 @@ export default function KecamatanForm({
             {
                 onSuccess: () => {
                     setInputListKecamatan([]);
-                    toast.success("Data berhasil disimpan");
                 },
             },
         );
@@ -39,14 +42,8 @@ export default function KecamatanForm({
         <form action="POST" onSubmit={handleSubmit}>
             <div className="max-h-[250px] p-2 overflow-y-auto">
                 {inputListKecamatan.map((input, index) => (
-                    <div
-                        key={input.id}
-                        className="relative w-full px-3 focus-within:border-blue-500 rounded-lg border mb-3 flex gap-x-2 items-center"
-                    >
-                        <label
-                            htmlFor={`nama-kec-${input.id}`}
-                            className="block text-sm font-medium text-gray-500"
-                        >
+                    <div key={input.id} className="relative w-full px-3 focus-within:border-blue-500 rounded-lg border mb-3 flex gap-x-2 items-center">
+                        <label htmlFor={`nama-kec-${input.id}`} className="block text-sm font-medium text-gray-500">
                             {index + 1}.
                         </label>
                         <input
@@ -74,22 +71,14 @@ export default function KecamatanForm({
                             }
                             className="absolute -right-1 -top-2 cursor-pointer"
                         >
-                            <XCircleIcon
-                                size={5}
-                                className="text-white transition-colors duration-150 bg-gray-200 hover:bg-red-500 rounded-full text-sm"
-                            />
+                            <XCircleIcon size={5} className="text-white transition-colors duration-150 bg-gray-200 hover:bg-red-500 rounded-full text-sm" />
                         </span>
                     </div>
                 ))}
             </div>
             {inputListKecamatan.length > 0 && (
                 <div className="flex px-2">
-                    <Button
-                        type="submit"
-                        onClick={handleSubmit}
-                        className="py-1 w-full"
-                        color="emerald"
-                    >
+                    <Button type="submit" onClick={handleSubmit} className="py-1 w-full" color="emerald">
                         Simpan
                     </Button>
                 </div>

@@ -26,7 +26,9 @@ class KecamatanController extends Controller
     // Simpan data ke database
     Kecamatan::insert($dataToInsert);
 
-    return redirect()->back()->with('success', 'Data kecamatan berhasil disimpan!');
+    return back()->with([
+        'message' => 'Todo berhasil diupdate brohh',
+    ]);
     }
 
     public function destroy(Request $request)
