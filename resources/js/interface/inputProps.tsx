@@ -1,4 +1,4 @@
-import { Kecamatan, Semester, Year } from "./props";
+import { Kecamatan, Semester, Year } from './props';
 
 export interface InputField {
     id: number;

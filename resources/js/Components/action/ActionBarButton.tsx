@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from './Button';
 import { useFormHandlers } from '@/hooks/formHooks';
 import { InputItem, Kecamatan, Semester, Year } from '@/interface/props';
@@ -25,6 +25,10 @@ interface ActionBarButtonProps {
 }
 
 export default function ActionBarButton({ nav, stateList, setStateList }: ActionBarButtonProps) {
+    const [length, setLength] = useState(stateList.listSelectedRows.tabelKecamatanRows.length);
+    useEffect(() => {
+        console.log('panjang select baris kecamatan ?', length);
+    }, [length]);
     const { inputListKecamatan, inputListTahun, inputListSemester, listSelectedRows } = stateList;
     const { setInputListKecamatan, setInputListSemester, setInputListTahun, setListSelectedRows } = setStateList;
     const data = { nav: nav, stateList: { inputListKecamatan, inputListTahun, inputListSemester }, setStateList: { setInputListKecamatan, setInputListTahun, setInputListSemester } };

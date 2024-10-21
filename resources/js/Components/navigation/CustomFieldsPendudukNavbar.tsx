@@ -26,18 +26,8 @@ export default function CustomFieldsPendudukNavbar({ nav, setNav, stateList, set
             </ul>
             <ActionBarButton
                 nav={nav}
-                stateList={{
-                    inputListKecamatan,
-                    inputListSemester,
-                    inputListTahun,
-                    listSelectedRows,
-                }}
-                setStateList={{
-                    setInputListKecamatan,
-                    setInputListSemester,
-                    setInputListTahun,
-                    setListSelectedRows,
-                }}
+                stateList={stateList}
+                setStateList={setStateList}
             />
         </nav>
     );

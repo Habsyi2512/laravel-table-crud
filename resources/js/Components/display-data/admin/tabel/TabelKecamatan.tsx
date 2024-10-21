@@ -12,7 +12,11 @@ export default function TabelKecamatan({
     setSelectedRows: React.Dispatch<React.SetStateAction<ListSelectedRowsProps>>;
 }) {
     const [selectAll, setSelectAll] = useState(false);
-
+    const [lengthRows, setLengthRows] = useState(selectedRows.tabelKecamatanRows.length);
+    useEffect(() => {
+        setLengthRows(selectedRows.tabelKecamatanRows.length);
+        console.log('length kecamatan= ', lengthRows);
+    }, [selectedRows.tabelKecamatanRows.length]);
     const handleCheckboxChange = (kecamatan: Kecamatan) => {
         setSelectedRows((prevSelectedRows) => {
             const isSelected = prevSelectedRows.tabelKecamatanRows.some((row) => row.id === kecamatan.id);

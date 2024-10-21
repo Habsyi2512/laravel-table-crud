@@ -12,7 +12,13 @@ interface ActionBarButtonDeleteProps {
 }
 
 export default function ActionBarButtonDelete({ nav, stateList, setListSelected }: ActionBarButtonDeleteProps) {
-    const [condition, setCondition] = useState<boolean>(false); // Awalnya false
+    const [condition, setCondition] = useState<boolean>(nav == 'Kecamatan'); // Awalnya false
+
+    useEffect(() => {
+        setCondition(nav == 'Kecamatan');
+        // console.log('panjang tabel list tabel kecamaatn', stateList.tabelKecamatanRows.length);
+        console.log('kondisi nav = ', condition);
+    }, [nav]);
 
     const handleClick = () => {
         let routeUrl = '';
@@ -71,20 +77,10 @@ export default function ActionBarButtonDelete({ nav, stateList, setListSelected 
     };
 
     // Update kondisi setiap kali stateList berubah
-    useEffect(() => {
-        // Cek semua tabel untuk kondisi
-        const isNotEmpty = stateList.tabelKecamatanRows.length > 0 ||
-                           stateList.tabelTahunRows.length > 0 ||
-                           stateList.tabelSemesterRows.length > 0;
-        setCondition(isNotEmpty);
-        
-        console.log('panjang kecamatan = ', stateList.tabelKecamatanRows.length);
-        console.log('panjang kecamatan lebih dari 0 = ', isNotEmpty);
-    }, [stateList]); // Mengamati semua perubahan pada stateList
 
     return (
         <li>
-            <Button onClick={handleClick} disabled={!condition} active={condition} className="w-7 h-7 flex items-center justify-center">
+            <Button onClick={handleClick} disabled={false} active={true} className="w-7 h-7 flex items-center justify-center">
                 <TrashIcon className="w-4 h-4" />
             </Button>
         </li>
