@@ -18,12 +18,12 @@ class DatabaseSeeder extends Seeder
     {
         // Seed semester
         foreach (['Semester 1', 'Semester 2'] as $semester) {
-            Semester::create(['semester' => $semester]);
+            Semester::create(['nama' => $semester]);
         }
 
         // Seed years from 2018 to 2024
         for ($year = 2018; $year <= 2024; $year++) {
-            Year::create(['tahun' => (string)$year]);
+            Year::create(['nama' => (string)$year]);
         }
 
         // Seed kecamatan

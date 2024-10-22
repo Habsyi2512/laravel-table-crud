@@ -1,4 +1,4 @@
-import { ListSelectedRowsProps } from "./inputProps";
+import { ListSelectedRowsProps } from './inputProps';
 
 // Page Props
 export interface BerandaProps {
@@ -57,20 +57,25 @@ export interface RenderTabelProps {
 
 export interface CustomFieldsPendudukNavbarProps {
     nav: string;
-    setNav: any;
+    setNav: React.Dispatch<React.SetStateAction<string>>;
+    setEditMode: React.Dispatch<React.SetStateAction<EditModeProps>>;
     stateList: {
         inputListKecamatan: InputItem[];
         inputListTahun: InputItem[];
         inputListSemester: InputItem[];
-        listSelectedRows:ListSelectedRowsProps;
+        listSelectedRows: ListSelectedRowsProps;
     };
     setStateList: {
         setInputListKecamatan: React.Dispatch<React.SetStateAction<InputItem[]>>;
         setInputListTahun: React.Dispatch<React.SetStateAction<InputItem[]>>;
         setInputListSemester: React.Dispatch<React.SetStateAction<InputItem[]>>;
-        
-        setListSelectedRows: React.Dispatch<React.SetStateAction<ListSelectedRowsProps>>
+        setListSelectedRows: React.Dispatch<React.SetStateAction<ListSelectedRowsProps>>;
     };
+}
+export interface EditModeProps {
+    kecamatan: boolean;
+    tahun: boolean;
+    semester: boolean;
 }
 
 // interface Props
@@ -80,12 +85,12 @@ export interface Kecamatan {
 }
 export interface Semester {
     id: any;
-    semester: string;
+    nama: string;
 }
 
 export interface Year {
     id: any;
-    tahun: string;
+    nama: string;
 }
 
 export interface Penduduk {
@@ -113,5 +118,5 @@ export interface KecData {
 
 export interface InputItem {
     id: number;
-    value: string;
+    nama: string;
 }

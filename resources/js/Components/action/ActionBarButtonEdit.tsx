@@ -2,16 +2,21 @@ import React from 'react';
 import Button from './Button';
 import PencilIcon from '../icons/PencilIcon';
 import { ListSelectedRowsProps } from '@/interface/inputProps';
+import { EditModeProps } from '@/interface/props';
 
 interface ActionBarButtonEditProps {
     nav: string;
     stateList: ListSelectedRowsProps;
     setListSelected: React.Dispatch<React.SetStateAction<ListSelectedRowsProps>>;
+    setEditMode: React.Dispatch<React.SetStateAction<EditModeProps>>;
 }
 
-export default function ActionBarButtonEdit({ nav, stateList, setListSelected }: ActionBarButtonEditProps) {
+export default function ActionBarButtonEdit({ nav, stateList, setListSelected, setEditMode }: ActionBarButtonEditProps) {
     const handleClick = () => {
-        alert('button clicked!');
+        setEditMode((prevState) => ({
+            ...prevState,
+            [nav.toLowerCase()]: true,
+        }));
     };
     return (
         <li>

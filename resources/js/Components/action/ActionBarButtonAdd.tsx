@@ -1,55 +1,45 @@
-import React, { useState, useEffect } from "react";
-import PlusIcon from "../icons/PlusIcon";
-import Button from "./Button";
-import { useFormHandlers } from "@/hooks/formHooks";
-import { InputItem } from "@/interface/props";
+import React, { useState, useEffect } from 'react';
+import PlusIcon from '../icons/PlusIcon';
+import Button from './Button';
+import { useFormHandlers } from '@/hooks/formHooks';
+import { InputItem, Kecamatan, Semester, Year } from '@/interface/props';
 
 interface ActionBarButtonAddProps {
     nav: string;
     stateList: {
-        inputListKecamatan: InputItem[];
-        inputListTahun: InputItem[];
-        inputListSemester: InputItem[];
+        inputListKecamatan: Kecamatan[];
+        inputListTahun: Year[];
+        inputListSemester: Semester[];
     };
     setStateList: {
-        setInputListKecamatan: React.Dispatch<
-            React.SetStateAction<InputItem[]>
-        >;
-        setInputListTahun: React.Dispatch<React.SetStateAction<InputItem[]>>;
-        setInputListSemester: React.Dispatch<React.SetStateAction<InputItem[]>>;
+        setInputListKecamatan: React.Dispatch<React.SetStateAction<Kecamatan[]>>;
+        setInputListTahun: React.Dispatch<React.SetStateAction<Year[]>>;
+        setInputListSemester: React.Dispatch<React.SetStateAction<Semester[]>>;
     };
 }
 
-export default function ActionBarButtonAdd({
-    data,
-}: {
-    data: ActionBarButtonAddProps;
-}) {
+export default function ActionBarButtonAdd({ data }: { data: ActionBarButtonAddProps }) {
     const { handleAddInput } = useFormHandlers();
     const { nav } = data;
-    const { inputListKecamatan, inputListTahun, inputListSemester } =
-        data.stateList;
-    const { setInputListKecamatan, setInputListSemester, setInputListTahun } =
-        data.setStateList;
+    const { inputListKecamatan, inputListTahun, inputListSemester } = data.stateList;
+    const { setInputListKecamatan, setInputListSemester, setInputListTahun } = data.setStateList;
 
     // State untuk menyimpan inputList dan setInputList dinamis
-    const [inputList, setInputList] = useState<InputItem[]>([]);
-    const [setInputListHandler, setSetInputListHandler] = useState<
-        React.Dispatch<React.SetStateAction<InputItem[]>>
-    >(() => () => {});
+    const [inputList, setInputList] = useState<Kecamatan[]>([]);
+    const [setInputListHandler, setSetInputListHandler] = useState<React.Dispatch<React.SetStateAction<InputItem[]>>>(() => () => {});
 
     // Mengubah inputList dan setInputList sesuai dengan nav
     useEffect(() => {
         switch (nav) {
-            case "Kecamatan":
+            case 'Kecamatan':
                 setInputList(inputListKecamatan);
                 setSetInputListHandler(() => setInputListKecamatan);
                 break;
-            case "Tahun":
+            case 'Tahun':
                 setInputList(inputListTahun);
                 setSetInputListHandler(() => setInputListTahun);
                 break;
-            case "Semester":
+            case 'Semester':
                 setInputList(inputListSemester);
                 setSetInputListHandler(() => setInputListSemester);
                 break;

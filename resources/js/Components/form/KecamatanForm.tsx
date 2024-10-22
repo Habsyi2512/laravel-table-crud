@@ -1,10 +1,10 @@
+import { ListSelectedRowsProps } from '@/interface/inputProps';
 import Button from '../action/Button';
 import XCircleIcon from '../icons/XCircleIcon';
-import { handleRemove, handleChange } from '@/hooks/formHooks';
-import { InputItem } from '@/interface/props';
+import { useFormHandlers } from '@/hooks/formHooks';
+import { EditModeProps, Kecamatan } from '@/interface/props';
 import { router, usePage } from '@inertiajs/react';
-import { useEffect, useState } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
+import React, { useEffect, useState } from 'react';
 interface FlashMessages {
     message?: string;
 }
@@ -14,18 +14,26 @@ interface Props {
     csrf_token: string; // Menambahkan csrf_token ke dalam tipe props
 }
 
-export default function KecamatanForm({ inputListKecamatan, setInputListKecamatan }: { inputListKecamatan: InputItem[]; setInputListKecamatan: any }) {
-    const { props } = usePage() as unknown as { props: Props };
+interface KecamatanFormProps {
+    inputListKecamatan: Kecamatan[];
+    listSelectedRows: ListSelectedRowsProps;
+    setInputListKecamatan: React.Dispatch<React.SetStateAction<Kecamatan[]>>;
+    setListSelectedRows: React.Dispatch<React.SetStateAction<ListSelectedRowsProps>>;
+    editMode: EditModeProps;
+    setEditMode: React.Dispatch<React.SetStateAction<EditModeProps>>;
+}
 
+export default function KecamatanForm({ inputListKecamatan, setInputListKecamatan, listSelectedRows, setListSelectedRows, editMode, setEditMode }: KecamatanFormProps) {
+    const { props } = usePage() as unknown as { props: Props };
+    const { handleChange, handleRemove } = useFormHandlers();
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
         // Kirim data ke server
         router.post(
             '/kecamatan/post',
             {
                 kecamatan: inputListKecamatan.map((item) => ({
-                    nama: item.value,
+                    nama: item.nama,
                 })),
                 _token: props.csrf_token as string,
                 // Kirim dengan key `nama`
@@ -41,6 +49,7 @@ export default function KecamatanForm({ inputListKecamatan, setInputListKecamata
     return (
         <form action="POST" onSubmit={handleSubmit}>
             <div className="max-h-[250px] p-2 overflow-y-auto">
+                {/* Input / Add Data */}
                 {inputListKecamatan.map((input, index) => (
                     <div key={input.id} className="relative w-full px-3 focus-within:border-blue-500 rounded-lg border mb-3 flex gap-x-2 items-center">
                         <label htmlFor={`nama-kec-${input.id}`} className="block text-sm font-medium text-gray-500">
@@ -49,13 +58,14 @@ export default function KecamatanForm({ inputListKecamatan, setInputListKecamata
                         <input
                             type="text"
                             id={`nama-kec-${input.id}`}
-                            value={input.value}
+                            value={input.nama}
                             onChange={(e) =>
                                 handleChange({
                                     id: input.id,
                                     e,
                                     inputList: inputListKecamatan,
                                     setInputList: setInputListKecamatan,
+                                    tabel: 'tabelKecamatanRows',
                                 })
                             }
                             className="w-[95%] px-2 border focus:ring-0 p-1 border-none rounded-lg text-sm placeholder:text-sm"
@@ -67,6 +77,8 @@ export default function KecamatanForm({ inputListKecamatan, setInputListKecamata
                                     id: input.id,
                                     inputList: inputListKecamatan,
                                     setInputList: setInputListKecamatan,
+                                    tabel: 'tabelKecamatanRows',
+                                    setListSelectedRows: setListSelectedRows,
                                 })
                             }
                             className="absolute -right-1 -top-2 cursor-pointer"
@@ -75,13 +87,61 @@ export default function KecamatanForm({ inputListKecamatan, setInputListKecamata
                         </span>
                     </div>
                 ))}
+
+                {/* edit */}
+                {editMode.kecamatan &&
+                    listSelectedRows.tabelKecamatanRows.map((input, index) => (
+                        <div key={input.id} className="relative w-full px-3 focus-within:border-blue-500 rounded-lg border mb-3 flex gap-x-2 items-center">
+                            <label htmlFor={`${input.id}`} className="block text-sm font-medium text-gray-500">
+                                {index + 1}.
+                            </label>
+                            <input
+                                type="text"
+                                id={`${input.id}`}
+                                value={input.nama}
+                                onChange={(e) =>
+                                    handleChange({
+                                        id: input.id,
+                                        e: e,
+                                        inputList: listSelectedRows.tabelKecamatanRows,
+                                        setListSelectedRows: setListSelectedRows,
+                                        tabel: 'tabelKecamatanRows',
+                                    })
+                                }
+                                className="w-[95%] px-2 border focus:ring-0 p-1 border-none rounded-lg text-sm placeholder:text-sm"
+                                placeholder="Kecamatan"
+                            />
+                            <span
+                                onClick={() =>
+                                    handleRemove({
+                                        id: input.id,
+                                        inputList: listSelectedRows.tabelKecamatanRows,
+                                        setListSelectedRows: setListSelectedRows,
+                                        tabel: 'tabelKecamatanRows',
+                                    })
+                                }
+                                className="absolute -right-1 -top-2 cursor-pointer"
+                            >
+                                <XCircleIcon size={5} className="text-white transition-colors duration-150 bg-gray-200 hover:bg-red-500 rounded-full text-sm" />
+                            </span>
+                        </div>
+                    ))}
             </div>
-            {inputListKecamatan.length > 0 && (
+            {inputListKecamatan.length > 0 && !editMode.kecamatan ? (
                 <div className="flex px-2">
                     <Button type="submit" onClick={handleSubmit} className="py-1 w-full" color="emerald">
                         Simpan
                     </Button>
                 </div>
+            ) : (
+                editMode.kecamatan &&
+                listSelectedRows.tabelKecamatanRows.length > 0 && (
+                    <div className="flex px-2">
+                        <Button type="submit" onClick={handleSubmit} className="py-1 w-full" color="emerald">
+                            Simpan Perubahan
+                        </Button>
+                    </div>
+                )
             )}
         </form>
     );
