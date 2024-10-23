@@ -8,10 +8,11 @@ import SemesterForm from '@/components/form/SemesterForm';
 import TahunForm from '@/components/form/TahunForm';
 import CustomFieldsPendudukNavbar from '@/components/navigation/CustomFieldsPendudukNavbar';
 import { ListSelectedRowsProps } from '@/interface/inputProps';
-import { CostumInputFieldPendudukLayoutProps, EditModeProps, Kecamatan, Semester, Year } from '@/interface/props';
+import { CostumInputFieldPendudukLayoutProps, EditModeProps, Kecamatan, selectAllTableRowsProps, Semester, Year } from '@/interface/props';
 import { useState, useEffect } from 'react';
 
 export default function CostumInputFieldPendudukLayout({ dataKecamatan, dataSemester, dataTahun }: CostumInputFieldPendudukLayoutProps) {
+    const [selectAllTableRows, setSelectAllTableRows] = useState<selectAllTableRowsProps>({ kecamatan: false, tahun: false, semester: false });
     const [editMode, setEditMode] = useState<EditModeProps>({ kecamatan: false, tahun: false, semester: false });
     const [listSelectedRows, setListSelectedRows] = useState<ListSelectedRowsProps>(() => {
         const savedList = localStorage.getItem('listSelectedRows');
@@ -95,7 +96,7 @@ export default function CostumInputFieldPendudukLayout({ dataKecamatan, dataSeme
                         components={[
                             {
                                 label: 'Kecamatan',
-                                component: <TabelKecamatan selectedRows={listSelectedRows} setSelectedRows={setListSelectedRows} dataKecamatan={dataKecamatan} />,
+                                component: <TabelKecamatan selectAllTableRows={selectAllTableRows} setSelectAllTableRows={setSelectAllTableRows} selectedRows={listSelectedRows} setSelectedRows={setListSelectedRows} dataKecamatan={dataKecamatan} />,
                             },
                             {
                                 label: 'Tahun',

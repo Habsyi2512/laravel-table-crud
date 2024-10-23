@@ -78,6 +78,12 @@ export interface EditModeProps {
     semester: boolean;
 }
 
+export interface selectAllTableRowsProps{
+    kecamatan: boolean;
+    tahun: boolean;
+    semester: boolean;
+}
+
 // interface Props
 export interface Kecamatan {
     id: any;
