@@ -41,4 +41,10 @@ class KecamatanController extends Controller
 
         return response()->json(['message' => 'Tidak ada data yang dipilih untuk dihapus'], 400);
     }
+
+    public function update(Request $request)
+    {
+        
+    }
+
 }

@@ -4,7 +4,8 @@ import XCircleIcon from '../icons/XCircleIcon';
 import { useFormHandlers } from '@/hooks/formHooks';
 import { EditModeProps, Kecamatan } from '@/interface/props';
 import { router, usePage } from '@inertiajs/react';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+
 interface FlashMessages {
     message?: string;
 }
@@ -26,24 +27,45 @@ interface KecamatanFormProps {
 export default function KecamatanForm({ inputListKecamatan, setInputListKecamatan, listSelectedRows, setListSelectedRows, editMode, setEditMode }: KecamatanFormProps) {
     const { props } = usePage() as unknown as { props: Props };
     const { handleChange, handleRemove } = useFormHandlers();
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        // Kirim data ke server
-        router.post(
-            '/kecamatan/post',
-            {
-                kecamatan: inputListKecamatan.map((item) => ({
-                    nama: item.nama,
-                })),
-                _token: props.csrf_token as string,
-                // Kirim dengan key `nama`
-            },
-            {
-                onSuccess: () => {
-                    setInputListKecamatan([]);
+
+        // Jika dalam mode edit, kirim request PATCH untuk update
+        if (editMode.kecamatan) {
+            router.patch(
+                '/tabel/kecamatan/update',
+                {
+                    kecamatan: listSelectedRows.tabelKecamatanRows.map((item) => ({
+                        id: item.id,
+                        nama: item.nama,
+                    })),
+                    _token: props.csrf_token as string, // Sertakan token CSRF
                 },
-            },
-        );
+                {
+                    onSuccess: () => {
+                        setEditMode((prevState) => ({ ...prevState, kecamatan: false })); // Kembali ke mode non-edit
+                        setListSelectedRows((prevState) => ({ ...prevState, tabelKecamatanRows: [] })); // Bersihkan pilihan
+                    },
+                },
+            );
+        } else {
+            // Jika tidak dalam mode edit, kirim request POST untuk insert data baru
+            router.post(
+                '/kecamatan/post',
+                {
+                    kecamatan: inputListKecamatan.map((item) => ({
+                        nama: item.nama,
+                    })),
+                    _token: props.csrf_token as string, // Sertakan token CSRF
+                },
+                {
+                    onSuccess: () => {
+                        setInputListKecamatan([]); // Bersihkan form setelah berhasil insert
+                    },
+                },
+            );
+        }
     };
 
     return (
@@ -88,7 +110,7 @@ export default function KecamatanForm({ inputListKecamatan, setInputListKecamata
                     </div>
                 ))}
 
-                {/* edit */}
+                {/* Edit Data */}
                 {editMode.kecamatan &&
                     listSelectedRows.tabelKecamatanRows.map((input, index) => (
                         <div key={input.id} className="relative w-full px-3 focus-within:border-blue-500 rounded-lg border mb-3 flex gap-x-2 items-center">
@@ -99,6 +121,7 @@ export default function KecamatanForm({ inputListKecamatan, setInputListKecamata
                                 type="text"
                                 id={`${input.id}`}
                                 value={input.nama}
+                                name="dataKecamatan"
                                 onChange={(e) =>
                                     handleChange({
                                         id: input.id,
@@ -127,6 +150,8 @@ export default function KecamatanForm({ inputListKecamatan, setInputListKecamata
                         </div>
                     ))}
             </div>
+
+            {/* Submit Button */}
             {inputListKecamatan.length > 0 && !editMode.kecamatan ? (
                 <div className="flex px-2">
                     <Button type="submit" onClick={handleSubmit} className="py-1 w-full" color="emerald">
