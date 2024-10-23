@@ -25,6 +25,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/tabel/tahun/destroy',[TahunController::class, 'destroy'])->name('tabel.tahun.destroy');
     // delete one or many tahun using destroy
     Route::delete('/tabel/semester/destroy',[SemesterController::class, 'destroy'])->name('tabel.semester.destroy');
+
+    // update one or many kecamatan using patch
+    Route::patch('',[KecamatanController::class, 'update'])->name('tabel.kecamatan.update');
 });
 
 
