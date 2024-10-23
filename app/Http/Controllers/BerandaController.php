@@ -18,14 +18,13 @@ class BerandaController extends Controller
         // Mengambil data jumlah penduduk berdasarkan tahun yang dipilih
         $penduduk = JumlahPenduduk::with(['kecamatan', 'semester', 'year'])
             ->whereHas('year', function ($query) use ($year) {
-                $query->where('tahun', $year);
-            })
-            ->get();
+                $query->where('nama', $year);
+            })->get();
 
         // Kirimkan data ke view dengan data penduduk dan tahun
         return Inertia::render('Beranda', [
             'penduduk' => $penduduk,
-            'dataTahun' =>  Year::orderBy('tahun', 'desc')->get(),
+            'dataTahun' =>  Year::orderBy('nama', 'desc')->get(),
             'tahunSekarang' => $year
         ]);
     }

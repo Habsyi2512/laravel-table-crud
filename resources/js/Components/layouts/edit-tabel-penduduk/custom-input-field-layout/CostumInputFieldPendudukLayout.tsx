@@ -9,7 +9,6 @@ import TahunForm from '@/components/form/TahunForm';
 import CustomFieldsPendudukNavbar from '@/components/navigation/CustomFieldsPendudukNavbar';
 import { ListSelectedRowsProps } from '@/interface/inputProps';
 import { CostumInputFieldPendudukLayoutProps, EditModeProps, Kecamatan, Semester, Year } from '@/interface/props';
-import { InputItem } from '@/interface/props';
 import { useState, useEffect } from 'react';
 
 export default function CostumInputFieldPendudukLayout({ dataKecamatan, dataSemester, dataTahun }: CostumInputFieldPendudukLayoutProps) {

@@ -19,11 +19,11 @@ export const TableJumlahPenduduk = ({
                     semester2: { laki: 0, perempuan: 0, total: 0 },
                 };
             }
-            if (semester.semester == "Semester 1") {
+            if (semester.nama == "Semester 1") {
                 acc[kecamatan.nama].semester1.laki += Number(laki);
                 acc[kecamatan.nama].semester1.perempuan += Number(perempuan);
                 acc[kecamatan.nama].semester1.total += Number(total);
-            } else if (semester.semester == "Semester 2") {
+            } else if (semester.nama == "Semester 2") {
                 acc[kecamatan.nama].semester2.laki += Number(laki);
                 acc[kecamatan.nama].semester2.perempuan += Number(perempuan);
                 acc[kecamatan.nama].semester2.total += Number(total);
