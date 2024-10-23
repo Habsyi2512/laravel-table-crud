@@ -4,7 +4,8 @@ import XCircleIcon from '../icons/XCircleIcon';
 import { useFormHandlers } from '@/hooks/formHooks';
 import { EditModeProps, Kecamatan } from '@/interface/props';
 import { router, usePage } from '@inertiajs/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 
 interface FlashMessages {
     message?: string;
@@ -27,6 +28,9 @@ interface KecamatanFormProps {
 export default function KecamatanForm({ inputListKecamatan, setInputListKecamatan, listSelectedRows, setListSelectedRows, editMode, setEditMode }: KecamatanFormProps) {
     const { props } = usePage() as unknown as { props: Props };
     const { handleChange, handleRemove } = useFormHandlers();
+    useEffect(() => {
+        console.log('token = ', props.csrf_token);
+    }, [props.csrf_token]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -100,7 +104,6 @@ export default function KecamatanForm({ inputListKecamatan, setInputListKecamata
                                     inputList: inputListKecamatan,
                                     setInputList: setInputListKecamatan,
                                     tabel: 'tabelKecamatanRows',
-                                    setListSelectedRows: setListSelectedRows,
                                 })
                             }
                             className="absolute -right-1 -top-2 cursor-pointer"
@@ -152,21 +155,19 @@ export default function KecamatanForm({ inputListKecamatan, setInputListKecamata
             </div>
 
             {/* Submit Button */}
-            {inputListKecamatan.length > 0 && !editMode.kecamatan ? (
+            {inputListKecamatan.length > 0 && !editMode.kecamatan && (
                 <div className="flex px-2">
                     <Button type="submit" onClick={handleSubmit} className="py-1 w-full" color="emerald">
                         Simpan
                     </Button>
                 </div>
-            ) : (
-                editMode.kecamatan &&
-                listSelectedRows.tabelKecamatanRows.length > 0 && (
-                    <div className="flex px-2">
-                        <Button type="submit" onClick={handleSubmit} className="py-1 w-full" color="emerald">
-                            Simpan Perubahan
-                        </Button>
-                    </div>
-                )
+            )}
+            {editMode.kecamatan && listSelectedRows.tabelKecamatanRows.length > 0 && (
+                <div className="flex px-2">
+                    <Button type="submit" onClick={handleSubmit} className="py-1 w-full" color="emerald">
+                        Simpan Perubahan
+                    </Button>
+                </div>
             )}
         </form>
     );

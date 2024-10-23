@@ -44,7 +44,14 @@ class KecamatanController extends Controller
 
     public function update(Request $request)
     {
-        
+        $items = $request->kecamatan;
+        foreach ($items as $item ){
+            Kecamatan::where('id', $item['id'])->update([
+                'nama' => $item['nama'],
+                'updated_at' => now(),
+            ]);
+        }
+        return back()->with('message', 'Data kecamatan berhasil diperbarui woy!');
     }
 
 }
