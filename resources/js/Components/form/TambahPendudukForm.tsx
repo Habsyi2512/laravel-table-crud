@@ -47,7 +47,6 @@ export default function TambahPendudukForm({
     }, []);
 
     useEffect(() => {
-        console.log("input Fields", inputFields);
         if (inputFields.length > 0) {
             localStorage.setItem("inputFields", JSON.stringify(inputFields));
         } else {
@@ -106,9 +105,9 @@ export default function TambahPendudukForm({
                                         return (
                                             <option
                                                 key={index}
-                                                value={item.semester}
+                                                value={item.nama}
                                             >
-                                                {item.semester}
+                                                {item.nama}
                                             </option>
                                         );
                                     })}
@@ -130,9 +129,9 @@ export default function TambahPendudukForm({
                                             return (
                                                 <option
                                                     key={index}
-                                                    value={item.tahun}
+                                                    value={item.nama}
                                                 >
-                                                    {item.tahun}
+                                                    {item.nama}
                                                 </option>
                                             );
                                         })}

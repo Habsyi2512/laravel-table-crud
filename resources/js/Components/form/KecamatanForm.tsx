@@ -28,9 +28,6 @@ interface KecamatanFormProps {
 export default function KecamatanForm({ inputListKecamatan, setInputListKecamatan, listSelectedRows, setListSelectedRows, editMode, setEditMode }: KecamatanFormProps) {
     const { props } = usePage() as unknown as { props: Props };
     const { handleChange, handleRemove } = useFormHandlers();
-    useEffect(() => {
-        console.log('token = ', props.csrf_token);
-    }, [props.csrf_token]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();

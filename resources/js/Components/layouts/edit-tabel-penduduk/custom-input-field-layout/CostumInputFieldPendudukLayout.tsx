@@ -64,10 +64,6 @@ export default function CostumInputFieldPendudukLayout({ dataKecamatan, dataSeme
         localStorage.setItem('inputSemesterList', JSON.stringify(inputListSemester));
     }, [inputListSemester]);
 
-    useEffect(() => {
-        console.log('editMode', editMode);
-    }, [editMode]);
-
     return (
         <div className="w-full h-full relative">
             <div className="sticky w-full top-0 left-0 h-fit">
