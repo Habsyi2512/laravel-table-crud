@@ -1,4 +1,4 @@
-import { HandleChangeProps, HandleRemoveProps, HandleAddInputProps } from './props/interface';
+import { HandleChangeProps, HandleRemoveProps, HandleAddInputProps } from '../../props/interface';
 import { useCallback } from 'react';
 
 export const useFormHandlers = () => {

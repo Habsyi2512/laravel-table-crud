@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Button from './Button';
-import { useFormHandlers } from '@/hooks/formHooks';
+import { useFormHandlers } from '@/hooks/lib/form/formHooks';
 import { EditModeProps, InputItem, Kecamatan, Semester, Year } from '@/interface/props';
 import PlusIcon from '../icons/PlusIcon';
 import ActionBarButtonDelete from './ActionBarButtonDelete';

@@ -15,7 +15,6 @@ export default function TabelKecamatan({
     selectAllTableRows: selectAllTableRowsProps;
     setSelectAllTableRows: React.Dispatch<React.SetStateAction<selectAllTableRowsProps>>;
 }) {
-    const checkIfAllSelected = (selectedRows: ListSelectedRowsProps) => selectedRows.tabelKecamatanRows.length === dataKecamatan.length;
     useEffect(() => {
         setSelectAllTableRows((prevState) => ({
             ...prevState,
@@ -23,17 +22,10 @@ export default function TabelKecamatan({
         }));
     }, [selectedRows.tabelKecamatanRows.length]);
 
-    const handleCheckboxChange = (kecamatan: Kecamatan) => {
-        const samaPanjang = selectedRows.tabelKecamatanRows.length == dataKecamatan.length;
-        // Jika tidak Shift, pilih atau hapus satu baris
+    const handleCheckboxChange = (kecamatan:Kecamatan) => {
         setSelectedRows((prevSelectedRows) => {
             const isSelected = prevSelectedRows.tabelKecamatanRows.some((row) => row.id === kecamatan.id);
             const updatedRows = isSelected ? prevSelectedRows.tabelKecamatanRows.filter((row) => row.id !== kecamatan.id) : [...prevSelectedRows.tabelKecamatanRows, kecamatan];
-
-            // Cek apakah semua baris sudah di-unselect setelah pembaruan
-            const isAllSelected = updatedRows.length === dataKecamatan.length;
-
-            // Update selectedRows dan length
             return {
                 ...prevSelectedRows,
                 tabelKecamatanRows: updatedRows,
@@ -43,8 +35,6 @@ export default function TabelKecamatan({
                 },
             };
         });
-
-        // Setelah selectedRows diperbarui, cek apakah masih semua baris terpilih atau tidak
     };
 
     const handleSelectAllChange = () => {

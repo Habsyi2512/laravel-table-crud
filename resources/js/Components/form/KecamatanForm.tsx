@@ -1,7 +1,7 @@
 import { ListSelectedRowsProps } from '@/interface/inputProps';
 import Button from '../action/Button';
 import XCircleIcon from '../icons/XCircleIcon';
-import { useFormHandlers } from '@/hooks/formHooks';
+import { useFormHandlers } from '@/hooks/lib/form/formHooks';
 import { EditModeProps, Kecamatan } from '@/interface/props';
 import { router, usePage } from '@inertiajs/react';
 import React, { useEffect, useState } from 'react';
