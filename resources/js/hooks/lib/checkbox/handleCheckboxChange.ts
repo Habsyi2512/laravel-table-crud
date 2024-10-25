@@ -1,22 +1,18 @@
-import { TabelType } from '@/hooks/types/types';
 import { ListSelectedRowsProps } from '@/interface/inputProps';
-import { InputItem, Kecamatan, selectAllTableRowsProps } from '@/interface/props';
+import { InputItem, selectAllTableRowsProps } from '@/interface/props';
+import { capitalizeFirstLetter } from '../capitalizeString';
 
-export const handleCheckboxChange = (
-    item: InputItem,
-    setSelectedRows: React.Dispatch<React.SetStateAction<ListSelectedRowsProps>>,
-    tabel: 'kecamatan' | 'tahun' | 'semester'
-) => {
+type TabelOptions = 'kecamatan' | 'tahun' | 'semester';
+
+export const handleCheckboxChange = (item: InputItem, setSelectedRows: React.Dispatch<React.SetStateAction<ListSelectedRowsProps>>, tabel: TabelOptions) => {
     setSelectedRows((prevSelectedRows) => {
         // Akses dengan nama properti dinamis menggunakan bracket notation
-        const tableRowsKey = `tabel${tabel.charAt(0).toUpperCase() + tabel.slice(1)}Rows` as keyof ListSelectedRowsProps;
+        const tableRowsKey = `tabel${capitalizeFirstLetter(tabel)}Rows` as keyof ListSelectedRowsProps;
 
         const isSelected = (prevSelectedRows[tableRowsKey] as InputItem[]).some((row) => row.id === item.id);
-        
-        const updatedRows = isSelected 
-            ? (prevSelectedRows[tableRowsKey] as InputItem[]).filter((row) => row.id !== item.id)
-            : [...(prevSelectedRows[tableRowsKey] as InputItem[]), item];
-        
+
+        const updatedRows = isSelected ? (prevSelectedRows[tableRowsKey] as InputItem[]).filter((row) => row.id !== item.id) : [...(prevSelectedRows[tableRowsKey] as InputItem[]), item];
+
         return {
             ...prevSelectedRows,
             [tableRowsKey]: updatedRows,
@@ -28,13 +24,7 @@ export const handleCheckboxChange = (
     });
 };
 
-export const handleSelectAllChange = (
-    selectAllTableRows: selectAllTableRowsProps,
-    dataKecamatan: Kecamatan[],
-    setSelectedRows: React.Dispatch<React.SetStateAction<ListSelectedRowsProps>>,
-    setSelectAllTableRows: React.Dispatch<React.SetStateAction<selectAllTableRowsProps>>,
-    tabel: 'kecamatan' | 'tahun' | 'semester',
-) => {
+export const handleSelectAllChange = (selectAllTableRows: selectAllTableRowsProps, dataTabel: InputItem[], setSelectedRows: React.Dispatch<React.SetStateAction<ListSelectedRowsProps>>, setSelectAllTableRows: React.Dispatch<React.SetStateAction<selectAllTableRowsProps>>, tabel: TabelOptions) => {
     if (selectAllTableRows.kecamatan) {
         // Deselect all
         setSelectedRows((prevSelectedRows) => ({
@@ -42,21 +32,20 @@ export const handleSelectAllChange = (
             tabelKecamatanRows: [],
             length: {
                 ...prevSelectedRows.length,
-                kecamatan: 0, // Set length.kecamatan to 0
+                [tabel]: 0,
             },
         }));
 
         setSelectAllTableRows((prevState) => ({ ...prevState, [tabel]: false }));
     } else {
-        // Select all
         setSelectedRows((prevSelectedRows) => ({
             ...prevSelectedRows,
-            tabelKecamatanRows: dataKecamatan,
+            [`tabel${capitalizeFirstLetter(tabel)}Rows`]: dataTabel,
             length: {
                 ...prevSelectedRows.length,
-                kecamatan: dataKecamatan.length, // Set length.kecamatan to the number of all rows
+                [tabel]: dataTabel.length,
             },
         }));
-        setSelectAllTableRows((prevState) => ({ ...prevState, kecamatan: true }));
+        setSelectAllTableRows((prevState) => ({ ...prevState, [tabel]: true }));
     }
 };

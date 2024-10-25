@@ -75,7 +75,7 @@ export default function TabelSemester({
                             />
                         </td>
                         <td className="py-1 px-3">{index+1}</td>
-                        <td className="py-1 px-3 border-r">{item.semester}</td>
+                        <td className="py-1 px-3 border-r">{item.nama}</td>
                     </tr>
                 ))}
             </tbody>

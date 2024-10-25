@@ -71,7 +71,7 @@ export default function TabelTahun({ dataTahun }: { dataTahun: Year[] }) {
                             />
                         </td>
                         <td className="py-1 px-3">{index+1}</td>
-                        <td className="py-1 px-3 border-r">{tahun.tahun}</td>
+                        <td className="py-1 px-3 border-r">{tahun.nama}</td>
                     </tr>
                 ))}
             </tbody>
