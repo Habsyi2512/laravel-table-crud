@@ -1,8 +1,8 @@
-import { numberWithCommas } from "@/hooks/formatNumber";
-import { Penduduk } from "@/interface/props";
-import React, { useEffect } from "react";
-import { usePage } from "@inertiajs/react";
-import { PageProps } from "@/types";
+import { numberWithCommas } from '@/hooks/formatNumber';
+import { Penduduk } from '@/interface/props';
+import React, { useEffect } from 'react';
+import { usePage } from '@inertiajs/react';
+import { PageProps } from '@/types';
 
 interface CustomPageProps extends PageProps {
     dataPenduduk: {
@@ -25,49 +25,26 @@ export default function TabelJumlahPendudukAdmin() {
                     <tr className=" bg-white/50 backdrop-blur-sm text-blue-600">
                         <th className="border-b px-2 py-1 text-left">No.</th>
                         <th className="border-b px-2 py-1 text-left">Tahun</th>
-                        <th className="border-b px-2 py-1 text-left">
-                            Kecamatan
-                        </th>
-                        <th className="border-b px-2 py-1 text-left">
-                            Semester
-                        </th>
-                        <th className="border-b px-2 py-1 text-left">
-                            Laki - Laki
-                        </th>
-                        <th className="border-b px-2 py-1 text-left">
-                            Perempuan
-                        </th>
+                        <th className="border-b px-2 py-1 text-left">Kecamatan</th>
+                        <th className="border-b px-2 py-1 text-left">Semester</th>
+                        <th className="border-b px-2 py-1 text-left">Laki - Laki</th>
+                        <th className="border-b px-2 py-1 text-left">Perempuan</th>
                         <th className="border-b px-2 py-1 text-left">Total</th>
                     </tr>
                 </thead>
                 <tbody className="overflow-hidden">
                     {dataMap.map((item, index) => {
                         const angka_format = numberWithCommas(item.total);
-                        const nomorUrut =
-                            (Number(current_page) - 1) * per_page + (index + 1);
+                        const nomorUrut = (Number(current_page) - 1) * per_page + (index + 1);
                         return (
                             <tr key={index}>
-                                <td className="border-b px-2 py-1">
-                                    {nomorUrut}
-                                </td>
-                                <td className="border-b px-2 py-1">
-                                    {item.year.tahun}
-                                </td>
-                                <td className="border-b px-2 py-1 w-40">
-                                    {item.kecamatan.nama}
-                                </td>
-                                <td className="border-b px-2 py-1">
-                                    {item.semester.semester}
-                                </td>
-                                <td className="border-b px-2 py-1">
-                                    {item.laki}
-                                </td>
-                                <td className="border-b px-2 py-1">
-                                    {item.perempuan}
-                                </td>
-                                <td className="border-b px-2 py-1">
-                                    {angka_format}
-                                </td>
+                                <td className="border-b px-2 py-1">{nomorUrut}</td>
+                                <td className="border-b px-2 py-1">{item.year.nama}</td>
+                                <td className="border-b px-2 py-1 w-40">{item.kecamatan.nama}</td>
+                                <td className="border-b px-2 py-1">{item.semester.nama}</td>
+                                <td className="border-b px-2 py-1">{item.laki}</td>
+                                <td className="border-b px-2 py-1">{item.perempuan}</td>
+                                <td className="border-b px-2 py-1">{angka_format}</td>
                             </tr>
                         );
                     })}
