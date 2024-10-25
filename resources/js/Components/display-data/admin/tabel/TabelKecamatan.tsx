@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Kecamatan, selectAllTableRowsProps } from '@/interface/props';
 import { ListSelectedRowsProps } from '@/interface/inputProps';
 
