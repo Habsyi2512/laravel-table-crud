@@ -11,6 +11,8 @@ import { CostumInputFieldPendudukLayoutProps, EditModeProps, Kecamatan, selectAl
 import { useState, useEffect } from 'react';
 
 export default function CostumInputFieldPendudukLayout({ dataKecamatan, dataSemester, dataTahun }: CostumInputFieldPendudukLayoutProps) {
+    const [disabled, setDisabled] = useState<boolean>(true);
+    const [active, setActive] = useState<boolean>(false);
     const [selectAllTableRows, setSelectAllTableRows] = useState<selectAllTableRowsProps>({ kecamatan: false, tahun: false, semester: false });
     const [editMode, setEditMode] = useState<EditModeProps>({ kecamatan: false, tahun: false, semester: false });
     const [listSelectedRows, setListSelectedRows] = useState<ListSelectedRowsProps>(() => {
@@ -40,6 +42,18 @@ export default function CostumInputFieldPendudukLayout({ dataKecamatan, dataSeme
         const saveList = localStorage.getItem('inputSemesterList');
         return saveList ? [...JSON.parse(saveList)] : [];
     });
+
+    useEffect(() => {
+        const lengthMap = {
+            Kecamatan: listSelectedRows.length.kecamatan,
+            Tahun: listSelectedRows.length.tahun,
+            Semester: listSelectedRows.length.semester,
+        };
+
+        const length = lengthMap[nav] || 0;
+        setDisabled(length === 0);
+        setActive(length > 0);
+    }, [nav, listSelectedRows.length]);
 
     // handle listSelectedRows
     useEffect(() => {
