@@ -22,7 +22,6 @@ export default function TabelKecamatan({
             kecamatan: selectedRows.tabelKecamatanRows.length == dataKecamatan.length, // Menggunakan checkIfAllSelected untuk memperbarui selectAll
         }));
     }, [selectedRows.tabelKecamatanRows.length]);
-
     return (
         <table className="text-sm w-full">
             <thead>
