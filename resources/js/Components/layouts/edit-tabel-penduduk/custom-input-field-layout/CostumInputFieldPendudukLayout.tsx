@@ -1,4 +1,3 @@
-import Button from '@/components/action/Button';
 import RenderClickedComponent from '@/components/display-data/admin/tabel/RenderClickedComponent';
 import TabelKecamatan from '@/components/display-data/admin/tabel/TabelKecamatan';
 import TabelSemester from '@/components/display-data/admin/tabel/TabelSemester';
@@ -96,7 +95,7 @@ export default function CostumInputFieldPendudukLayout({ dataKecamatan, dataSeme
                             },
                             {
                                 label: 'Tahun',
-                                component: <TabelTahun dataTahun={dataTahun} />,
+                                component: <TabelTahun dataTahun={dataTahun} selectAllTableRows={selectAllTableRows} setSelectAllTableRows={setSelectAllTableRows} selectedRows={listSelectedRows} setSelectedRows={setListSelectedRows} />,
                             },
                             {
                                 label: 'Semester',

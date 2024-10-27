@@ -1,77 +1,46 @@
-import { Year } from "@/interface/props";
-import React, { useState } from "react";
+import { handleCheckboxChange, handleSelectAllChange } from '@/hooks/lib/checkbox/handleCheckboxChange';
+import { ListSelectedRowsProps } from '@/interface/inputProps';
+import { selectAllTableRowsProps, Year } from '@/interface/props';
+import React, { useEffect, useState } from 'react';
 
-export default function TabelTahun({ dataTahun }: { dataTahun: Year[] }) {
-    const [selectedRows, setSelectedRows] = useState<number[]>([]);
-    // State untuk menyimpan status checkbox "Select All"
-    const [selectAll, setSelectAll] = useState(false);
-
-    // Fungsi untuk meng-handle perubahan checkbox
-    const handleCheckboxChange = (id: number) => {
-        setSelectedRows((prevSelectedRows) => {
-            if (prevSelectedRows.includes(id)) {
-                // Jika ID sudah ada, hapus dari daftar
-                return prevSelectedRows.filter((rowId) => rowId !== id);
-            } else {
-                // Jika ID belum ada, tambahkan ke daftar
-                return [...prevSelectedRows, id];
-            }
-        });
-    };
-
-    // Fungsi untuk meng-handle perubahan checkbox "Select All"
-    const handleSelectAllChange = () => {
-        if (selectAll) {
-            // Jika "Select All" dicentang, hapus semua dari selectedRows
-            setSelectedRows([]);
-        } else {
-            // Jika "Select All" tidak dicentang, tambahkan semua ID ke selectedRows
-            setSelectedRows(dataTahun.map((tahun) => tahun.id));
-        }
-        // Toggle status selectAll
-        setSelectAll(!selectAll);
-    };
-
+export default function TabelTahun({
+    dataTahun,
+    selectedRows,
+    setSelectedRows,
+    selectAllTableRows,
+    setSelectAllTableRows,
+}: {
+    dataTahun: Year[];
+    selectedRows: ListSelectedRowsProps; // Perbarui tipe ini
+    setSelectedRows: React.Dispatch<React.SetStateAction<ListSelectedRowsProps>>;
+    selectAllTableRows: selectAllTableRowsProps;
+    setSelectAllTableRows: React.Dispatch<React.SetStateAction<selectAllTableRowsProps>>;
+}) {
+    useEffect(() => {
+        setSelectAllTableRows((prevState) => ({
+            ...prevState,
+            tahun: selectedRows.tabelTahunRows.length == dataTahun.length, // Menggunakan checkIfAllSelected untuk memperbarui selectAll
+        }));
+    }, [selectedRows.tabelTahunRows.length]);
     return (
         <table className="text-sm w-full">
             <thead>
                 <tr>
-                    <th className="border-b text-left w-8 py-2 px-3">
-                        <input
-                            type="checkbox"
-                            className="w-4 h-4 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-transparent"
-                            checked={selectAll}
-                            onChange={handleSelectAllChange}
-                        />
+                    <th className="border-b text-left w-4 py-1 px-2">
+                        <input type="checkbox" className="w-3 h-3 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-transparent" checked={selectAllTableRows.tahun} onChange={() => handleSelectAllChange(selectAllTableRows, dataTahun, setSelectedRows, setSelectAllTableRows, 'tahun')} />
                     </th>
-                    <th className="border-b text-blue-500 text-left w-8 py-2 px-3">
-                        ID
-                    </th>
-                    <th className="border-b border-r text-blue-500 text-left w-32 py-2 px-3">
-                        Tahun
-                    </th>
+                    <th className="border-b text-blue-500 text-left w-6 py-2 px-2">ID</th>
+                    <th className="border-b border-r text-blue-500 text-left w-32 py-2 px-2">Tahun</th>
                 </tr>
             </thead>
-            <tbody className="">
-                {dataTahun.map((tahun, index) => (
-                    <tr
-                        key={tahun.id}
-                        className={`${
-                            selectedRows.includes(tahun.id)
-                                ? "bg-blue-100"
-                                : "bg-white"
-                        } border-b`}
-                    >
-                        <td className="py-1 px-3">
-                            <input
-                                type="checkbox"
-                                className="w-4 h-4 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-transparent"
-                                checked={selectedRows.includes(tahun.id)}
-                                onChange={() => handleCheckboxChange(tahun.id)}
-                            />
+            <tbody>
+                {dataTahun.map((item, index) => (
+                    <tr key={item.id} className={`${selectedRows.tabelTahunRows.some((row) => row.id === item.id) ? 'bg-blue-100' : 'bg-white'} border-b`}>
+                        <td className="py-1 px-2">
+                            <input type="checkbox" className="w-3 h-3 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-transparent" checked={selectedRows.tabelTahunRows.some((row) => row.id === item.id)} onChange={() => handleCheckboxChange(item, setSelectedRows, 'tahun')} />
                         </td>
-                        <td className="py-1 px-3">{index+1}</td>
-                        <td className="py-1 px-3 border-r">{tahun.nama}</td>
+                        <td className="py-1 px-2">{index + 1}</td>
+                        <td className="py-1 px-2 border-r">{item.nama}</td>
                     </tr>
                 ))}
             </tbody>

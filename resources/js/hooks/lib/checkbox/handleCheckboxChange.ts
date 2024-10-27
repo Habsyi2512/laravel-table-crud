@@ -25,11 +25,11 @@ export const handleCheckboxChange = (item: InputItem, setSelectedRows: React.Dis
 };
 
 export const handleSelectAllChange = (selectAllTableRows: selectAllTableRowsProps, dataTabel: InputItem[], setSelectedRows: React.Dispatch<React.SetStateAction<ListSelectedRowsProps>>, setSelectAllTableRows: React.Dispatch<React.SetStateAction<selectAllTableRowsProps>>, tabel: TabelOptions) => {
-    if (selectAllTableRows.kecamatan) {
-        // Deselect all
+    const tableRowsKey = `tabel${capitalizeFirstLetter(tabel)}Rows` as keyof ListSelectedRowsProps;
+    if (selectAllTableRows[tabel]) {
         setSelectedRows((prevSelectedRows) => ({
             ...prevSelectedRows,
-            tabelKecamatanRows: [],
+            [tableRowsKey]: [],
             length: {
                 ...prevSelectedRows.length,
                 [tabel]: 0,
@@ -40,7 +40,7 @@ export const handleSelectAllChange = (selectAllTableRows: selectAllTableRowsProp
     } else {
         setSelectedRows((prevSelectedRows) => ({
             ...prevSelectedRows,
-            [`tabel${capitalizeFirstLetter(tabel)}Rows`]: dataTabel,
+            [tableRowsKey]: dataTabel,
             length: {
                 ...prevSelectedRows.length,
                 [tabel]: dataTabel.length,
