@@ -18,9 +18,12 @@ export default function CostumInputFieldPendudukLayout({ dataKecamatan, dataSeme
         return savedList ? JSON.parse(savedList) : { tabelKecamatanRows: [], tabelSemesterRows: [], tabelTahunRows: [], length: { kecamatan: 0, tahun: 0, semester: 0 } };
     });
 
-    const [nav, setNav] = useState(() => {
+    const [nav, setNav] = useState<'Kecamatan' | 'Tahun' | 'Semester'>(() => {
         const savedNav = localStorage.getItem('CustomFieldsPendudukNavbar');
-        return savedNav ? savedNav : 'Kecamatan';
+        if (savedNav === 'Kecamatan' || savedNav === 'Tahun' || savedNav === 'Semester') {
+            return savedNav;
+        }
+        return 'Kecamatan'; // Nilai default jika tidak ada di localStorage
     });
 
     const [inputListKecamatan, setInputListKecamatan] = useState<Kecamatan[]>(() => {
@@ -110,9 +113,9 @@ export default function CostumInputFieldPendudukLayout({ dataKecamatan, dataSeme
                             <h3 className="font-bold  text-blue-500">{nav} Form</h3>
                         </div>
                         <section className="mb-2">
-                            {nav == 'Kecamatan' && <KecamatanForm setEditMode={setEditMode} editMode={editMode} setListSelectedRows={setListSelectedRows} listSelectedRows={listSelectedRows} inputListKecamatan={inputListKecamatan} setInputListKecamatan={setInputListKecamatan} />}
-                            {nav == 'Tahun' && <TahunForm inputListTahun={inputListTahun} setInputListTahun={setInputListTahun} />}
-                            {nav == 'Semester' && <SemesterForm inputListSemester={inputListSemester} setInputListSemester={setInputListSemester} />}
+                            {nav === 'Kecamatan' && <KecamatanForm setEditMode={setEditMode} editMode={editMode} setListSelectedRows={setListSelectedRows} listSelectedRows={listSelectedRows} inputListKecamatan={inputListKecamatan} setInputListKecamatan={setInputListKecamatan} />}
+                            {nav === 'Tahun' && <TahunForm setEditMode={setEditMode} editMode={editMode} setListSelectedRows={setListSelectedRows} listSelectedRows={listSelectedRows} inputListTahun={inputListTahun} setInputListTahun={setInputListTahun} />}
+                            {nav === 'Semester' && <SemesterForm inputListSemester={inputListSemester} setInputListSemester={setInputListSemester} />}
                         </section>
                     </section>
                 </div>

@@ -19,7 +19,7 @@ export default function TabelTahun({
     useEffect(() => {
         setSelectAllTableRows((prevState) => ({
             ...prevState,
-            tahun: selectedRows.tabelTahunRows.length == dataTahun.length, // Menggunakan checkIfAllSelected untuk memperbarui selectAll
+            tahun: selectedRows.tabelTahunRows.length == dataTahun.length,
         }));
     }, [selectedRows.tabelTahunRows.length]);
     return (

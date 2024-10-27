@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import Button from './Button';
-import { useFormHandlers } from '@/hooks/lib/form/formHooks';
+import React from 'react';
 import { EditModeProps, InputItem, Kecamatan, Semester, Year } from '@/interface/props';
-import PlusIcon from '../icons/PlusIcon';
 import ActionBarButtonDelete from './ActionBarButtonDelete';
 import ActionBarButtonEdit from './ActionBarButtonEdit';
 import ActionBarButtonAdd from './ActionBarButtonAdd';
 import { ListSelectedRowsProps } from '@/interface/inputProps';
 
 interface ActionBarButtonProps {
-    nav: string;
+    nav: 'Kecamatan' | 'Tahun' | 'Semester';
     setEditMode: React.Dispatch<React.SetStateAction<EditModeProps>>;
     stateList: {
         inputListKecamatan: Kecamatan[];

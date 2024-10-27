@@ -4,8 +4,7 @@ import XCircleIcon from '../icons/XCircleIcon';
 import { useFormHandlers } from '@/hooks/lib/form/formHooks';
 import { EditModeProps, Kecamatan } from '@/interface/props';
 import { router, usePage } from '@inertiajs/react';
-import React, { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
+import React from 'react';
 
 interface FlashMessages {
     message?: string;
