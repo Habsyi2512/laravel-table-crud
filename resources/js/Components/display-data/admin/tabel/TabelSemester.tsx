@@ -7,32 +7,23 @@ export default function TabelSemester({
     dataSemester: Semester[];
 }) {
     const [selectedRows, setSelectedRows] = useState<number[]>([]);
-    // State untuk menyimpan status checkbox "Select All"
     const [selectAll, setSelectAll] = useState(false);
 
-    // Fungsi untuk meng-handle perubahan checkbox
     const handleCheckboxChange = (id: number) => {
         setSelectedRows((prevSelectedRows) => {
             if (prevSelectedRows.includes(id)) {
-                // Jika ID sudah ada, hapus dari daftar
                 return prevSelectedRows.filter((rowId) => rowId !== id);
             } else {
-                // Jika ID belum ada, tambahkan ke daftar
                 return [...prevSelectedRows, id];
             }
         });
     };
-
-    // Fungsi untuk meng-handle perubahan checkbox "Select All"
     const handleSelectAllChange = () => {
         if (selectAll) {
-            // Jika "Select All" dicentang, hapus semua dari selectedRows
             setSelectedRows([]);
         } else {
-            // Jika "Select All" tidak dicentang, tambahkan semua ID ke selectedRows
             setSelectedRows(dataSemester.map((item) => item.id));
         }
-        // Toggle status selectAll
         setSelectAll(!selectAll);
     };
 
