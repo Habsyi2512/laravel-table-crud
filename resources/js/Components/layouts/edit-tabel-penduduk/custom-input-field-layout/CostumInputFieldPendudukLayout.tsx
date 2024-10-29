@@ -7,7 +7,7 @@ import SemesterForm from '@/components/form/SemesterForm';
 import TahunForm from '@/components/form/TahunForm';
 import CustomFieldsPendudukNavbar from '@/components/navigation/CustomFieldsPendudukNavbar';
 import { ListSelectedRowsProps } from '@/interface/inputProps';
-import { CostumInputFieldPendudukLayoutProps, EditModeProps, Kecamatan, selectAllTableRowsProps, Semester, Year } from '@/interface/props';
+import { CostumInputFieldPendudukLayoutProps, EditModeProps, InputItem, Kecamatan, selectAllTableRowsProps, Semester, Year } from '@/interface/props';
 import { useState, useEffect } from 'react';
 
 export default function CostumInputFieldPendudukLayout({ dataKecamatan, dataSemester, dataTahun }: CostumInputFieldPendudukLayoutProps) {
@@ -49,14 +49,26 @@ export default function CostumInputFieldPendudukLayout({ dataKecamatan, dataSeme
         };
 
         const length = lengthMap[nav] || 0;
-        setDisabled(length === 0);
-        setActive(length > 0);
     }, [nav, listSelectedRows.length]);
 
     // handle listSelectedRows
     useEffect(() => {
         localStorage.setItem('listSelectedRows', JSON.stringify(listSelectedRows));
     }, [listSelectedRows]);
+
+    // Jika listSelectedRows[tableKey] adalah array dengan panjang 0, atur editMode untuk kecamatan, tahun, atau semester ke false
+    const tables: Array<keyof ListSelectedRowsProps> = ['tabelKecamatanRows', 'tabelTahunRows', 'tabelSemesterRows'];
+    tables.forEach((tableKey) => {
+        useEffect(() => {
+            const selectedRow = listSelectedRows[tableKey];
+            if (Array.isArray(selectedRow) && selectedRow.length === 0) {
+                setEditMode((prevState) => ({
+                    ...prevState,
+                    [tableKey.replace('tabel', '').replace('Rows', '').toLowerCase()]: false,
+                }));
+            }
+        }, [listSelectedRows[tableKey]]);
+    });
 
     // handle nav
     useEffect(() => {
