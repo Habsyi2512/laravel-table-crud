@@ -13,8 +13,18 @@ export const useFormHandlers = () => {
     }, []);
 
     const handleRemove = useCallback(({ id, inputList, setInputList, setListSelectedRows, tabel }: HandleRemoveProps) => {
+        const keyword = tabel.replace('tabel', '').replace('Rows', '').toLowerCase();
         const updatedList = inputList.filter((input) => input.id !== id);
-        setListSelectedRows ? setListSelectedRows((prevState) => ({ ...prevState, [tabel]: updatedList })) : setInputList && setInputList(updatedList);
+        setListSelectedRows
+            ? setListSelectedRows((prevState) => ({
+                  ...prevState,
+                  [tabel]: updatedList,
+                  length: {
+                      ...prevState.length,
+                      [keyword]: updatedList.length, // Mengupdate length sesuai dengan kata kunci
+                  },
+              }))
+            : setInputList && setInputList(updatedList);
     }, []);
     // id: input.id,
     // inputList: listSelectedRows.tabelKecamatanRows,

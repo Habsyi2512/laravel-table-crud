@@ -86,26 +86,21 @@ export default function ActionBarButtonDelete({ nav, stateList, setListSelected 
 
     return (
         <li>
-            <Button
-                onClick={handleClick}
-                disabled={
-                    nav === 'Kecamatan'
-                        ? stateList.length.kecamatan === 0
-                        : nav === 'Tahun'
-                        ? stateList.length.tahun === 0
-                        : stateList.length.semester === 0
-                }
-                active={
-                    nav === 'Kecamatan'
-                        ? stateList.length.kecamatan > 0
-                        : nav === 'Tahun'
-                        ? stateList.length.tahun > 0
-                        : stateList.length.semester > 0
-                }
-                className="w-7 h-7 flex items-center justify-center"
-            >
-                <TrashIcon className="w-4 h-4" />
-            </Button>
+            {nav == 'Kecamatan' && (
+                <Button onClick={handleClick} disabled={stateList.length.kecamatan == 0} active={stateList.length.kecamatan != 0} className="w-7 h-7 flex items-center justify-center">
+                   <TrashIcon className="w-4 h-4" />
+                </Button>
+            )}
+            {nav == 'Tahun' && (
+                <Button onClick={handleClick} disabled={stateList.length.tahun == 0} active={stateList.length.tahun > 0} className="w-7 h-7 flex items-center justify-center">
+                   <TrashIcon className="w-4 h-4" />
+                </Button>
+            )}
+            {nav == 'Semester' && (
+                <Button onClick={handleClick} disabled={stateList.length.semester == 0} active={stateList.length.semester > 0} className="w-7 h-7 flex items-center justify-center">
+                   <TrashIcon className="w-4 h-4" />
+                </Button>
+            )}
         </li>
     );
 }

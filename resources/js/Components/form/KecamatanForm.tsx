@@ -5,6 +5,7 @@ import { useFormHandlers } from '@/hooks/lib/form/formHooks';
 import { EditModeProps, Kecamatan } from '@/interface/props';
 import { router, usePage } from '@inertiajs/react';
 import React, { useEffect } from 'react';
+import { HandleRemoveProps } from '@/hooks/props/interface';
 
 interface FlashMessages {
     message?: string;
@@ -27,10 +28,6 @@ interface KecamatanFormProps {
 export default function KecamatanForm({ inputListKecamatan, setInputListKecamatan, listSelectedRows, setListSelectedRows, editMode, setEditMode }: KecamatanFormProps) {
     const { props } = usePage() as unknown as { props: Props };
     const { handleChange, handleRemove } = useFormHandlers();
-
-    useEffect(() => {
-        console.log('yeah', listSelectedRows.tabelKecamatanRows);
-    }, [listSelectedRows.tabelKecamatanRows]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
