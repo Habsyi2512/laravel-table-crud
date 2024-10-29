@@ -127,7 +127,7 @@ export default function CostumInputFieldPendudukLayout({ dataKecamatan, dataSeme
                             },
                             {
                                 label: 'Semester',
-                                component: <TabelSemester dataSemester={dataSemester} />,
+                                component: <TabelSemester inputListSemester={inputListSemester} dataSemester={dataSemester} selectAllTableRows={selectAllTableRows} setSelectAllTableRows={setSelectAllTableRows} selectedRows={listSelectedRows} setSelectedRows={setListSelectedRows} />,
                             },
                         ]}
                     />
@@ -140,7 +140,7 @@ export default function CostumInputFieldPendudukLayout({ dataKecamatan, dataSeme
                         <section className="mb-2">
                             {nav === 'Kecamatan' && <KecamatanForm setEditMode={setEditMode} editMode={editMode} setListSelectedRows={setListSelectedRows} listSelectedRows={listSelectedRows} inputListKecamatan={inputListKecamatan} setInputListKecamatan={setInputListKecamatan} />}
                             {nav === 'Tahun' && <TahunForm setEditMode={setEditMode} editMode={editMode} setListSelectedRows={setListSelectedRows} listSelectedRows={listSelectedRows} inputListTahun={inputListTahun} setInputListTahun={setInputListTahun} />}
-                            {nav === 'Semester' && <SemesterForm inputListSemester={inputListSemester} setInputListSemester={setInputListSemester} />}
+                            {nav === 'Semester' && <SemesterForm setEditMode={setEditMode} editMode={editMode} setListSelectedRows={setListSelectedRows} listSelectedRows={listSelectedRows}  inputListSemester={inputListSemester} setInputListSemester={setInputListSemester} />}
                         </section>
                     </section>
                 </div>

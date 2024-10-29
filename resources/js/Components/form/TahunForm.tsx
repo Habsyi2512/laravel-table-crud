@@ -74,12 +74,12 @@ export default function TahunForm({ inputListTahun, listSelectedRows, setInputLi
                 {/* Input / Add Data */}
                 {inputListTahun.map((input, index) => (
                     <div key={input.id} className="relative w-full px-3 focus-within:border-blue-500 rounded-lg border mb-3 flex gap-x-2 items-center">
-                        <label htmlFor={`nama-kec-${input.id}`} className="block text-sm font-medium text-gray-500">
+                        <label htmlFor={`nama-tahun-${input.id}`} className="block text-sm font-medium text-gray-500">
                             {index + 1}.
                         </label>
                         <input
                             type="text"
-                            id={`nama-kec-${input.id}`}
+                            id={`nama-tahun-${input.id}`}
                             value={input.nama}
                             onChange={(e) =>
                                 handleChange({
