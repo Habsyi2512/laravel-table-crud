@@ -29,6 +29,8 @@ export default function ActionBarButtonAdd({ data }: { data: ActionBarButtonAddP
         <li className="flex items-center justify-center">
             {nav == 'Kecamatan' && (
                 <Button
+                    disabled={editMode.kecamatan}
+                    active={!editMode.kecamatan}
                     onClick={() =>
                         handleAddInput({
                             inputList: inputListKecamatan,
@@ -42,6 +44,8 @@ export default function ActionBarButtonAdd({ data }: { data: ActionBarButtonAddP
             )}
             {nav == 'Tahun' && (
                 <Button
+                    disabled={editMode.tahun}
+                    active={!editMode.tahun}
                     onClick={() =>
                         handleAddInput({
                             inputList: inputListTahun,
@@ -55,6 +59,8 @@ export default function ActionBarButtonAdd({ data }: { data: ActionBarButtonAddP
             )}
             {nav == 'Semester' && (
                 <Button
+                    disabled={editMode.semester}
+                    active={!editMode.semester}
                     onClick={() =>
                         handleAddInput({
                             inputList: inputListSemester,

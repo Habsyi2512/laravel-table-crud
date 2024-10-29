@@ -119,11 +119,11 @@ export default function CostumInputFieldPendudukLayout({ dataKecamatan, dataSeme
                         components={[
                             {
                                 label: 'Kecamatan',
-                                component: <TabelKecamatan selectAllTableRows={selectAllTableRows} setSelectAllTableRows={setSelectAllTableRows} selectedRows={listSelectedRows} setSelectedRows={setListSelectedRows} dataKecamatan={dataKecamatan} />,
+                                component: <TabelKecamatan inputListKecamatan={inputListKecamatan} selectAllTableRows={selectAllTableRows} setSelectAllTableRows={setSelectAllTableRows} selectedRows={listSelectedRows} setSelectedRows={setListSelectedRows} dataKecamatan={dataKecamatan} />,
                             },
                             {
                                 label: 'Tahun',
-                                component: <TabelTahun dataTahun={dataTahun} selectAllTableRows={selectAllTableRows} setSelectAllTableRows={setSelectAllTableRows} selectedRows={listSelectedRows} setSelectedRows={setListSelectedRows} />,
+                                component: <TabelTahun inputListTahun={inputListTahun} dataTahun={dataTahun} selectAllTableRows={selectAllTableRows} setSelectAllTableRows={setSelectAllTableRows} selectedRows={listSelectedRows} setSelectedRows={setListSelectedRows} />,
                             },
                             {
                                 label: 'Semester',

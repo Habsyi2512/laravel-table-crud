@@ -38,8 +38,6 @@ export default function ActionBarButtonDelete({ nav, stateList, setListSelected 
             router.delete(routeUrl, {
                 data: { ids: selectedIds },
                 onSuccess: () => {
-                    toast.success('Data Berhasil Dihapus');
-
                     setListSelected((prevList) => {
                         let updatedState;
                         switch (nav) {

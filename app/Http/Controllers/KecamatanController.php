@@ -27,7 +27,7 @@ class KecamatanController extends Controller
     Kecamatan::insert($dataToInsert);
 
     return back()->with([
-        'message' => 'Todo berhasil diupdate brohh',
+        'message' => 'Data kecamatan berhasil ditambahkan',
     ]);
     }
 
@@ -36,7 +36,9 @@ class KecamatanController extends Controller
         $ids = $request->input('ids');
         if (is_array($ids) && count($ids) > 0) {
             Kecamatan::destroy($ids);
-            return redirect()->back()->with('success', 'Data kecamatan berhasil disimpan!');
+            return redirect()->back()->with([
+                'message' => 'Data kecamatan berhasil dihapus'
+            ]);
         }
 
         return response()->json(['message' => 'Tidak ada data yang dipilih untuk dihapus'], 400);
