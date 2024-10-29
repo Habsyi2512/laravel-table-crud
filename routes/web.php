@@ -16,11 +16,15 @@ Route::get('/', [BerandaController::class, 'index']);
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('Admin');
     Route::get('/tabel/edit', [EditTabelController::class, 'index']);
-    Route::post('/kecamatan/post', [KecamatanController::class, 'store']);
-    Route::post('/tahun/post', [TahunController::class, 'store']);
+    
 
     // manage input fields jumlah penduduk
     
+    // handle store
+    Route::post('/kecamatan/post', [KecamatanController::class, 'store']);
+    Route::post('/tahun/post', [TahunController::class, 'store']);
+    Route::post('/semester/post', [SemesterController::class, 'store']);
+
     // handle delete data tabel
     Route::delete('/tabel/kecamatan/destroy',[KecamatanController::class, 'destroy'])->name('tabel.kecamatan.destroy');
     Route::delete('/tabel/tahun/destroy',[TahunController::class, 'destroy'])->name('tabel.tahun.destroy');
@@ -29,6 +33,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // update data tabel
     Route::patch('/tabel/kecamatan/update',[KecamatanController::class, 'update'])->name('tabel.kecamatan.update');
     Route::patch('/tabel/tahun/update',[TahunController::class, 'update'])->name('tabel.tahun.update');
+    Route::patch('/tabel/semester/update',[SemesterController::class, 'update'])->name('tabel.semester.update');
 });
 
 

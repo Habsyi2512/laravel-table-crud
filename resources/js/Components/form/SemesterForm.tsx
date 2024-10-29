@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import Button from '../action/Button';
-import XCircleIcon from '../icons/XCircleIcon';
 import { useFormHandlers } from '@/hooks/lib/form/formHooks';
-import { EditModeProps, InputItem, Semester } from '@/interface/props';
+import { EditModeProps, Semester } from '@/interface/props';
 import { ListSelectedRowsProps } from '@/interface/inputProps';
+import { router, usePage } from '@inertiajs/react';
+import { handleCheckboxChange } from '@/hooks/lib/checkbox/handleCheckboxChange';
+import XCircleIcon from '../icons/XCircleIcon';
+import Button from '../action/Button';
 interface FlashMessages {
     message?: string;
 }
@@ -30,10 +32,51 @@ export default function SemesterForm({
     editMode, 
     setEditMode 
 }: SemesterFormProps) {
-    const { handleChange, handleRemove } = useFormHandlers();
-    const handleSubmit = ()=>{
+    
 
-    }
+    const { handleChange, handleRemove } = useFormHandlers();
+    const { props } = usePage() as unknown as { props: Props };
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        // Jika dalam mode edit, kirim request PATCH untuk update
+        if (editMode.semester) {
+            router.patch(
+                '/tabel/semester/update',
+                {
+                    semester: listSelectedRows.tabelSemesterRows.map((item) => ({
+                        id: item.id,
+                        nama: item.nama,
+                    })),
+                    _token: props.csrf_token as string, // Sertakan token CSRF
+                },
+                {
+                    onSuccess: () => {
+                        setEditMode((prevState) => ({ ...prevState, semester: false })); // Kembali ke mode non-edit
+                        setListSelectedRows((prevState) => ({ ...prevState, tabelSemesterRows: [] })); // Bersihkan pilihan
+                    },
+                },
+            );
+        } else {
+            // Jika tidak dalam mode edit, kirim request POST untuk insert data baru
+            router.post(
+                '/semester/post',
+                {
+                    semester: inputListSemester.map((item) => ({
+                        nama: item.nama,
+                    })),
+                    _token: props.csrf_token as string, // Sertakan token CSRF
+                },
+                {
+                    onSuccess: () => {
+                        setInputListSemester([]); // Bersihkan form setelah berhasil insert
+                    },
+                },
+            );
+        }
+    };
+    
 
     return (
         <form action="POST" onSubmit={handleSubmit}>

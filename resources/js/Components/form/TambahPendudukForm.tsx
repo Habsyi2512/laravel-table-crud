@@ -189,8 +189,7 @@ export default function TambahPendudukForm({
                     </button>
                     {inputFields.length > 0 && (
                         <button
-                            type="button"
-                            onClick={() => console.log("Simpan data...")}
+                            type="submit"
                             className="bg-emerald-500 mt-2 hover:bg-emerald-400 active:bg-emerald-500 transition-colors duration-150 w-full p-2 rounded-lg text-white flex items-center justify-center space-x-2"
                         >
                             Simpan
