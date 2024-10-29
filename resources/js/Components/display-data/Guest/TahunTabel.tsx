@@ -33,7 +33,7 @@ export default function TahunTabel({
                     <DownIcon size={5} className="openTable" />
                 </button>
                 {openTahun && (
-                    <ul className="absolute mt-1 w-24 rounded border border-slate-200 overflow-hidden bg-white">
+                    <ul className="absolute mt-1 w-24 max-h-[120px] rounded border border-slate-200 overflow-y-auto bg-white">
                         {dataTahun.map((item, index) => {
                             return (
                                 <li

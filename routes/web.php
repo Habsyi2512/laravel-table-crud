@@ -19,7 +19,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
 
     // manage input fields jumlah penduduk
-    
+    Route::post('/tabel-jumlah-penduduk/post', [EditTabelController::class, 'storeInputJumlahPenduduk']);
+
     // handle store
     Route::post('/kecamatan/post', [KecamatanController::class, 'store']);
     Route::post('/tahun/post', [TahunController::class, 'store']);
