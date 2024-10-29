@@ -57,6 +57,7 @@ export interface RenderTabelProps {
 
 export interface CustomFieldsPendudukNavbarProps {
     nav: 'Kecamatan' | 'Tahun' | 'Semester';
+    editMode: EditModeProps;
     setNav: React.Dispatch<React.SetStateAction<'Kecamatan' | 'Tahun' | 'Semester'>>;
     setEditMode: React.Dispatch<React.SetStateAction<EditModeProps>>;
     stateList: {

@@ -1,7 +1,7 @@
 import { CustomFieldsPendudukNavbarProps } from '@/interface/props';
 import ActionBarButton from '../action/ActionBarButton';
 
-export default function CustomFieldsPendudukNavbar({ nav, setNav, stateList, setStateList, setEditMode }: CustomFieldsPendudukNavbarProps) {
+export default function CustomFieldsPendudukNavbar({ nav, setNav, stateList, setStateList, editMode, setEditMode }: CustomFieldsPendudukNavbarProps) {
     const navOption: { label: 'Kecamatan' | 'Tahun' | 'Semester' }[] = [{ label: 'Kecamatan' }, { label: 'Tahun' }, { label: 'Semester' }];
     return (
         <nav className="mb-2 flex w-full">
@@ -22,7 +22,7 @@ export default function CustomFieldsPendudukNavbar({ nav, setNav, stateList, set
                     );
                 })}
             </ul>
-            <ActionBarButton nav={nav} stateList={stateList} setStateList={setStateList} setEditMode={setEditMode} />
+            <ActionBarButton editMode={editMode} nav={nav} stateList={stateList} setStateList={setStateList} setEditMode={setEditMode} />
         </nav>
     );
 }

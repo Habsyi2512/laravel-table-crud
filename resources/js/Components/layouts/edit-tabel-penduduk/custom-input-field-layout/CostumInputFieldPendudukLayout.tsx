@@ -94,6 +94,7 @@ export default function CostumInputFieldPendudukLayout({ dataKecamatan, dataSeme
         <div className="w-full h-full relative">
             <div className="sticky w-full top-0 left-0 h-fit">
                 <CustomFieldsPendudukNavbar
+                    editMode={editMode}
                     stateList={{
                         inputListKecamatan,
                         inputListTahun,

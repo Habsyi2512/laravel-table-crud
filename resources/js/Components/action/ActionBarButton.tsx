@@ -7,6 +7,7 @@ import { ListSelectedRowsProps } from '@/interface/inputProps';
 
 interface ActionBarButtonProps {
     nav: 'Kecamatan' | 'Tahun' | 'Semester';
+    editMode: EditModeProps;
     setEditMode: React.Dispatch<React.SetStateAction<EditModeProps>>;
     stateList: {
         inputListKecamatan: Kecamatan[];
@@ -22,10 +23,10 @@ interface ActionBarButtonProps {
     };
 }
 
-export default function ActionBarButton({ nav, stateList, setStateList, setEditMode }: ActionBarButtonProps) {
+export default function ActionBarButton({ nav, stateList, setStateList, setEditMode, editMode }: ActionBarButtonProps) {
     const { inputListKecamatan, inputListTahun, inputListSemester, listSelectedRows } = stateList;
     const { setInputListKecamatan, setInputListSemester, setInputListTahun, setListSelectedRows } = setStateList;
-    const data = { nav: nav, stateList: { inputListKecamatan, inputListTahun, inputListSemester }, setStateList: { setInputListKecamatan, setInputListTahun, setInputListSemester } };
+    const data = { nav: nav, editMode:editMode, stateList: { inputListKecamatan, inputListTahun, inputListSemester }, setStateList: { setInputListKecamatan, setInputListTahun, setInputListSemester } };
     return (
         <ul className="flex gap-x-2 justify-end w-full items-center">
             <ActionBarButtonDelete nav={nav} stateList={listSelectedRows} setListSelected={setListSelectedRows} />

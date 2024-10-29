@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import Button from '../action/Button';
 import XCircleIcon from '../icons/XCircleIcon';
 import { useFormHandlers } from '@/hooks/lib/form/formHooks';
-import { EditModeProps, InputItem, Kecamatan } from '@/interface/props';
+import { EditModeProps, Kecamatan } from '@/interface/props';
 import { ListSelectedRowsProps } from '@/interface/inputProps';
+import { router, usePage } from '@inertiajs/react';
 
 interface FlashMessages {
     message?: string;
@@ -25,8 +26,47 @@ interface TahunFormProps {
 
 export default function TahunForm({ inputListTahun, listSelectedRows, setInputListTahun, setListSelectedRows, editMode, setEditMode }: TahunFormProps) {
     const { handleChange, handleRemove } = useFormHandlers();
+    const { props } = usePage() as unknown as { props: Props };
 
-    const handleSubmit = (e: React.FormEvent) => {};
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        // Jika dalam mode edit, kirim request PATCH untuk update
+        if (editMode.tahun) {
+            router.patch(
+                '/tabel/tahun/update',
+                {
+                    tahun: listSelectedRows.tabelTahunRows.map((item) => ({
+                        id: item.id,
+                        nama: item.nama,
+                    })),
+                    _token: props.csrf_token as string, // Sertakan token CSRF
+                },
+                {
+                    onSuccess: () => {
+                        setEditMode((prevState) => ({ ...prevState, tahun: false })); // Kembali ke mode non-edit
+                        setListSelectedRows((prevState) => ({ ...prevState, tabelTahunRows: [] })); // Bersihkan pilihan
+                    },
+                },
+            );
+        } else {
+            // Jika tidak dalam mode edit, kirim request POST untuk insert data baru
+            router.post(
+                '/tahun/post',
+                {
+                    tahun: inputListTahun.map((item) => ({
+                        nama: item.nama,
+                    })),
+                    _token: props.csrf_token as string, // Sertakan token CSRF
+                },
+                {
+                    onSuccess: () => {
+                        setInputListTahun([]); // Bersihkan form setelah berhasil insert
+                    },
+                },
+            );
+        }
+    };
 
     return (
         <form action="POST" onSubmit={handleSubmit}>

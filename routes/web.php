@@ -17,17 +17,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('Admin');
     Route::get('/tabel/edit', [EditTabelController::class, 'index']);
     Route::post('/kecamatan/post', [KecamatanController::class, 'store']);
+    Route::post('/tahun/post', [TahunController::class, 'store']);
 
     // manage input fields jumlah penduduk
-    // delete one or many kecamatan using destroy
+    
+    // handle delete data tabel
     Route::delete('/tabel/kecamatan/destroy',[KecamatanController::class, 'destroy'])->name('tabel.kecamatan.destroy');
-    // delete one or many tahun using destroy
     Route::delete('/tabel/tahun/destroy',[TahunController::class, 'destroy'])->name('tabel.tahun.destroy');
-    // delete one or many tahun using destroy
     Route::delete('/tabel/semester/destroy',[SemesterController::class, 'destroy'])->name('tabel.semester.destroy');
 
-    // update one or many kecamatan using patch
+    // update data tabel
     Route::patch('/tabel/kecamatan/update',[KecamatanController::class, 'update'])->name('tabel.kecamatan.update');
+    Route::patch('/tabel/tahun/update',[TahunController::class, 'update'])->name('tabel.tahun.update');
 });
 
 
