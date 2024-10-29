@@ -11,8 +11,6 @@ import { CostumInputFieldPendudukLayoutProps, EditModeProps, Kecamatan, selectAl
 import { useState, useEffect } from 'react';
 
 export default function CostumInputFieldPendudukLayout({ dataKecamatan, dataSemester, dataTahun }: CostumInputFieldPendudukLayoutProps) {
-    const [disabled, setDisabled] = useState<boolean>(true);
-    const [active, setActive] = useState<boolean>(false);
     const [selectAllTableRows, setSelectAllTableRows] = useState<selectAllTableRowsProps>({ kecamatan: false, tahun: false, semester: false });
     const [editMode, setEditMode] = useState<EditModeProps>({ kecamatan: false, tahun: false, semester: false });
     const [listSelectedRows, setListSelectedRows] = useState<ListSelectedRowsProps>(() => {

@@ -22,17 +22,17 @@ export default function ActionBarButtonEdit({ nav, stateList, setListSelected, s
     return (
         <li>
             {nav == 'Kecamatan' && (
-                <Button onClick={handleClick} disabled={stateList.length.kecamatan == 0} active={stateList.length.kecamatan != 0} className="w-7 h-7 flex items-center justify-center">
+                <Button onClick={handleClick} disabled={stateList.tabelKecamatanRows.length == 0} active={stateList.tabelKecamatanRows.length != 0} className="w-7 h-7 flex items-center justify-center">
                     <PencilIcon className="w-4 h-4" />
                 </Button>
             )}
             {nav == 'Tahun' && (
-                <Button onClick={handleClick} disabled={stateList.length.tahun == 0} active={stateList.length.tahun > 0} className="w-7 h-7 flex items-center justify-center">
+                <Button onClick={handleClick} disabled={stateList.tabelTahunRows.length == 0} active={stateList.tabelTahunRows.length > 0} className="w-7 h-7 flex items-center justify-center">
                     <PencilIcon className="w-4 h-4" />
                 </Button>
             )}
             {nav == 'Semester' && (
-                <Button onClick={handleClick} disabled={stateList.length.semester == 0} active={stateList.length.semester > 0} className="w-7 h-7 flex items-center justify-center">
+                <Button onClick={handleClick} disabled={stateList.tabelSemesterRows.length == 0} active={stateList.tabelSemesterRows.length > 0} className="w-7 h-7 flex items-center justify-center">
                     <PencilIcon className="w-4 h-4" />
                 </Button>
             )}
