@@ -16,6 +16,10 @@ export const useFormHandlers = () => {
         const updatedList = inputList.filter((input) => input.id !== id);
         setListSelectedRows ? setListSelectedRows((prevState) => ({ ...prevState, [tabel]: updatedList })) : setInputList && setInputList(updatedList);
     }, []);
+    // id: input.id,
+    // inputList: listSelectedRows.tabelKecamatanRows,
+    // setListSelectedRows: setListSelectedRows,
+    // tabel: 'tabelKecamatanRows',
 
     return { handleAddInput, handleChange, handleRemove };
 };

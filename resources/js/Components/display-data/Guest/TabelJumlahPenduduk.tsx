@@ -1,5 +1,4 @@
-import React from "react";
-import { Penduduk, KecData, Year, BerandaProps } from "@/interface/props";
+import { KecData, BerandaProps } from "@/interface/props";
 import TahunTabel from "./TahunTabel";
 
 export const TableJumlahPenduduk = ({

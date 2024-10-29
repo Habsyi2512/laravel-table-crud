@@ -1,6 +1,5 @@
 import { numberWithCommas } from '@/hooks/formatNumber';
 import { Penduduk } from '@/interface/props';
-import React, { useEffect } from 'react';
 import { usePage } from '@inertiajs/react';
 import { PageProps } from '@/types';
 
@@ -34,7 +33,7 @@ export default function TabelJumlahPendudukAdmin() {
                 </thead>
                 <tbody className="overflow-hidden">
                     {dataMap.map((item, index) => {
-                        const angka_format = numberWithCommas(item.total);
+                        const angka_format = numberWithCommas(String(item.total));
                         const nomorUrut = (Number(current_page) - 1) * per_page + (index + 1);
                         return (
                             <tr key={index}>

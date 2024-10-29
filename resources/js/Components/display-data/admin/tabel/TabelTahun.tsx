@@ -16,6 +16,9 @@ export default function TabelTahun({
     selectAllTableRows: selectAllTableRowsProps;
     setSelectAllTableRows: React.Dispatch<React.SetStateAction<selectAllTableRowsProps>>;
 }) {
+    // useEffect(()=>{
+    //     console.log('selected tahun', selectedRows.tabelTahunRows)
+    // },[selectedRows.tabelTahunRows])
     useEffect(() => {
         setSelectAllTableRows((prevState) => ({
             ...prevState,

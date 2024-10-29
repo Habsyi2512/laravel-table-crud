@@ -12,21 +12,6 @@ interface ActionBarButtonEditProps {
 }
 
 export default function ActionBarButtonEdit({ nav, stateList, setListSelected, setEditMode }: ActionBarButtonEditProps) {
-    const [disabled, setDisabled] = useState<boolean>(true);
-    const [active, setActive] = useState<boolean>(false);
-
-    useEffect(() => {
-        const lengthMap = {
-            Kecamatan: stateList.length.kecamatan,
-            Tahun: stateList.length.tahun,
-            Semester: stateList.length.semester,
-        };
-
-        const length = lengthMap[nav] || 0;
-        setDisabled(length === 0);
-        setActive(length > 0);
-    }, [nav, stateList.length]);
-
     const handleClick = () => {
         setEditMode((prevState) => ({
             ...prevState,
@@ -36,9 +21,21 @@ export default function ActionBarButtonEdit({ nav, stateList, setListSelected, s
 
     return (
         <li>
-            <Button onClick={handleClick} disabled={disabled} active={active} className="w-7 h-7 flex items-center justify-center">
-                <PencilIcon className="w-4 h-4" />
-            </Button>
+            {nav == 'Kecamatan' && (
+                <Button onClick={handleClick} disabled={stateList.length.kecamatan == 0} active={stateList.length.kecamatan != 0} className="w-7 h-7 flex items-center justify-center">
+                    <PencilIcon className="w-4 h-4" />
+                </Button>
+            )}
+            {nav == 'Tahun' && (
+                <Button onClick={handleClick} disabled={stateList.length.tahun == 0} active={stateList.length.tahun > 0} className="w-7 h-7 flex items-center justify-center">
+                    <PencilIcon className="w-4 h-4" />
+                </Button>
+            )}
+            {nav == 'Semester' && (
+                <Button onClick={handleClick} disabled={stateList.length.semester == 0} active={stateList.length.semester > 0} className="w-7 h-7 flex items-center justify-center">
+                    <PencilIcon className="w-4 h-4" />
+                </Button>
+            )}
         </li>
     );
 }
